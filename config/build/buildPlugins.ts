@@ -2,6 +2,7 @@ import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import Dotenv from 'dotenv-webpack';
 import {BuildOptions} from "./types/config";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 export function buildPlugins(options: BuildOptions): webpack.WebpackPluginInstance[]{
     return [
@@ -13,6 +14,10 @@ export function buildPlugins(options: BuildOptions): webpack.WebpackPluginInstan
             path: options.paths.env,
             safe: true,
             defaults: true,
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].css'
         })
     ]
 }
