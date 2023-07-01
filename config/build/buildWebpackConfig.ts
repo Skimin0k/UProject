@@ -12,6 +12,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
         entry: paths.entry, // стартовая точка для запуска приложения
         output: {
             filename: "[name].[contenthash].js",
+            chunkFilename: "[name].[contenthash:8].bundle.js",
             path: paths.build,
             clean: true,
         },
