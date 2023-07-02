@@ -1,15 +1,16 @@
 import React, { Suspense } from 'react';
 import {Link, Route} from 'react-router-dom';
 import {Routes} from 'react-router-dom';
-import MainPageAsync from "./Pages/MainPage/MainPageAsync";
-import AboutPageAsync from "./Pages/AboutPage/AboutPageAsync";
-import useTheme from "./themes/useTheme";
+import classNames from "../shared/lib/classNames/classNames";
+import {useTheme} from "shared/theme";
+import {MainPageAsync} from "pages/MainPage";
+import {AboutPageAsync} from "pages/AboutPage";
 
 const App = () => {
     const {theme, toggleTheme} = useTheme()
 
     return (
-        <div className={`app ${theme}`}>
+        <div className={classNames("app", {}, [theme])}>
             <button onClick={toggleTheme}> toggle theme </button>
             <Link to={'/'}>main</Link>
             <Link to={'/about'}>about</Link>

@@ -7,10 +7,11 @@ import {BuildEnv, BuildPaths} from "./config/build/types/config";
 const config: (env: BuildEnv) => webpack.Configuration =
     env => {
         const paths: BuildPaths = {
-            entry: path.resolve(__dirname, 'src', 'index.tsx'),
+            entry: path.resolve(__dirname, 'src','app', 'index.tsx'),
             html: path.resolve(__dirname, 'public', 'index.html'),
             build: path.resolve(__dirname, 'build'),
-            env: path.resolve(__dirname, '.env')
+            env: path.resolve(__dirname, '.env'),
+            src: path.resolve(__dirname, 'src'),
         }
         return buildWebpackConfig({
             paths: paths,
