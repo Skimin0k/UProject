@@ -1,4 +1,4 @@
 import AboutPageAsync from "pages/AboutPage/ui/AboutPageAsync";
 
-export {AboutPageAsync}
+export {AboutPageAsync as AboutPage}
 
