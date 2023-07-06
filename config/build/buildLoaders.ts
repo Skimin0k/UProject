@@ -26,9 +26,35 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
             "sass-loader",
         ]
     }
+    const svgLoader = [
+            {
+                test: /\.svg$/i,
+                type: 'asset',
+                resourceQuery: /url/, // *.svg?url
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+                use: ['@svgr/webpack'],
+            },
+        ]
+    const fileLoader = {
+            test: /\.(png|jpe?g|gif)$/i,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext][query]',
+                    },
+                },
+            ],
+    }
 
     return [
         typescriptLoader,
-        sassLoader
+        sassLoader,
+        fileLoader,
+        ...svgLoader
     ]
 }
