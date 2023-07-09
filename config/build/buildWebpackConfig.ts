@@ -1,9 +1,9 @@
-import {buildLoaders} from "./buildLoaders";
-import {buildResolvers} from "./buildResolvers";
-import {buildPlugins} from "./buildPlugins";
-import webpack from "webpack";
-import {BuildOptions} from "./types/config";
-import {buildDevServer} from "./buildDevServer";
+import {buildLoaders} from './buildLoaders'
+import {buildResolvers} from './buildResolvers'
+import {buildPlugins} from './buildPlugins'
+import webpack from 'webpack'
+import {BuildOptions} from './types/config'
+import {buildDevServer} from './buildDevServer'
 
 export function buildWebpackConfig(options: BuildOptions): webpack.Configuration {
     const {paths, mode} = options
@@ -11,8 +11,8 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
         mode: mode,
         entry: paths.entry, // стартовая точка для запуска приложения
         output: {
-            filename: "[name].[contenthash].js",
-            chunkFilename: "[name].[contenthash:8].bundle.js",
+            filename: '[name].[contenthash].js',
+            chunkFilename: '[name].[contenthash:8].bundle.js',
             path: paths.build,
             clean: true,
         },

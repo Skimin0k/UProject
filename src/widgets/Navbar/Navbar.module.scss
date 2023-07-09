@@ -1,6 +1,5 @@
-.Navbar{
+.Navbar {
   display: flex;
-
   height: var(--navbar-height);
   justify-content: space-between;
   align-items: center;
@@ -9,7 +8,7 @@
   padding: 0 15px;
 }
 
-.links{
+.links {
   display: flex;
   gap: 15px;
 }

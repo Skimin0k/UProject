@@ -1,4 +1,4 @@
-import AboutPageAsync from "pages/AboutPage/ui/AboutPageAsync";
+import AboutPageAsync from 'pages/AboutPage/ui/AboutPageAsync'
 
 export {AboutPageAsync as AboutPage}
 

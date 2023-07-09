@@ -4,11 +4,9 @@
 @import "themes/dark";
 
 .app {
-    font: var(--font-m);
-
-    background: var(--bg-color);
-    color: var(--primary-color);
-
-    min-height: 100vh;
-    transition: background-color .2s;
+  font: var(--font-m);
+  background: var(--bg-color);
+  color: var(--primary-color);
+  min-height: 100vh;
+  transition: background-color 0.2s;
 }

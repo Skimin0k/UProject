@@ -1,10 +1,10 @@
-import React, {FC} from 'react';
-import classNames from "shared/lib/classNames/classNames";
-import styles from "./Navbar.module.scss"
-import {routePaths, Routes} from "shared/config/routeConfig/routerConfig";
-import AppLink from "shared/ui/AppLink/AppLink";
-import ThemeSwitcher from "shared/ui/ThemeSwitcher/ThemeSwitcher";
-import LanguageSwitcher from "shared/ui/LanguageSwitcher/LanguageSwitcher";
+import React, {FC} from 'react'
+import classNames from 'shared/lib/classNames/classNames'
+import styles from './Navbar.module.scss'
+import {routePaths, Routes} from 'shared/config/routeConfig/routerConfig'
+import AppLink from 'shared/ui/AppLink/AppLink'
+import ThemeSwitcher from 'shared/ui/ThemeSwitcher/ThemeSwitcher'
+import LanguageSwitcher from 'shared/ui/LanguageSwitcher/LanguageSwitcher'
 
 interface NavbarProps {
     className?: string
@@ -20,7 +20,7 @@ const Navbar :FC<NavbarProps> = ({className}) => {
                 <AppLink to={routePaths[Routes.ABOUT]}>about</AppLink>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Navbar;
+export default Navbar

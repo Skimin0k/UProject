@@ -1,3 +1,3 @@
-import {lazy} from "react";
+import {lazy} from 'react'
 
-export default lazy(() => import(/* webpackChunkName: "AboutPage" */"./AboutPage"))
+export default lazy(() => import(/* webpackChunkName: "AboutPage" */'./AboutPage'))

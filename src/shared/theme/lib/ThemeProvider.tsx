@@ -1,5 +1,5 @@
-import React, {FC, useMemo, useState} from 'react';
-import ThemeContext, {Theme} from "./ThemeContext";
+import React, {FC, useMemo, useState} from 'react'
+import ThemeContext, {Theme} from './ThemeContext'
 
 
 
@@ -10,7 +10,7 @@ const ThemeProvider: FC = ({children}) => {
         <ThemeContext.Provider value={props}>
             {children}
         </ThemeContext.Provider>
-    );
-};
+    )
+}
 
-export default ThemeProvider;
+export default ThemeProvider
