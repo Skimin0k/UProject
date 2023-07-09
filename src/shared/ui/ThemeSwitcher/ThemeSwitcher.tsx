@@ -23,10 +23,9 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = (props) => {
             className={classNames(styles.ThemeSwitcher, {}, [className])}
             onClick={toggleTheme}
         >
-            {/*{theme === Theme.light*/}
-            {/*        ? <img alt={"light theme button"} src={ulrLightTheme}/>*/}
-            {/*        : <DarkTheme/>}*/}
-            theme
+            {theme === Theme.light
+                    ? <img alt={"light theme button"} src={ulrLightTheme}/>
+                    : <DarkTheme/>}
         </Button>
     );
 };

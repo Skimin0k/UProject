@@ -1,9 +1,8 @@
 import React from 'react';
 import {useTranslation} from "react-i18next";
-import AppLink from "shared/ui/AppLink/AppLink";
 
 const MainPage = () => {
-    const {t} = useTranslation()
+    const {t} = useTranslation('MainPage')
     return (
         <div>
             <div>
