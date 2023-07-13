@@ -4,7 +4,7 @@ import {useTheme} from 'shared/theme'
 import Button from 'shared/ui/Button/Button'
 
 import DarkTheme from 'assets/icons/theme-dark.svg'
-import ulrLightTheme from 'assets/icons/theme-light.svg?url'
+import LightTheme from 'assets/icons/theme-light.svg'
 import {Theme} from 'shared/theme/lib/ThemeContext'
 
 
@@ -24,7 +24,7 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = (props) => {
             onClick={toggleTheme}
         >
             {theme === Theme.light
-                ? <img alt={'light theme button'} src={ulrLightTheme}/>
+                ? <LightTheme/>
                 : <DarkTheme/>}
         </Button>
     )
