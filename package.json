@@ -10,7 +10,10 @@
     "build:prod": "webpack --env mode=production",
     "lint": "eslint \"**/*.{ts,tsx}\" --fix",
     "styleLint": "npx stylelint \"**/*.scss\" --fix",
-    "styleLint-check": "npx stylelint \"**/*.scss\""
+    "styleLint-check": "npx stylelint \"**/*.scss\"",
+    "test": "jest --config config/jest/jest.config.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "keywords": [],
   "author": "",
@@ -18,8 +21,15 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
-    "@babel/preset-typescript": "^7.16.7",
+    "@babel/preset-typescript": "^7.22.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@storybook/addon-essentials": "^7.0.26",
+    "@storybook/addon-interactions": "^7.0.26",
+    "@storybook/addon-links": "^7.0.26",
+    "@storybook/blocks": "^7.0.26",
+    "@storybook/react": "^7.0.26",
+    "@storybook/react-webpack5": "^7.0.26",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@svgr/webpack": "^6.2.1",
     "@types/dotenv-webpack": "^7.0.4",
     "@types/jest": "^27.4.1",
@@ -42,6 +52,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-storybook": "^0.6.12",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
@@ -50,6 +61,7 @@
     "react-refresh-typescript": "^2.0.9",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
+    "storybook": "^7.0.26",
     "style-loader": "^3.3.1",
     "stylelint": "^14.16.1",
     "stylelint-config-standard-scss": "^3.0.0",
@@ -69,5 +81,10 @@
     "react-dom": "^17.0.2",
     "react-i18next": "^11.15.5",
     "react-router-dom": "^6.2.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }
