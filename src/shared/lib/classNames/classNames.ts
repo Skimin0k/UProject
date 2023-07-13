@@ -1,4 +1,12 @@
-export default function classNames (mainClass: string, mods?: Record<string, boolean>, additional?: string[]): string{
+export default function classNames (
+    mainClass: string,
+    mods?: Record<string, boolean>,
+    additional? : string[]
+): string {
+
+    mods = mods ?? {}
+    additional = additional ?? []
+
     return [
         mainClass,
         ...additional.filter(Boolean),

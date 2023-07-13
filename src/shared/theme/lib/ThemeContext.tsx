@@ -10,6 +10,6 @@ export interface IThemeContext{
     setTheme?:  React.Dispatch<React.SetStateAction<Theme>>
 }
 
-const ThemeContext = createContext({})
+const ThemeContext = createContext({theme: Theme.light})
 
 export default ThemeContext
