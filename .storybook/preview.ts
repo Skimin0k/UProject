@@ -10,7 +10,7 @@ const preview: Preview = {
       },
     },
     layout: 'centered'
-  },
+  }
 };
 
 export default preview;
