@@ -1,8 +1,9 @@
-import React, {Suspense} from 'react'
+import React, {Suspense, useEffect} from 'react'
 import classNames from '../shared/lib/classNames/classNames'
 import {useTheme} from 'shared/theme'
 import AppRouter from 'app/AppRouter/AppRouter'
 import Navbar from 'widgets/Navbar/Navbar'
+import ErrorBoundary from 'app/ErrorBoundary/ErrorBoundary'
 
 const App = () => {
     const {theme} = useTheme()
@@ -10,8 +11,10 @@ const App = () => {
     return (
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback={'loading'}>
-                <Navbar/>
-                <AppRouter/>
+                <ErrorBoundary>
+                    <Navbar/>
+                    <AppRouter/>
+                </ErrorBoundary>
             </Suspense>
         </div>
     )
