@@ -1,0 +1,16 @@
+.StorybookIcons {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 15px;
+}
+.IconItem{
+  width: 10%;
+  font-size: 20pt;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.Icon{
+  width: 30px;
+  height: 30px;
+}
