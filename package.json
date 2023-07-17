@@ -13,6 +13,7 @@
     "styleLint-check": "npx stylelint \"**/*.scss\"",
     "test": "jest --config config/jest/jest.config.ts",
     "storybook": "storybook dev -p 6006",
+    "test-storybook": "test-storybook",
     "build-storybook": "storybook build"
   },
   "keywords": [],
@@ -32,6 +33,7 @@
     "@storybook/manager-api": "^7.0.27",
     "@storybook/react": "^7.0.26",
     "@storybook/react-webpack5": "^7.0.26",
+    "@storybook/test-runner": "^0.11.0",
     "@storybook/testing-library": "^0.0.14-next.2",
     "@storybook/theming": "^7.0.27",
     "@svgr/webpack": "^6.2.1",
@@ -60,6 +62,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
+    "loki": "^0.32.0",
     "mini-css-extract-plugin": "^2.5.3",
     "react-refresh": "^0.14.0",
     "react-refresh-typescript": "^2.0.9",
@@ -90,5 +93,20 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.app",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.app",
+        "preset": "iPhone 7"
+      }
+    }
   }
 }
