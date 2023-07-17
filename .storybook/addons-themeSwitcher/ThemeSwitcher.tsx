@@ -16,6 +16,7 @@ export const ThemeSwitcher = memo(() => {
             theme: theme,
         });
     },[])
+
     const toggleTheme = useCallback(() => {
         setTheme(prevTheme => {
             const newTheme = prevTheme === themes.dark? themes.light: themes.dark
@@ -26,13 +27,14 @@ export const ThemeSwitcher = memo(() => {
             return newTheme
         })
     }, [theme])
+
     return (
         <IconButton
             key="themeSwitcher"
             title={`Switch theme to ${theme === themes.dark? 'light': 'dark'}`}
             onClick={toggleTheme}
         >
-            <Icons icon={theme === themes.dark? "circlehollow": "circle"} />
+            <Icons icon={theme === themes.dark? "sun": "moon"} />
         </IconButton>
     );
 });
