@@ -16,9 +16,10 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = (props) => {
     } = props
 
     const {t, i18n} = useTranslation()
-    const switchLanguage = () => {
-        i18n.changeLanguage(i18n.language=== 'ru'? 'en': 'ru')
+    const switchLanguage = async () => {
+        await i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')
     }
+
     return (
         <Button
             className={classNames(styles.LanguageSwitcher, {}, [className])}

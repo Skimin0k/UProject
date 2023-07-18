@@ -69,8 +69,10 @@ export default {
   // An array of directory names to be searched recursively up from the requiring module's location
   moduleDirectories: [
     "node_modules",
-    'src'
+    "src"
   ],
+  setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.ts'],
+
 
   // An array of file extensions your modules use
   moduleFileExtensions: [
@@ -151,6 +153,11 @@ export default {
   testMatch: [
       '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'
   ],
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+        '<rootDir>/config/jest/__mocks__/FileMock.tsx',
+    '\\.(scss|less)$': 'identity-obj-proxy',
+  },
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
