@@ -8,7 +8,8 @@ import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 
 
 export function buildPlugins(options: BuildOptions): webpack.WebpackPluginInstance[]{
-    return [
+
+    const plugins = [
         new webpack.ProgressPlugin(),
         new HtmlWebpackPlugin({
             template: options.paths.html
@@ -22,9 +23,14 @@ export function buildPlugins(options: BuildOptions): webpack.WebpackPluginInstan
             filename: 'css/[name].[contenthash:8].css',
             chunkFilename: 'css/[name].[contenthash:8].css'
         }),
-        options.isDev? new ReactRefreshWebpackPlugin(): undefined,
-        new BundleAnalyzerPlugin({
-            openAnalyzer: false
-        })
+
     ]
+    if (options.isDev){
+        plugins.push(
+            new ReactRefreshWebpackPlugin(),
+            new BundleAnalyzerPlugin({
+                openAnalyzer: false
+            }))
+    }
+    return plugins
 }
