@@ -11,7 +11,6 @@ interface LanguageSwitcherProps {
 const LanguageSwitcher: FC<LanguageSwitcherProps> = (props) => {
     const {
         className,
-        children,
         ...rest
     } = props
 

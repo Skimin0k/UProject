@@ -30,7 +30,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
         if (hasError) {
             // You can render any custom fallback UI
-            return <h1>lox</h1>
+            // eslint-disable-next-line i18next/no-literal-string
+            return <h1>Error</h1>
         }
         return <>{children}</>
     }

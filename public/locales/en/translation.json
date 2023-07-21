@@ -1,4 +1,7 @@
 {
   "translate": "translate",
-  "ErrorBoundary": "Goblins have broken the app"
+  "ErrorBoundary": "Goblins have broken the app",
+  "loading": "loading",
+  "link to main": "main",
+  "link to about": "about"
 }

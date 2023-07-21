@@ -7,7 +7,7 @@ interface StorybookIconsProps {
     className?: string
 }
 
-const StorybookIcons: FC<StorybookIconsProps> = (props) => {
+const StorybookIcons: FC<StorybookIconsProps> = () => {
 
     return (
         <div

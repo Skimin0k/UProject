@@ -7,9 +7,6 @@ const MainPage = () => {
     return (
         <div>
             <div>
-                here we go
-            </div>
-            <div>
                 {t('main')}
             </div>
         </div>

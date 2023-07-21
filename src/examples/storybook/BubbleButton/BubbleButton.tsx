@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react'
+import React, {FC, useState} from 'react'
 import classNames from 'shared/lib/classNames/classNames'
 import styles from './BubbleButton.module.scss'
 
@@ -22,9 +22,10 @@ const BubbleButton: FC<BubbleButtonProps> = (props) => {
             className={classNames(styles.BubbleButton, {[styles.animate]: isAnimated})}
             onClick={animate}
             {...props}
-            onMouseEnter={(event) => {}}
         >
-            Click me!
+            {/* eslint-disable-next-line i18next/no-literal-string */}
+            {/* eslint-disable-next-line i18next/no-literal-string */}
+                Click me!
         </button>
     )
 }

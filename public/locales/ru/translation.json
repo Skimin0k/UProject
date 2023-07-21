@@ -1,4 +1,7 @@
 {
   "translate": "перевести",
-  "ErrorBoundary": "Гоблины сломали приложение"
+  "ErrorBoundary": "Гоблины сломали приложение",
+  "loading": "загрузка",
+  "link to main": "main",
+  "link to about": "about"
 }
