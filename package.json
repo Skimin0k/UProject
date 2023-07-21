@@ -14,7 +14,7 @@
     "test-unit": "jest --config config/jest/jest.config.ts",
     "test-ui": "npx loki test",
     "test-ui:ok": "npx loki approve",
-    "test-ui:ci": "npx loki --requireReference --reactUri file:./storybook-static",
+    "test-ui:ci": "concurrently -s first -k \"yarn storybook\" \"yarn test-ui\" \"deelay\"",
     "storybook": "storybook dev -p 6006",
     "test-storybook": "test-storybook",
     "build-storybook": "storybook build"
@@ -57,7 +57,9 @@
     "@typescript-eslint/parser": "^5.61.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-i18next-extract": "^0.8.3",
+    "concurrently": "^8.2.0",
     "css-loader": "^6.6.0",
+    "deelay": "^2.0.0",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
