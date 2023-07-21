@@ -24,7 +24,7 @@ module.exports = {
             }
         }
     ],
-    ignorePatterns: ["*.test.*"],
+    'ignorePatterns': ['*.test.*'],
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
         'ecmaVersion': 'latest',
