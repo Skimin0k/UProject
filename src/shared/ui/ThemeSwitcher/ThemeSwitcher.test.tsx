@@ -4,7 +4,6 @@ import ThemeSwitcher from 'shared/ui/ThemeSwitcher/ThemeSwitcher'
 describe('ThemeSwitcher tests', () => {
     it('render', () => {
         const screen = render(<ThemeSwitcher/>)
-        screen.debug()
     })
 
     it('test async function', () => {
