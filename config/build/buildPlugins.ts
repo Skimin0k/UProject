@@ -29,7 +29,8 @@ export function buildPlugins(options: BuildOptions): webpack.WebpackPluginInstan
         plugins.push(
             new ReactRefreshWebpackPlugin(),
             new BundleAnalyzerPlugin({
-                openAnalyzer: false
+                openAnalyzer: false,
+                analyzerMode: 'disabled'
             }))
     }
     return plugins
