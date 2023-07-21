@@ -27,4 +27,8 @@ jobs:
       - name: linting scss
         run: yarn styleLint-check
       - name: unit testing
-        run: yarn test
+        run: yarn test-unit
+      - name: build storybook
+        run: yarn build-storybook
+      - name: screenshot testing
+        run: yarn test-ui-ci
