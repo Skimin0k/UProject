@@ -26,15 +26,21 @@ jobs:
           path: |
             **/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ matrix.node-version }}
+      - name: Install 'Consolas' font
+        working-directory: ./public
+        run: |
+          mv fonts /usr/share/fonts/
+          fc-cache -f -v
+          fc-list | grep Consolas
       - name: install modules
-        run: yarn install
-#      - name: build project
-#        run: yarn build:prod
-#      - name: linting typescript
-#        run: yarn lint
-#      - name: linting scss
-#        run: yarn styleLint-check
-#      - name: unit testing
-#        run: yarn test-unit
-#      - name: screenshot testing
-#        run: yarn test-ui:ci
+        run: yarn install --frozen-lockfile
+      - name: build project
+        run: yarn build:prod
+      - name: linting typescript
+        run: yarn lint
+      - name: linting scss
+        run: yarn styleLint-check
+      - name: unit testing
+        run: yarn test-unit
+      - name: screenshot testing
+        run: yarn test-ui:ci
