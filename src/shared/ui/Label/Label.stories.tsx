@@ -10,6 +10,6 @@ type Story = StoryObj<typeof Label>;
 
 export const Primary: Story = {
     args: {
-        text: 'translate'
+        text: 'Happy Birthday!!!1'
     }
 }
