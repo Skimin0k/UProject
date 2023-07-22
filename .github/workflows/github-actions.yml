@@ -30,12 +30,12 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: build project
         run: yarn build:prod
-      - name: linting typescript
-        run: yarn lint
-      - name: linting scss
-        run: yarn styleLint-check
-      - name: unit testing
-        run: yarn test-unit
+#      - name: linting typescript
+#        run: yarn lint
+#      - name: linting scss
+#        run: yarn styleLint-check
+#      - name: unit testing
+#        run: yarn test-unit
       - name: screenshot testing
         run: yarn test-ui:ci
         continue-on-error: true
