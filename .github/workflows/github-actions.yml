@@ -39,7 +39,7 @@ jobs:
       - name: screenshot testing
         run: yarn test-ui:ci
         continue-on-error: true
-      - name: Archieve screenshots to artifact
+      - name: Archive screenshots to artifact
         uses: actions/upload-artifact@v3
         continue-on-error: true
         with:
