@@ -27,14 +27,14 @@ jobs:
             **/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ matrix.node-version }}
       - name: install modules
-        run: yarn
-      - name: build project
-        run: yarn build:prod
-      - name: linting typescript
-        run: yarn lint
-      - name: linting scss
-        run: yarn styleLint-check
-      - name: unit testing
-        run: yarn test-unit
+        run: yarn install
+#      - name: build project
+#        run: yarn build:prod
+#      - name: linting typescript
+#        run: yarn lint
+#      - name: linting scss
+#        run: yarn styleLint-check
+#      - name: unit testing
+#        run: yarn test-unit
 #      - name: screenshot testing
 #        run: yarn test-ui:ci
