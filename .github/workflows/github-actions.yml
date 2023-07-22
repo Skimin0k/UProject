@@ -44,3 +44,9 @@ jobs:
         run: yarn test-unit
       - name: screenshot testing
         run: yarn test-ui:ci
+      - name: Archieve screenshots to artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: .loki/*
+          retention-days: 1
