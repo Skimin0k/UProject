@@ -1,2 +1,5 @@
+@import "app/styles/variables/global";
+
 .Label {
+  font: var(--font-m);
 }
