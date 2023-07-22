@@ -5,6 +5,8 @@ import App from './App'
 import './styles/index.scss'
 import {ThemeProvider} from 'shared/theme'
 
+import './Darkenstone.ttf'
+
 import 'shared/i18n/i18n'
 render(
     <BrowserRouter>

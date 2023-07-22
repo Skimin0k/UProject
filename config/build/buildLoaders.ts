@@ -27,6 +27,11 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         buildSassLoader(options.isDev),
         buildFileLoader(),
         buildSvgUrlLoader(),
-        buildSvgLoader()
+        buildSvgLoader(),
+        {
+            test: /\.(woff|woff2|eot|ttf|otf)$/i,
+            type: 'asset/resource',
+        }
+
     ]
 }
