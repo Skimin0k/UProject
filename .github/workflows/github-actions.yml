@@ -31,7 +31,7 @@ jobs:
         run: |
           mv fonts /usr/share/fonts/
           fc-cache -f -v
-          fc-list | grep Consolas
+          fc-list | grep 'Consolas\|Times new Roman\|helvetica'
       - name: install modules
         run: yarn install --frozen-lockfile
       - name: build project
