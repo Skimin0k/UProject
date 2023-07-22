@@ -9,7 +9,5 @@ export default meta
 type Story = StoryObj<typeof Label>;
 
 export const Primary: Story = {
-    args: {
-        text: 'Happy Birthday!!!1'
-    }
+    render: () => <Label>Something</Label>
 }
