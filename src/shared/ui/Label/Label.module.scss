@@ -1,5 +1,9 @@
-@import "app/styles/variables/global";
+@font-face {
+  font-family: Darkenstone;
+  src: url("app/Darkenstone.ttf") format("truetype");
+}
 
 .Label {
-  font: var(--font-m);
+  font-family: Darkenstone;
+  font-size: 24px;
 }

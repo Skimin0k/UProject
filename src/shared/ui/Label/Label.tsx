@@ -20,7 +20,7 @@ const Label: FC<LabelProps> = (props) => {
             className={classNames(styles.Label, {}, [className])}
             {...rest}
         >
-            {t(text)}
+            {text}
         </div>
     )
 }
