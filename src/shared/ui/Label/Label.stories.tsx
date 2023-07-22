@@ -9,5 +9,6 @@ export default meta
 type Story = StoryObj<typeof Label>;
 
 export const Primary: Story = {
+    // eslint-disable-next-line i18next/no-literal-string
     render: () => <Label>Something</Label>
 }
