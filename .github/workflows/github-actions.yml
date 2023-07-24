@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - loki-fixes
   pull_request:
     branches:
       - master

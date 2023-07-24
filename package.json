@@ -17,7 +17,10 @@
     "test-ui:ci": "concurrently --kill-others --success first \"npm run storybook\" \"npm run test-ui\" \"deelay\"",
     "storybook": "storybook dev -p 6006",
     "test-storybook": "test-storybook",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "visual:report": "npm-run-all visual:report:*",
+    "visual:report:json": "node scripts/generate-visual-json-report.js",
+    "visual:report:html": "reg-cli --from .loki/report.json --report .loki/report.html"
   },
   "keywords": [],
   "author": "",
@@ -78,6 +81,7 @@
     "react-refresh": "^0.14.0",
     "react-refresh-typescript": "^2.0.9",
     "react-test-renderer": "17.0.2",
+    "reg-cli": "^0.17.7",
     "regenerator-runtime": "^0.13.11",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
