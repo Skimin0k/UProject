@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/react";
 import {withTranslation} from "./decorators/withTranslation";
+import withGlobalAppStyles from "./decorators/withGlobalAppStyles";
+import withTheme from "./decorators/withTheme";
 
 const preview: Preview = {
   parameters: {
@@ -27,7 +29,9 @@ const preview: Preview = {
     }
   },
   decorators: [
-    withTranslation
+    withGlobalAppStyles,
+    withTheme,
+    withTranslation,
   ]
 };
 
