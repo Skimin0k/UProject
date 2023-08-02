@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
-import BubbleButton from './BubbleButton'
 import {userEvent, within} from '@storybook/testing-library'
+
+import BubbleButton from './BubbleButton'
 
 const meta: Meta<typeof BubbleButton> = {
     component: BubbleButton,

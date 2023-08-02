@@ -1,7 +1,8 @@
 import React, {FC} from 'react'
-import classNames from 'shared/lib/classNames/classNames'
-import styles from './StorybookIcons.module.scss'
 import {Icons, icons} from '@storybook/components'
+import classNames from 'shared/lib/classNames/classNames'
+
+import styles from './StorybookIcons.module.scss'
 
 interface StorybookIconsProps {
     className?: string

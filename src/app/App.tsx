@@ -1,9 +1,10 @@
 import React, {Suspense} from 'react'
-import classNames from '../shared/lib/classNames/classNames'
-import {useTheme} from 'shared/theme'
 import AppRouter from 'app/AppRouter/AppRouter'
-import Navbar from 'widgets/Navbar/Navbar'
 import ErrorBoundary from 'app/ErrorBoundary/ErrorBoundary'
+import {useTheme} from 'shared/theme'
+import Navbar from 'widgets/Navbar/Navbar'
+
+import classNames from '../shared/lib/classNames/classNames'
 
 const App = () => {
     const {theme} = useTheme()

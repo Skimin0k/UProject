@@ -1,9 +1,10 @@
-import webpack from 'webpack'
-import {BuildOptions} from './types/config'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
-import {buildSassLoader} from './loaders/SassLoader'
+import webpack from 'webpack'
+
 import {buildFileLoader} from './loaders/FileLoader'
+import {buildSassLoader} from './loaders/SassLoader'
 import {buildSvgLoader, buildSvgUrlLoader} from './loaders/SvgLoader'
+import {BuildOptions} from './types/config'
 
 export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     const typescriptLoader = {

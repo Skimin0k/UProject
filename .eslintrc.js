@@ -21,8 +21,33 @@ module.exports = {
             ],
             'parserOptions': {
                 'sourceType': 'script'
+            },
+        },
+        {
+            'files': ['*.js', '*.jsx', '*.ts', '*.tsx'],
+            'rules': {
+                'simple-import-sort/imports': [
+                    'error',
+                    {
+                        'groups': [
+                            // Packages `react` related packages come first.
+                            ['^react', '^@?\\w'],
+                            // Internal packages.
+                            ['^(@|components)(/.*|$)'],
+                            // Side effect imports.
+                            ['^\\u0000'],
+                            // Parent imports. Put `..` last.
+                            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+                            // Other relative imports. Put same-folder imports and `.` last.
+                            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+                            // Style imports.
+                            ['^.+\\.?(css)$']
+                        ]
+                    }
+                ]
             }
         }
+
     ],
     'ignorePatterns': ['*.test.*'],
     'parser': '@typescript-eslint/parser',
@@ -33,7 +58,8 @@ module.exports = {
     'plugins': [
         '@typescript-eslint',
         'react',
-        'i18next'
+        'i18next',
+        'simple-import-sort'
     ],
     'rules': {
         'indent': [
@@ -55,6 +81,8 @@ module.exports = {
         'import/prefer-default-export': 'off',
         '@typescript-eslint/no-unused-vars': [1],
         'react/react-in-jsx-scope': 'off',
-        'i18next/no-literal-string': [2, {markupOnly: true}]
+        'i18next/no-literal-string': [2, {markupOnly: true}],
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error'
     }
 }

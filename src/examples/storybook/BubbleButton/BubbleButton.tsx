@@ -1,5 +1,6 @@
 import React, {FC, useState} from 'react'
 import classNames from 'shared/lib/classNames/classNames'
+
 import styles from './BubbleButton.module.scss'
 
 interface BubbleButtonProps {

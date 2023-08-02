@@ -1,11 +1,12 @@
 import React, {FC} from 'react'
-import classNames from 'shared/lib/classNames/classNames'
-import styles from './Navbar.module.scss'
-import {routePaths, Routes} from 'shared/config/routeConfig/routerConfig'
-import AppLink from 'shared/ui/AppLink/AppLink'
-import ThemeSwitcher from 'shared/ui/ThemeSwitcher/ThemeSwitcher'
-import LanguageSwitcher from 'shared/ui/LanguageSwitcher/LanguageSwitcher'
 import {useTranslation} from 'react-i18next'
+import {routePaths, Routes} from 'shared/config/routeConfig/routerConfig'
+import classNames from 'shared/lib/classNames/classNames'
+import AppLink from 'shared/ui/AppLink/AppLink'
+import LanguageSwitcher from 'shared/ui/LanguageSwitcher/LanguageSwitcher'
+import ThemeSwitcher from 'shared/ui/ThemeSwitcher/ThemeSwitcher'
+
+import styles from './Navbar.module.scss'
 
 interface NavbarProps {
     className?: string
