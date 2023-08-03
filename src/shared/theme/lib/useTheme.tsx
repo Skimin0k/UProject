@@ -2,7 +2,6 @@ import {useContext} from 'react'
 
 import ThemeContext, {IThemeContext, Theme} from './ThemeContext'
 
-
 const useTheme = () => {
     const {theme, setTheme} = useContext<IThemeContext>(ThemeContext)
     const toggleTheme = () => {

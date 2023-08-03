@@ -3,7 +3,8 @@ module.exports = {
         '@typescript-eslint',
         'react',
         'i18next',
-        'simple-import-sort'
+        'simple-import-sort',
+        'unused-imports'
     ],
     'extends': [
         'eslint:recommended',
@@ -30,13 +31,19 @@ module.exports = {
             'never'
         ],
         'import/prefer-default-export': 'off',
-        '@typescript-eslint/no-unused-vars': [1],
         'react/react-in-jsx-scope': 'off',
         'i18next/no-literal-string': [2, {markupOnly: true}],
         'simple-import-sort/imports': 'error',
         'simple-import-sort/exports': 'error',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'error',
+        '@typescript-eslint/no-unused-vars': 'off',
+        'unused-imports/no-unused-imports': 'error',
+        'unused-imports/no-unused-vars': [
+            'warn',
+            { 'vars': 'all', 'varsIgnorePattern': '^_', 'args': 'after-used', 'argsIgnorePattern': '^_' }
+        ],
+        'no-multiple-empty-lines':['error', {max: 1}]
     },
     'overrides': [
         {
@@ -77,6 +84,12 @@ module.exports = {
         {
             'files': ['src/examples/**'],
             'rules': {
+                'i18next/no-literal-string': 'off'
+            }
+        },
+        {
+            files: ['*.stories.*'],
+            rules: {
                 'i18next/no-literal-string': 'off'
             }
         }

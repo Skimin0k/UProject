@@ -23,5 +23,4 @@ const config: (env: BuildEnv) => webpack.Configuration =
         })
     }
 
-
 export default config
