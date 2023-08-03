@@ -15,6 +15,7 @@ const App = () => {
                 <ErrorBoundary>
                     <Navbar/>
                     <AppRouter/>
+                    <div id={'modal-root'}/>
                 </ErrorBoundary>
             </Suspense>
         </div>

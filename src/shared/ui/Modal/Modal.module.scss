@@ -1,0 +1,52 @@
+.ModalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -9999;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.Modal {
+  min-height: 400px;
+  min-width: 500px;
+  background-color: white;
+  border-radius: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.innerChildrenWrapper {
+  min-height: 400px;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.closing {
+  transition: min-height 0.3s, min-width 0.3s 0.3s, transform 0.3s 0.6s;
+  min-height: 0;
+  min-width: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  transform: scale(0);
+}
+
+.opened {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: var(--modal-window-z-index);
+}
