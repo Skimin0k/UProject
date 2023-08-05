@@ -21,7 +21,8 @@
     "build-storybook": "storybook build",
     "visual:report": "npm-run-all visual:report:*",
     "visual:report:json": "node scripts/generate-visual-json-report.js",
-    "visual:report:html": "reg-cli --from .loki/report.json --report .loki/report.html"
+    "visual:report:html": "reg-cli --from .loki/report.json --report .loki/report.html",
+    "json-server": "node ./json-server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -79,6 +80,7 @@
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.6.1",
+    "json-server": "^0.17.3",
     "loki": "^0.32.0",
     "mini-css-extract-plugin": "^2.5.3",
     "react-refresh": "^0.14.0",
