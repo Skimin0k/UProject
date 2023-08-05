@@ -1,5 +1,6 @@
 import {render} from 'react-dom'
 import {BrowserRouter} from 'react-router-dom'
+import {StoreProvider} from 'app/StoreProvider'
 import {ThemeProvider} from 'shared/theme'
 
 import 'app/styles/fonts/Darkenstone.ttf'
@@ -10,10 +11,12 @@ import App from './App'
 import './styles/global.scss'
 import './styles/index.scss'
 render(
-    <BrowserRouter>
-        <ThemeProvider>
-            <App/>
-        </ThemeProvider>
-    </BrowserRouter>,
+    <StoreProvider>
+        <BrowserRouter>
+            <ThemeProvider>
+                <App/>
+            </ThemeProvider>
+        </BrowserRouter>
+    </StoreProvider>,
     document.getElementById('root')
 )

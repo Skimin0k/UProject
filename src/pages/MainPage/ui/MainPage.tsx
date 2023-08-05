@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {useTranslation} from 'react-i18next'
+import {Counter} from 'entities/Counter'
 import Modal from 'shared/ui/Modal/Modal'
 
 const MainPage = () => {
@@ -21,8 +22,9 @@ const MainPage = () => {
                     onClickOutside={() => {
                         sw(false)
                     }}
-                >
-                </Modal>
+
+                />
+                <Counter/>
             </div>
         </div>
     )
