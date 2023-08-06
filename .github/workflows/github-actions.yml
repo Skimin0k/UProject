@@ -32,7 +32,7 @@ jobs:
       - name: build project
         run: yarn build:prod
       - name: linting typescript
-        run: yarn lint
+        run: yarn lint:check
         continue-on-error: true
       - name: linting scss
         run: yarn styleLint-check
