@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {useTranslation} from 'react-i18next'
 import {Counter} from 'entities/Counter'
-import Modal from 'shared/ui/Modal/Modal'
+import {ModalLoginForm} from 'feature/Authorization'
 
 const MainPage = () => {
     const {t} = useTranslation('MainPage')
@@ -11,18 +11,16 @@ const MainPage = () => {
         <div>
             <div>
                 {t('main')}
-                {/*<ParentComponent/>*/}
                 <button onClick={() => {
                     sw(true)
                     console.log('clicked')}
                     // eslint-disable-next-line i18next/no-literal-string
                 }>click me</button>
-                <Modal
+                <ModalLoginForm
                     isOpen={w}
                     onClickOutside={() => {
                         sw(false)
                     }}
-
                 />
                 <Counter/>
             </div>

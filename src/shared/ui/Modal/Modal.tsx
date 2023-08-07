@@ -13,7 +13,7 @@ interface ModalProps {
 const Modal: FC<ModalProps> = (props) => {
     const {
         children,
-        isOpen = true,
+        isOpen = false,
         onClickOutside
     } = props
 

@@ -15,12 +15,7 @@ const meta: Meta<typeof Modal> = {
         onClickOutside: {
             action: 'clicked'
         }
-    },
-    decorators: [
-        (Story) => {
-            return <div id={'modal-root'}>{Story}</div>
-        }
-    ]
+    }
 }
 
 export default meta

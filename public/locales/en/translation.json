@@ -3,5 +3,8 @@
   "ErrorBoundary": "Goblins have broken the app",
   "loading": "loading",
   "link to main": "main",
-  "link to about": "about"
+  "link to about": "about",
+  "loginForm_login": "login",
+  "loginForm_password": "password",
+  "submit_button": "submit"
 }
