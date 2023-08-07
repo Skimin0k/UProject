@@ -1,32 +1,38 @@
-import React, {FC, useState} from 'react'
+import React, {FC, ReactNode, useCallback, useState} from 'react'
 import classNames from 'shared/lib/classNames/classNames'
 
 import styles from './BubbleButton.module.scss'
 
 interface BubbleButtonProps {
-    className?: string
+    className?: string,
+    children: ReactNode,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const BubbleButton: FC<BubbleButtonProps> = (props) => {
+    const {children, onClick} = props
     const [isAnimated, setAnimate] = useState(false)
-    const animate = () => {
+
+    const animate = useCallback(() => {
         if(!isAnimated){
             setAnimate(true)
             setTimeout(() => {
                 setAnimate(() => false)
             },700)
         }
-    }
+    }, [isAnimated])
+
+    const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
+        animate()
+        onClick(event)
+    }, [animate, onClick])
 
     return (
         <button
             className={classNames(styles.BubbleButton, {[styles.animate]: isAnimated})}
-            onClick={animate}
-            {...props}
+            onClick={handleClick}
         >
-            {/* eslint-disable-next-line i18next/no-literal-string */}
-            {/* eslint-disable-next-line i18next/no-literal-string */}
-                Click me!
+            {children}
         </button>
     )
 }

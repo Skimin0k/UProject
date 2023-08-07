@@ -5,6 +5,9 @@ import BubbleButton from './BubbleButton'
 
 const meta: Meta<typeof BubbleButton> = {
     component: BubbleButton,
+    args: {
+        children: 'click me!'
+    },
     parameters: {
         backgrounds: {
             values: [
@@ -43,7 +46,7 @@ export const Animating: Story = {
     }
 }
 
-export const Parrams: Story = {
+export const Params: Story = {
     parameters: {
         backgrounds: {
             values: [
