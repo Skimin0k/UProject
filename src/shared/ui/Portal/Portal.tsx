@@ -6,7 +6,10 @@ export interface PortalProps {
     container?: HTMLElement
 }
 const Portal: FC<PortalProps> = (props) => {
-    const {children, container = document.getElementById('modal-root')} = props
-    return createPortal(children, container)
+    const {
+        children,
+        container = document.getElementById('modal-root')
+    } = props
+    return container? createPortal(children, container): <>{children}</>
 }
 export default Portal
