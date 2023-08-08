@@ -1,4 +1,8 @@
+import {DeepPartial} from '@reduxjs/toolkit'
 import type {Meta, StoryObj} from '@storybook/react'
+import {StateSchema} from 'app/StoreProvider/config/StateSchema'
+
+import {withReduxDecorator} from '../../../../../.storybook/decorators/withReduxDecorator'
 
 import {ModalLoginForm} from './ModalLoginForm'
 
@@ -9,6 +13,16 @@ const meta: Meta<typeof ModalLoginForm> = {
 export default meta
 type Story = StoryObj<typeof ModalLoginForm>;
 
-export const Primary: Story = {
-    args: {}
+const emptyForm: DeepPartial<StateSchema> = {
+    auth: {
+        username: '',
+        password: '',
+        isLoading: false
+    }
+}
+export const EmptyForm: Story = {
+    args: {
+        isOpen: true
+    },
+    decorators: [withReduxDecorator(emptyForm as StateSchema)]
 }
