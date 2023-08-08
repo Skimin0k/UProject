@@ -21,8 +21,8 @@ const Modal: FC<ModalProps> = (props) => {
     const handleClickOutside = useCallback(() => {
         ref.current.className = ref.current.className + ` ${styles.closing}`
         setTimeout(() => {
-            onClickOutside && onClickOutside()
             ref.current.className = ref.current.className.split(' ').filter((item: string) => item !== styles.closing).join(' ')
+            onClickOutside && onClickOutside()
         },800)}, [onClickOutside])
 
     useEffect(() => {

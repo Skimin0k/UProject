@@ -1,7 +1,8 @@
-import React, {FC} from 'react'
+import React, {FC, Suspense} from 'react'
+import {useTranslation} from 'react-i18next'
 import Modal from 'shared/ui/Modal/Modal'
 
-import {LoginForm} from '../LoginForm/LoginForm'
+import {LoginFormAsync} from '../LoginForm/LoginForm.async'
 
 interface ModalLoginFormProps {
     className?: string,
@@ -10,9 +11,13 @@ interface ModalLoginFormProps {
 }
 
 export const ModalLoginForm: FC<ModalLoginFormProps> = (props) => {
+    const {t} = useTranslation()
+    if(!props.isOpen) return null
     return (
         <Modal {...props}>
-            <LoginForm/>
+            <Suspense fallback={t('loading')}>
+                <LoginFormAsync/>
+            </Suspense>
         </Modal>
     )
 }

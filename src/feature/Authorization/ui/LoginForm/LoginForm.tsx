@@ -36,7 +36,9 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
     },[authData, dispatch])
     return (
         <div
-            className={classNames(styles.LoginForm, {}, [className])}
+            className={classNames(styles.LoginForm, {}, [
+                className
+            ])}
         >
             <Input
                 placeholder={t('loginForm_login')}
