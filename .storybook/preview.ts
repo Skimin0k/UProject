@@ -2,6 +2,7 @@ import type { Preview } from "@storybook/react";
 import {withTranslation} from "./decorators/withTranslation";
 import withGlobalAppStyles from "./decorators/withGlobalAppStyles";
 import withTheme from "./decorators/withTheme";
+import withAxiosMock from "./decorators/withAxiosMock";
 
 const preview: Preview = {
   parameters: {
@@ -32,6 +33,7 @@ const preview: Preview = {
     withGlobalAppStyles,
     withTheme,
     withTranslation,
+    withAxiosMock
   ]
 };
 

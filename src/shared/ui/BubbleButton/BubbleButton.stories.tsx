@@ -1,5 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
 import {userEvent, within} from '@storybook/testing-library'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
 
 import BubbleButton from './BubbleButton'
 
@@ -63,6 +65,33 @@ export const Params: Story = {
                     value: '#2c3e50'
                 }
             ]
+        }
+    }
+}
+
+export const AxiosPost200: Story = {
+    args: {
+        onClick: () => {
+            console.log('fetch fake url')
+            axios.post('fake-url').then(r => console.log(r))
+        }
+    },
+    parameters: {
+        axios: (mock: MockAdapter) => {
+            mock.onPost('fake-url').reply(200, { test: 'some mock data' })
+        }
+    }
+}
+export const AxiosPost201: Story = {
+    args: {
+        onClick: () => {
+            console.log('fetch fake url')
+            axios.post('fake-url').then(r => console.log(r))
+        }
+    },
+    parameters: {
+        axios: (mock: MockAdapter) => {
+            mock.onPost('fake-url').reply(201, { test: '' })
         }
     }
 }
