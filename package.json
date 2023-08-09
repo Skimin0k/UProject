@@ -19,7 +19,7 @@
     "storybook": "storybook dev -p 6006",
     "test-storybook": "test-storybook",
     "build-storybook": "storybook build",
-    "visual:report": "npm-run-all visual:report:*",
+    "visual:report": "yarn visual:report:json && yarn visual:report:html",
     "visual:report:json": "node scripts/generate-visual-json-report.js",
     "visual:report:html": "reg-cli --from .loki/report.json --report .loki/report.html",
     "json-server": "node ./json-server/index.js",

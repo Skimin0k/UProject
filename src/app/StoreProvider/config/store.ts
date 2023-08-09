@@ -4,12 +4,13 @@ import {StateSchema} from 'app/StoreProvider/config/StateSchema'
 import {counterReducer} from 'entities/Counter'
 import {userReducer} from 'entities/user/slices/userSlice'
 
-export const configureReduxStore = (initialState: StateSchema) => {
+export const configureReduxStore = (initialState?: StateSchema, asyncReducers?:ReducersMapObject<StateSchema>) => {
     const rootReducer : ReducersMapObject<StateSchema> = {
+        ...asyncReducers,
+        // асинхронные редюсеры
+
         counter: counterReducer,
         user: userReducer,
-
-        // асинхронные редюсеры
     }
 
     const reducerManager = createReducerManager(rootReducer)
