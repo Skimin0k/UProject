@@ -12,7 +12,7 @@ const defaultAsyncReducers: DeepPartial<ReducersMapObject<StateSchema>> = {
 
 export const withReduxDecorator: (
     initialState: StateSchema,
-    asyncReducers: DeepPartial<ReducersMapObject<StateSchema>>
+    asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>
 ) => DecoratorFunction<ReactRenderer, Simplify<Args>> =
     (initialState,
      asyncReducers
