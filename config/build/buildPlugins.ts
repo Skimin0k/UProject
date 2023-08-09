@@ -23,15 +23,15 @@ export function buildPlugins(options: BuildOptions): webpack.WebpackPluginInstan
             filename: 'css/[name].[contenthash:8].css',
             chunkFilename: 'css/[name].[contenthash:8].css'
         }),
-
+        new BundleAnalyzerPlugin({
+            openAnalyzer: false,
+            // analyzerMode: 'disabled'
+        })
     ]
     if (options.isDev){
         plugins.push(
-            new ReactRefreshWebpackPlugin(),
-            new BundleAnalyzerPlugin({
-                openAnalyzer: false,
-                analyzerMode: 'disabled'
-            }))
+            new ReactRefreshWebpackPlugin()
+        )
     }
     return plugins
 }
