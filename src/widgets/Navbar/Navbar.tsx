@@ -12,16 +12,23 @@ interface NavbarProps {
     className?: string
 }
 
-const Navbar :FC<NavbarProps> = ({className}) => {
+const Navbar: FC<NavbarProps> = ({className}) => {
     const {t} = useTranslation('translation')
     return (
         <div className={classNames(styles.Navbar, {}, [className])}>
-            <ThemeSwitcher/>
-            <LanguageSwitcher/>
-            <div className = {styles.links}>
-                <AppLink to={routePaths[Routes.MAIN]}>{t('link to main')}</AppLink>
-                <AppLink to={routePaths[Routes.ABOUT]}>{t('link to about')}</AppLink>
-            </div>
+            <section className={styles.leftSide}>
+                <ThemeSwitcher/>
+            </section>
+            <section className={styles.centralSide}>
+                {Object.values(Routes).map(route => {
+                    return <div key={route} className={classNames('',{}, [styles.container, styles.brackets])}>
+                        <AppLink to={routePaths[route]}>{t(route)}</AppLink>
+                    </div>
+                })}
+            </section>
+            <section className={styles.rightSide}>
+                <LanguageSwitcher/>
+            </section>
         </div>
     )
 }

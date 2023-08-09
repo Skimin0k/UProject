@@ -1,14 +1,82 @@
 .Navbar {
   display: flex;
   height: var(--navbar-height);
-  justify-content: space-between;
-  align-items: center;
   background-color: var(--inverted-bg-color);
   color: var(--inverted-primary-color);
-  padding: 0 15px;
 }
 
-.links {
+.leftSide,
+.centralSide,
+.rightSide {
   display: flex;
-  gap: 15px;
+  flex-grow: 1;
+  gap: 10px;
+  align-items: center;
+}
+
+.leftSide {
+  justify-content: flex-end;
+}
+
+.rightSide {
+  justify-content: flex-start;
+}
+
+.centralSide {
+  justify-content: center;
+}
+
+.navbarItem {
+  transition: 0.15s;
+  height: var(--navbar-height);
+  width: var(--navbar-height);
+  border-radius: 5%;
+
+  &:hover {
+    box-shadow: 5px 5px 10px -5px rgb(34 60 80 / 40%) inset;
+  }
+}
+
+div.container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+div.container a {
+  color: var(--primary-color);
+  font-size: var(--font-size-m);
+  text-decoration: none;
+  padding: 0 10px;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+div.brackets a::before,
+div.brackets a::after {
+  position: absolute;
+  opacity: 0;
+  font-size: var(--font-size-l);
+  top: 0;
+  transition: all 0.3s;
+}
+
+div.brackets a::before {
+  content: "(";
+  left: 0;
+  transform: translateX(10px);
+}
+
+div.brackets a::after {
+  content: ")";
+  right: 0;
+  transform: translateX(-10px);
+}
+
+div.brackets a:hover::before,
+div.brackets a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }

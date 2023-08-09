@@ -43,7 +43,8 @@ module.exports = {
             'warn',
             { 'vars': 'all', 'varsIgnorePattern': '^_', 'args': 'after-used', 'argsIgnorePattern': '^_' }
         ],
-        'no-multiple-empty-lines':['error', {max: 1}]
+        'no-multiple-empty-lines':['error', {max: 1}],
+        'react/display-name': 'off'
     },
     'overrides': [
         {
@@ -90,7 +91,7 @@ module.exports = {
         {
             files: ['*.stories.*'],
             rules: {
-                'i18next/no-literal-string': 'off'
+                'i18next/no-literal-string': 'off',
             }
         }
 

@@ -3,8 +3,8 @@ import {AboutPage} from 'pages/AboutPage'
 import {MainPage} from 'pages/MainPage'
 
 export enum Routes {
-    MAIN,
-    ABOUT
+    MAIN = 'main',
+    ABOUT = 'about'
 }
 
 export const routePaths: Record<Routes, string> = {
