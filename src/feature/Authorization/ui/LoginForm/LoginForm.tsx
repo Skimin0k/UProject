@@ -1,16 +1,17 @@
 import React, {FC, useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
-import {getError} from 'feature/Authorization/model/selectors/getError'
-import {getIsLoading} from 'feature/Authorization/model/selectors/getIsLoading'
-import {getPassword} from 'feature/Authorization/model/selectors/getPassword'
-import {getUsername} from 'feature/Authorization/model/selectors/getUsername'
-import {submitUserAuthData} from 'feature/Authorization/model/services/submitUserAuthData'
-import {authActions} from 'feature/Authorization/model/slices/AuthorizationFormSlice'
 import classNames from 'shared/lib/classNames/classNames'
 import BubbleButton from 'shared/ui/BubbleButton/BubbleButton'
 import Input from 'shared/ui/Input/Input'
 import Text, {ThemeText} from 'shared/ui/Text/Text'
+
+import {getError} from '../../model/selectors/getError'
+import {getIsLoading} from '../../model/selectors/getIsLoading'
+import {getPassword} from '../../model/selectors/getPassword'
+import {getUsername} from '../../model/selectors/getUsername'
+import {submitUserAuthData} from '../../model/services/submitUserAuthData'
+import {authActions} from '../../model/slices/AuthorizationFormSlice'
 
 import styles from './LoginForm.module.scss'
 
@@ -38,9 +39,9 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
     }, [dispatch])
     const onSubmit = useCallback(() => {
         dispatch(submitUserAuthData({
-            username, password, isLoading
+            username, password
         }))
-    }, [dispatch, isLoading, password, username])
+    }, [dispatch, password, username])
     return (
         <div
             className={classNames(styles.LoginForm, {}, [
