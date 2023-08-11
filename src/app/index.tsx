@@ -11,12 +11,12 @@ import App from './App'
 import './styles/global.scss'
 import './styles/index.scss'
 render(
-    <StoreProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+        <StoreProvider>
             <ThemeProvider>
                 <App/>
             </ThemeProvider>
-        </BrowserRouter>
-    </StoreProvider>,
+        </StoreProvider>
+    </BrowserRouter>,
     document.getElementById('root')
 )

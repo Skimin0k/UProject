@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {User, UserSchema} from 'entities/user/types/UserSchema'
+import {__UserData__} from 'shared/const/constants'
 
 const initialState: UserSchema = {}
 
@@ -9,7 +10,7 @@ const UserSlice = createSlice({
     reducers: {
         setAuthData: (state, action: PayloadAction<User>) => {
             state.authData = action.payload
-            localStorage.setItem('user', JSON.stringify(action.payload))
+            localStorage.setItem(__UserData__, JSON.stringify(action.payload))
         },
         initAuthData: (state) => {
             const user = localStorage.getItem('user')
@@ -18,7 +19,7 @@ const UserSlice = createSlice({
             }
         },
         logout: () => {
-            localStorage.removeItem('user')
+            localStorage.removeItem(__UserData__)
         },
     }
 })

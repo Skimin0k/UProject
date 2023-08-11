@@ -1,0 +1,1 @@
+export const __UserData__ = 'user'
