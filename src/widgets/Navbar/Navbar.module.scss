@@ -66,12 +66,14 @@ div.brackets a::after {
 div.brackets a::before {
   content: "(";
   left: 0;
+  top: -2px;
   transform: translateX(10px);
 }
 
 div.brackets a::after {
   content: ")";
   right: 0;
+  top: -2px;
   transform: translateX(-10px);
 }
 

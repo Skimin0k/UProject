@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {routePaths, Routes} from 'shared/config/routeConfig/routerConfig'
 import classNames from 'shared/lib/classNames/classNames'
@@ -14,17 +14,18 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = ({className}) => {
     const {t} = useTranslation('translation')
+    const links = useMemo(() => Object.values(Routes).map(route => {
+        return <div key={route} className={classNames('',{}, [styles.container, styles.brackets])}>
+            <AppLink to={routePaths[route]}>{t(route)}</AppLink>
+        </div>
+    }), [t])
     return (
         <div className={classNames(styles.Navbar, {}, [className])}>
             <section className={styles.leftSide}>
                 <ThemeSwitcher/>
             </section>
             <section className={styles.centralSide}>
-                {Object.values(Routes).map(route => {
-                    return <div key={route} className={classNames('',{}, [styles.container, styles.brackets])}>
-                        <AppLink to={routePaths[route]}>{t(route)}</AppLink>
-                    </div>
-                })}
+                {links}
             </section>
             <section className={styles.rightSide}>
                 <LanguageSwitcher/>

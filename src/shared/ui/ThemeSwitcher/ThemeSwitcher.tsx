@@ -1,4 +1,4 @@
-import React, { FC} from 'react'
+import React, {FC, memo} from 'react'
 import DarkTheme from 'assets/icons/theme-dark.svg'
 import LightTheme from 'assets/icons/theme-light.svg'
 import classNames from 'shared/lib/classNames/classNames'
@@ -28,4 +28,4 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = (props) => {
     )
 }
 
-export default ThemeSwitcher
+export default memo(ThemeSwitcher)
