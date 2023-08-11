@@ -19,7 +19,7 @@ const config: (env: BuildEnv) => webpack.Configuration =
             paths: paths,
             isDev: env.mode === 'development',
             mode: env.mode || 'development',
-            port: env.port || 3000
+            port: env.port || 3000,
         })
     }
 
