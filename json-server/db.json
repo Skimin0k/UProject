@@ -25,5 +25,14 @@
       "password": "123"
     }
   ],
-  "profile": { "name": "typicode" }
+  "profile": {
+    "first": "Jackie",
+    "lastname": "Chan",
+    "age": 68,
+    "currency": "RUB",
+    "country": "China",
+    "city": "Pekin",
+    "username": "admin",
+    "avatar": ""
+  }
 }

@@ -2,6 +2,7 @@ import {NavigateFunction} from 'react-router/dist/lib/hooks'
 import {AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject} from '@reduxjs/toolkit'
 import { AxiosInstance } from 'axios'
 import {CounterSchema} from 'entities/Counter/model/types/CounterSchema'
+import {ProfileSchema} from 'entities/Profile/models/types/ProfileSchema'
 import {UserSchema} from 'entities/user'
 import {AuthSchema} from 'feature/Authorization'
 
@@ -11,6 +12,7 @@ export interface StateSchema {
 
     //асинхронные редюсеры
     auth?: AuthSchema,
+    profile?: ProfileSchema
 }
 
 export interface ReducerManager {

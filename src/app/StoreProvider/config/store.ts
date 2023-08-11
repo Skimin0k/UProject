@@ -1,3 +1,4 @@
+import {useDispatch} from 'react-redux'
 import {NavigateFunction} from 'react-router/dist/lib/hooks'
 import {configureStore, ReducersMapObject} from '@reduxjs/toolkit'
 import {createReducerManager} from 'app/StoreProvider/config/ReducerManager'
@@ -43,5 +44,5 @@ export const configureReduxStore = (
     return store
 }
 
-export class RootState {
-}
+export type AppDispatch = ReturnType<typeof configureReduxStore>['dispatch']
+export const useAppDispatch = () => useDispatch<AppDispatch>()
