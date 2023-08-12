@@ -1,6 +1,8 @@
 import {DeepPartial} from '@reduxjs/toolkit'
 import type {Meta, StoryObj} from '@storybook/react'
 import {StateSchema} from 'app/StoreProvider/config/StateSchema'
+import MockAdapter from 'axios-mock-adapter'
+import {$api} from 'shared/config/api/api'
 
 import {withReduxDecorator} from '../../../../../.storybook/decorators/withReduxDecorator'
 
@@ -34,7 +36,15 @@ const fullForm: DeepPartial<StateSchema> = {
 }
 export const FullForm: Story = {
     args: {},
-    decorators: [withReduxDecorator(fullForm as StateSchema)]
+    decorators: [withReduxDecorator(fullForm as StateSchema)],
+    parameters: {
+        axios: {
+            instance: $api,
+            adapter: (mock: MockAdapter) => {
+                mock.onPost('login').reply(200)
+            }
+        }
+    }
 }
 const loading: DeepPartial<StateSchema> = {
     auth: {

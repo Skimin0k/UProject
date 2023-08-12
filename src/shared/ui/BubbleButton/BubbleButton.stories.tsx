@@ -77,8 +77,11 @@ export const AxiosPost200: Story = {
         }
     },
     parameters: {
-        axios: (mock: MockAdapter) => {
-            mock.onPost('fake-url').reply(200, { test: 'some mock data' })
+        axios: {
+            instance: axios,
+            adapter: (mock: MockAdapter) => {
+                mock.onPost('fake-url').reply(200, { test: 'some mock data' })
+            }
         }
     }
 }
@@ -90,8 +93,11 @@ export const AxiosPost201: Story = {
         }
     },
     parameters: {
-        axios: (mock: MockAdapter) => {
-            mock.onPost('fake-url').reply(201, { test: '' })
+        axios: {
+            instance: axios,
+            adapter: (mock: MockAdapter) => {
+                mock.onPost('fake-url').reply(201, {test: ''})
+            }
         }
     }
 }

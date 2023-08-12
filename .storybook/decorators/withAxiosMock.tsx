@@ -1,15 +1,15 @@
 import {DecoratorFunction} from "@storybook/types";
 import {Args, ReactRenderer} from "@storybook/react";
 import {Simplify} from "type-fest";
-import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import {useEffect, useRef} from "react";
+import {$api} from "shared/config/api/api";
 
 const withAxiosMock: DecoratorFunction<ReactRenderer, Simplify<Args>> = (Story, {parameters}) => {
-    const mockAdapter = useRef(new MockAdapter(axios)).current
+    const mockAdapter = useRef(new MockAdapter(parameters?.axios?.instance || $api)).current
     useEffect(() => {
         if(parameters?.axios){
-            parameters.axios?.(mockAdapter)
+            parameters.axios?.adapter?.(mockAdapter)
             return () => {
                 mockAdapter.restore()
             }

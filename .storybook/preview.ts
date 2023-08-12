@@ -3,6 +3,7 @@ import {withTranslation} from "./decorators/withTranslation";
 import withGlobalAppStyles from "./decorators/withGlobalAppStyles";
 import withTheme from "./decorators/withTheme";
 import withAxiosMock from "./decorators/withAxiosMock";
+import {reactRouterDecorator, reactRouterLoggerDecorator} from "./decorators/reactRouterDecorator";
 
 const preview: Preview = {
   parameters: {
@@ -30,6 +31,8 @@ const preview: Preview = {
     }
   },
   decorators: [
+    reactRouterLoggerDecorator,
+    reactRouterDecorator,
     withGlobalAppStyles,
     withTheme,
     withTranslation,
