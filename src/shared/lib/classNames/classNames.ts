@@ -1,7 +1,7 @@
-export default function classNames (
+export default function classNames(
     mainClass: string,
     mods?: Record<string, boolean>,
-    additional? : string[]
+    additional?: (string | undefined)[]
 ): string {
 
     mods = mods ?? {}

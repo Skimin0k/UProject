@@ -17,17 +17,21 @@ const Modal: FC<ModalProps> = (props) => {
         onClickOutside
     } = props
 
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement | null>(null)
     const handleClickOutside = useCallback(() => {
-        ref.current.className = ref.current.className + ` ${styles.closing}`
-        setTimeout(() => {
-            ref.current.className = ref.current.className.split(' ').filter((item: string) => item !== styles.closing).join(' ')
-            onClickOutside && onClickOutside()
-        },800)}, [onClickOutside])
+        if (ref.current) {
+            ref.current.className = ref.current.className + ` ${styles.closing}`
+            setTimeout(() => {
+                if (ref.current)
+                    ref.current.className = ref.current.className.split(' ').filter((item: string) => item !== styles.closing).join(' ')
+                onClickOutside && onClickOutside()
+            }, 800)
+        }
+    }, [onClickOutside])
 
     useEffect(() => {
         const handleKeydown = (event: { key: string }) => {
-            if(event.key === 'Escape') handleClickOutside()
+            if (event.key === 'Escape') handleClickOutside()
         }
 
         window.addEventListener('keydown', handleKeydown, true)

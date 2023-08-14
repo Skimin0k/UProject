@@ -1,6 +1,7 @@
 import React, {FC, useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
-import {useDispatch, useSelector} from 'react-redux'
+import { useSelector} from 'react-redux'
+import {useAppDispatch} from 'app/StoreProvider/config/store'
 import classNames from 'shared/lib/classNames/classNames'
 import BubbleButton from 'shared/ui/BubbleButton/BubbleButton'
 import Input from 'shared/ui/Input/Input'
@@ -25,7 +26,7 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
     } = props
     const {t} = useTranslation('translation')
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const username = useSelector(getUsername)
     const password = useSelector(getPassword)
     const isLoading = useSelector(getIsLoading)
@@ -38,9 +39,11 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
         dispatch(authActions.setPassword(event.target.value))
     }, [dispatch])
     const onSubmit = useCallback(() => {
-        dispatch(submitUserAuthData({
-            username, password
-        }))
+        if (username && password)
+            dispatch(submitUserAuthData({
+                username,
+                password
+            }))
     }, [dispatch, password, username])
     return (
         <div

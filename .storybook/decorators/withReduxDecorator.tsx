@@ -4,10 +4,9 @@ import {Args, ReactRenderer} from "@storybook/react";
 import {Simplify} from "type-fest";
 import {StoreProvider} from "app/StoreProvider";
 import {DeepPartial, ReducersMapObject} from "@reduxjs/toolkit";
-import {authReducer} from "feature/Authorization";
 
 const defaultAsyncReducers: DeepPartial<ReducersMapObject<StateSchema>> = {
-    auth: authReducer
+    // auth: authReducer
 }
 
 export const withReduxDecorator: (

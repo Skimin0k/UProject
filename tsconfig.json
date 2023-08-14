@@ -14,12 +14,13 @@
     "paths": {
       "*": ["./src/*"]
     },
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strict": true
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS",
       "plugins": [{ "name": "typescript-plugin-css-modules" }]
     }
-  },
+  }
 }

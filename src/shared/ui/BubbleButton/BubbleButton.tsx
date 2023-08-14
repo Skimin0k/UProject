@@ -24,7 +24,7 @@ const BubbleButton: FC<BubbleButtonProps> = (props) => {
 
     const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
         animate()
-        onClick(event)
+        onClick?.(event)
     }, [animate, onClick])
 
     return (

@@ -1,6 +1,6 @@
 import {useDispatch} from 'react-redux'
 import {NavigateFunction} from 'react-router/dist/lib/hooks'
-import {configureStore, ReducersMapObject} from '@reduxjs/toolkit'
+import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
 import {createReducerManager} from 'app/StoreProvider/config/ReducerManager'
 import {StateSchema} from 'app/StoreProvider/config/StateSchema'
 import {counterReducer} from 'entities/Counter'
@@ -23,7 +23,9 @@ export const configureReduxStore = (
     const reducerManager = createReducerManager(rootReducer)
 
     const store = configureStore({
-        reducer: reducerManager.reduce,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        reducer: reducerManager.reduce as ReducersMapObject<CombinedState<StateSchema>>,
         preloadedState: initialState,
         middleware: getDefaultMiddleware => {
             return getDefaultMiddleware({
@@ -45,4 +47,6 @@ export const configureReduxStore = (
 }
 
 export type AppDispatch = ReturnType<typeof configureReduxStore>['dispatch']
+
+export type StoreSchema = ReturnType<ReturnType<typeof configureReduxStore>['getState']>
 export const useAppDispatch = () => useDispatch<AppDispatch>()

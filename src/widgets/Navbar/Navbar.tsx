@@ -15,7 +15,7 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({className}) => {
     const {t} = useTranslation('translation')
     const links = useMemo(() => Object.values(Routes).map(route => {
-        return <div key={route} className={classNames('',{}, [styles.container, styles.brackets])}>
+        return <div key={route} className={classNames('', {}, [styles.container, styles.brackets])}>
             <AppLink to={routePaths[route]}>{t(route)}</AppLink>
         </div>
     }), [t])
