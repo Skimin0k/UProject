@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {submitUserAuthData} from 'feature/Authorization/model/services/submitUserAuthData'
 
+import {submitUserAuthData} from '../services/submitUserAuthData'
 import {AuthSchema} from '../types/AuthSchema'
 
 const initialState: AuthSchema = {

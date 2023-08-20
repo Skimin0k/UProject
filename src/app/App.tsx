@@ -2,7 +2,7 @@ import React, {Suspense, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import AppRouter from 'app/AppRouter/AppRouter'
 import ErrorBoundary from 'app/ErrorBoundary/ErrorBoundary'
-import {userActions} from 'entities/user/slices/userSlice'
+import {userActions} from 'entities/User'
 import {useTheme} from 'shared/theme'
 import Navbar from 'widgets/Navbar/Navbar'
 

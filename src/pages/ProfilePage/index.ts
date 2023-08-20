@@ -1,2 +1,1 @@
-export {NotFoundPageAsync as NotFoundPage} from 'pages/NotFoundPage/ui/NotFoundPage.async'
-
+export {ProfilePageAsync as ProfilePage} from 'pages/ProfilePage/ui/ProfilePage.async'

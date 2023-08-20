@@ -2,8 +2,9 @@ import {FC, ReactNode} from 'react'
 import {Provider} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {DeepPartial, ReducersMapObject} from '@reduxjs/toolkit'
-import {StateSchema} from 'app/StoreProvider/config/StateSchema'
-import {configureReduxStore} from 'app/StoreProvider/config/store'
+
+import {StateSchema} from '../config/StateSchema'
+import {configureReduxStore} from '../config/store'
 
 interface StoreProviderProps {
     children: ReactNode,

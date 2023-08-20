@@ -1,4 +1,5 @@
 import {createSelector} from '@reduxjs/toolkit'
-import {getAuthData} from 'feature/Authorization/model/selectors/getAuthData'
+
+import {getAuthData} from './getAuthData'
 
 export const getUsername = createSelector(getAuthData, (state) => state?.username)

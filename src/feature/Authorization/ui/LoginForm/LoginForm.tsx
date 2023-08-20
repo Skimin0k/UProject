@@ -1,7 +1,7 @@
 import React, {FC, useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
 import { useSelector} from 'react-redux'
-import {useAppDispatch} from 'app/StoreProvider/config/store'
+import {useAppDispatch} from 'app/StoreProvider'
 import classNames from 'shared/lib/classNames/classNames'
 import BubbleButton from 'shared/ui/BubbleButton/BubbleButton'
 import Input from 'shared/ui/Input/Input'

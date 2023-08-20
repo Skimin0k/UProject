@@ -1,7 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import {ThunkApi} from 'app/StoreProvider/config/StateSchema'
-import {User} from 'entities/user'
-import {userActions} from 'entities/user/slices/userSlice'
+import {ThunkApi} from 'app/StoreProvider'
+import {User, userActions} from 'entities/User'
 
 interface LoginUserAuthData {
     password: string,

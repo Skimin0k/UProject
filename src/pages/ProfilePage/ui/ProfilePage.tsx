@@ -1,10 +1,14 @@
 import {ChangeEvent, useCallback, useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {useAppDispatch} from 'app/StoreProvider/config/store'
-import {fetchUserData, getProfileProp, profileActions, ProfileCard, profileReducer} from 'entities/Profile'
-import {getProfileError} from 'entities/Profile/models/selectors/getProfileError'
-import {getProfileIsLoading} from 'entities/Profile/models/selectors/getProfileIsLoading'
-import {getProfileReadonly} from 'entities/Profile/models/selectors/getProfileReadonly'
+import {useAppDispatch} from 'app/StoreProvider'
+import {
+    fetchUserData, getProfileError,
+    getProfileIsLoading,
+    getProfileProp, getProfileReadonly,
+    profileActions,
+    ProfileCard,
+    profileReducer
+} from 'entities/Profile'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
 
 import ProfilePageHeader from './ProfilePageHeader/ProfilePageHeader'

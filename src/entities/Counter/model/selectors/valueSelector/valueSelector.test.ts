@@ -1,6 +1,6 @@
 import {DeepPartial} from "@reduxjs/toolkit";
-import {valueSelector} from "entities/Counter/model/selectors/valueSelector/valueSelector";
-import {StateSchema} from "app/StoreProvider/config/StateSchema";
+import {valueSelector} from "./valueSelector";
+import {StateSchema} from "app/StoreProvider";
 
 describe('counterSelector test', () => {
     it('should return counter state', function () {

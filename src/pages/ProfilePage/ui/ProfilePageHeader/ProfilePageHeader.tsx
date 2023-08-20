@@ -1,9 +1,8 @@
 import React, {FC, useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSelector} from 'react-redux'
-import {useAppDispatch} from 'app/StoreProvider/config/store'
-import {profileActions, updateProfileData} from 'entities/Profile'
-import {getProfileReadonly} from 'entities/Profile/models/selectors/getProfileReadonly'
+import {useAppDispatch} from 'app/StoreProvider'
+import {getProfileReadonly, profileActions, updateProfileData} from 'entities/Profile'
 import classNames from 'shared/lib/classNames/classNames'
 import Button, {ButtonThemes} from 'shared/ui/Button/Button'
 

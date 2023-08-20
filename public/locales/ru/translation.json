@@ -6,5 +6,6 @@
   "link to about": "about",
   "loginForm_login": "логин",
   "loginForm_password": "пароль",
-  "submit_button": "отправить"
+  "submit_button": "отправить",
+  "error": "error"
 }

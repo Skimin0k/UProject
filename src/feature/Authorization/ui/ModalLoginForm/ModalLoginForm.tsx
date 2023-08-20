@@ -1,9 +1,9 @@
 import React, {FC, Suspense} from 'react'
 import {useTranslation} from 'react-i18next'
-import {authReducer} from 'feature/Authorization'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
 import Modal from 'shared/ui/Modal/Modal'
 
+import {authReducer} from '../../model/slices/AuthorizationFormSlice'
 import {LoginFormAsync} from '../LoginForm/LoginForm.async'
 
 interface ModalLoginFormProps {

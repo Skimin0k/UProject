@@ -1,4 +1,4 @@
-import {StateSchema} from "app/StoreProvider/config/StateSchema";
+import {StateSchema} from "app/StoreProvider";
 import {DecoratorFunction} from "@storybook/types";
 import {Args, ReactRenderer} from "@storybook/react";
 import {Simplify} from "type-fest";

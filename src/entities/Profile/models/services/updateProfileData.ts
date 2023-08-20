@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import {ThunkApi} from 'app/StoreProvider/config/StateSchema'
+import {ThunkApi} from 'app/StoreProvider'
 
 import {getProfileForm} from '../../models/selectors/getProfileForm'
 import {Profile} from '../../models/types/ProfileSchema'

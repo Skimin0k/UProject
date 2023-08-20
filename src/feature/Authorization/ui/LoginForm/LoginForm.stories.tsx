@@ -1,6 +1,6 @@
 import {DeepPartial} from '@reduxjs/toolkit'
 import type {Meta, StoryObj} from '@storybook/react'
-import {StateSchema} from 'app/StoreProvider/config/StateSchema'
+import {StateSchema} from 'app/StoreProvider'
 import MockAdapter from 'axios-mock-adapter'
 import {$api} from 'shared/config/api/api'
 

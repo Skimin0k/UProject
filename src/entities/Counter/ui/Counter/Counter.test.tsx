@@ -3,7 +3,7 @@ import {withRedux} from "shared/lib/tests/withRedux";
 import {Counter} from "entities/Counter";
 import {DeepPartial} from "@reduxjs/toolkit";
 import {userEvent} from "@storybook/testing-library";
-import {StateSchema} from "app/StoreProvider/config/StateSchema";
+import {StateSchema} from "app/StoreProvider";
 
 describe('Counter.test tests', () => {
     it('should render value', function () {

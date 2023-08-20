@@ -1,11 +1,12 @@
 import {useDispatch} from 'react-redux'
 import {NavigateFunction} from 'react-router/dist/lib/hooks'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
-import {createReducerManager} from 'app/StoreProvider/config/ReducerManager'
-import {StateSchema} from 'app/StoreProvider/config/StateSchema'
 import {counterReducer} from 'entities/Counter'
-import {userReducer} from 'entities/user/slices/userSlice'
+import {userReducer} from 'entities/User'
 import {$api} from 'shared/config/api/api'
+
+import {createReducerManager} from './ReducerManager'
+import {StateSchema} from './StateSchema'
 
 export const configureReduxStore = (
     initialState?: StateSchema,
