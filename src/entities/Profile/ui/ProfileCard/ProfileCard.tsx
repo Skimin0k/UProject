@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Currency, CurrencySelector} from 'entities/Currency'
 import classNames from 'shared/lib/classNames/classNames'
+import {Image} from 'shared/ui/Image/Image'
 import Input from 'shared/ui/Input/Input'
 import Text, {TextAlign, ThemeText} from 'shared/ui/Text/Text'
 
@@ -14,11 +15,13 @@ interface ProfileCardProps {
     lastname: string,
     age: number,
     currency: Currency,
+    avatar: string,
 
     onChangeFirstname: (event: ChangeEvent<HTMLInputElement>) => void,
     onChangeLastname: (event: ChangeEvent<HTMLInputElement>) => void,
     onChangeAge: (event: ChangeEvent<HTMLInputElement>) => void,
     onChangeCurrency: (event: Currency) => void,
+    onChangeAvatar: (event: ChangeEvent<HTMLInputElement>) => void,
 
     isLoading?: boolean,
     error?: string,
@@ -33,10 +36,12 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
         lastname,
         age,
         currency,
+        avatar,
         onChangeAge,
         onChangeCurrency,
         onChangeFirstname,
         onChangeLastname,
+        onChangeAvatar,
         isLoading,
         error,
         readonly
@@ -70,8 +75,10 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
         <div
             className={classNames(styles.ProfileCard, {}, [className])}
         >
-            {/* eslint-disable-next-line i18next/no-literal-string */}
-            <div>avatar</div>
+            <div className={styles.ImageWrapper}>
+                {/* eslint-disable-next-line i18next/no-literal-string */}
+                <Image src={avatar} alt={'._.'} size={'125px'}/>
+            </div>
             <Input
                 placeholder={t('firstname')}
                 value={firstname}
@@ -94,6 +101,12 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
                 selected={currency}
                 onChange={onChangeCurrency}
                 readOnly={readonly}
+            />
+            <Input
+                placeholder={t('avatar')}
+                value={avatar}
+                onChange={onChangeAvatar}
+                readOnly ={readonly}
             />
         </div>
     )

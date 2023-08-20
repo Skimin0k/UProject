@@ -21,6 +21,7 @@ export const ProfilePage = () => {
     const lastname = useSelector(getProfileProp('lastname'))
     const age = useSelector(getProfileProp('age'))
     const currency = useSelector(getProfileProp('currency'))
+    const avatar = useSelector(getProfileProp('avatar'))
     const isLoading = useSelector(getProfileIsLoading)
     const readonly = useSelector(getProfileReadonly)
     const error = useSelector(getProfileError)
@@ -36,6 +37,10 @@ export const ProfilePage = () => {
 
     const onChangeLastname = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(profileActions.updateProfile({lastname: event.target.value}))
+    }, [dispatch])
+
+    const onChangeAvatar = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        dispatch(profileActions.updateProfile({avatar: event.target.value}))
     }, [dispatch])
 
     const onChangeAge = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -54,11 +59,13 @@ export const ProfilePage = () => {
             firstname={firstname || ''}
             lastname={lastname || ''}
             age={age || 0}
+            avatar={avatar || ''}
             currency={currency as Currency || Currency.RUB}
             onChangeFirstname={onChangeFirstname}
             onChangeLastname={onChangeLastname}
             onChangeAge={onChangeAge}
             onChangeCurrency={onChangeCurrency}
+            onChangeAvatar={onChangeAvatar}
             isLoading={isLoading}
             error={error}
             readonly={readonly}

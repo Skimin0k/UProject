@@ -35,15 +35,13 @@ const ProfilePageHeader: FC<ProfilePageHeaderProps> = (props) => {
         >
             {
                 readonly
-                    ? <div>
-                        <Button
-                            onClick={onEdit}
-                            theme={ButtonThemes.OUTLINE}
-                        >
-                            {t('edit')}
-                        </Button>
-                    </div>
-                    :<div>
+                    ? <Button
+                        onClick={onEdit}
+                        theme={ButtonThemes.OUTLINE}
+                    >
+                        {t('edit')}
+                    </Button>
+                    :<>
                         <Button
                             onClick={onCancel}
                             theme={ButtonThemes.OUTLINE}
@@ -56,7 +54,7 @@ const ProfilePageHeader: FC<ProfilePageHeaderProps> = (props) => {
                         >
                             {t('save')}
                         </Button>
-                    </div>
+                    </>
 
             }
 
