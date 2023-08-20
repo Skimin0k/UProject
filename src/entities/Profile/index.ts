@@ -1,0 +1,5 @@
+export {getProfileProp} from './models/selectors/getProfileProp'
+export {fetchUserData} from './models/services/fetchUserData'
+export {updateProfileData} from './models/services/updateProfileData'
+export {profileActions, profileReducer} from './models/slices/ProfileSlice'
+export {default as ProfileCard} from './ui/ProfileCard/ProfileCard'

@@ -4,4 +4,14 @@
   border: none;
   border-bottom: var(--primary-color) solid 2px;
   color: var(--primary-color);
+  background: none;
+
+  &:read-only {
+    cursor: default;
+  }
+
+  &:focus:not([readonly]) {
+    border-bottom: var(--inverted-primary-color) solid 2px;
+    color: var(--inverted-primary-color);
+  }
 }

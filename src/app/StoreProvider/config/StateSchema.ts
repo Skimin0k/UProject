@@ -33,5 +33,6 @@ export interface ThunkExtraArgs {
 }
 export interface ThunkApi {
     rejectValue: string,
-    extra: ThunkExtraArgs
+    extra: ThunkExtraArgs,
+    state: StateSchema
 }

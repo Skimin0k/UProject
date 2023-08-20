@@ -2,9 +2,9 @@ import {createAsyncThunk} from '@reduxjs/toolkit'
 import {ThunkApi} from 'app/StoreProvider/config/StateSchema'
 import {__UserData__} from 'shared/const/constants'
 
-import {ProfileSchema} from '../../models/types/ProfileSchema'
+import {Profile} from '../../models/types/ProfileSchema'
 
-export const fetchUserData = createAsyncThunk<ProfileSchema, void, ThunkApi>
+export const fetchUserData = createAsyncThunk<Profile, void, ThunkApi>
 ('profile/fetchUserData',async (_, thunkApi) => {
     const {
         rejectWithValue,
@@ -13,7 +13,7 @@ export const fetchUserData = createAsyncThunk<ProfileSchema, void, ThunkApi>
         }
     } = thunkApi
     try {
-        const response = await api.get<ProfileSchema>('profile', {
+        const response = await api.get<Profile>('profile', {
             headers: {
                 authorization: localStorage.getItem(__UserData__)
             }

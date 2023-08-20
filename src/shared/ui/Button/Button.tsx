@@ -4,23 +4,26 @@ import classNames from 'shared/lib/classNames/classNames'
 import styles from './Button.module.scss'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
-    className?: string
+    className?: string,
+    theme: ButtonThemes
 }
 
-enum ButtonThemes {
-    CLEARED='clear'
+export enum ButtonThemes {
+    CLEARED='clear',
+    OUTLINE='outline'
 }
 
 const Button: FC<ButtonProps> = (props) => {
     const {
         className,
         children,
-        ...rest
+        onClick,
+        theme = ButtonThemes.CLEARED
     } = props
     return (
         <button
-            className={classNames(styles.Button, {}, [className, styles[ButtonThemes.CLEARED]])}
-            {...rest}
+            className={classNames(styles.Button, {}, [className, styles[ButtonThemes.CLEARED], styles[theme]])}
+            onClick={onClick}
         >
             {children}
         </button>
