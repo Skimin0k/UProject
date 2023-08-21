@@ -31,8 +31,8 @@ export interface ThunkExtraArgs {
     api: AxiosInstance,
     navigate?: NavigateFunction
 }
-export interface ThunkApi {
-    rejectValue: string,
+export interface ThunkApi<T> {
+    rejectValue: T,
     extra: ThunkExtraArgs,
     state: StateSchema
 }

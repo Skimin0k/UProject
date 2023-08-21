@@ -8,7 +8,7 @@ interface LoginUserAuthData {
 }
 
 export const submitUserAuthData =
-    createAsyncThunk<User, LoginUserAuthData, ThunkApi
+    createAsyncThunk<User, LoginUserAuthData, ThunkApi<string>
     >('auth/submitUserAuthData', async (
         authData,
         thunkAPI

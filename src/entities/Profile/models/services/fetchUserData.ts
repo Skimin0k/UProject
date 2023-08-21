@@ -4,7 +4,7 @@ import {__UserData__} from 'shared/const/constants'
 
 import {Profile} from '../../models/types/ProfileSchema'
 
-export const fetchUserData = createAsyncThunk<Profile, void, ThunkApi>
+export const fetchUserData = createAsyncThunk<Profile, void, ThunkApi<string>>
 ('profile/fetchUserData',async (_, thunkApi) => {
     const {
         rejectWithValue,
