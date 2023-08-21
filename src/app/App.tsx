@@ -1,8 +1,8 @@
 import React, {Suspense, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import AppRouter from 'app/AppRouter/AppRouter'
 import ErrorBoundary from 'app/ErrorBoundary/ErrorBoundary'
-import {userActions} from 'entities/User'
+import {getUserInit, userActions} from 'entities/User'
 import {useTheme} from 'shared/theme'
 import Navbar from 'widgets/Navbar/Navbar'
 
@@ -11,6 +11,7 @@ import classNames from '../shared/lib/classNames/classNames'
 const App = () => {
     const {theme} = useTheme()
     const dispatch = useDispatch()
+    const isInit = useSelector(getUserInit)
     useEffect(() => {
         dispatch(userActions.initAuthData())
     }, [dispatch])
@@ -20,7 +21,7 @@ const App = () => {
             <Suspense fallback={'Loading'}>
                 <ErrorBoundary>
                     <Navbar/>
-                    <AppRouter/>
+                    {isInit && <AppRouter/>}
                     <div id={'modal-root'}/>
                 </ErrorBoundary>
             </Suspense>

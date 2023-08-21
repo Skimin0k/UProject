@@ -1,3 +1,5 @@
-export {userActions, userReducer} from 'entities/User/slices/userSlice'
-export type {User, UserSchema} from 'entities/User/types/UserSchema'
+export {getAuthData} from './selectors/getAuthData'
+export {getUserInit} from './selectors/getUserInit'
+export {userActions, userReducer} from './slices/userSlice'
+export type {User, UserSchema} from './types/UserSchema'
 
