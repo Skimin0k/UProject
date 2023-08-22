@@ -16,6 +16,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
             chunkFilename: '[name].[contenthash:8].bundle.js',
             path: paths.build,
             clean: true,
+            publicPath: '/'
         },
         module: {
             rules: buildLoaders(options),

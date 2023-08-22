@@ -1,4 +1,4 @@
-import React, {ReactNode, Suspense, useCallback} from 'react'
+import React, {memo, ReactNode, Suspense, useCallback} from 'react'
 import {useSelector} from 'react-redux'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {getAuthData} from 'entities/User'
@@ -37,4 +37,4 @@ const AppRouter = () => {
     )
 }
 
-export default AppRouter
+export default memo(AppRouter)
