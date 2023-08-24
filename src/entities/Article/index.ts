@@ -1,0 +1,8 @@
+export {getArticleData} from './model/selectors/getArticleData'
+export {getArticleError} from './model/selectors/getArticleError'
+export {getArticleIsLoading} from './model/selectors/getArticleIsLoading'
+export {getArticleSlice} from './model/selectors/getArticleSlice'
+export {fetchArticleData} from './model/services/fetchArticleData'
+export type {ArticleSliceStateSchema} from './model/Slices/ArticleSlice'
+export {articleActions, articleReducer, articleReducerName} from './model/Slices/ArticleSlice'
+export type {Article, BlockType} from './model/types/article'
