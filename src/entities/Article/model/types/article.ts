@@ -3,29 +3,29 @@ export enum BlockType {
     CODE='CODE',
     IMAGE='IMAGE',
 }
-interface Block {
+export interface Block {
     id: string,
     type: BlockType
 }
 
-interface TextBlock extends Block{
+export interface TextBlock extends Block{
     type: BlockType.TEXT,
     title: string,
     paragraphs: string[]
 }
 
-interface CodeBlock extends Block{
+export interface CodeBlock extends Block{
     type: BlockType.CODE,
     code: string
 }
 
-interface ImageBlock extends Block{
+export interface ImageBlock extends Block{
     type: BlockType.IMAGE,
     src: string,
     title: string
 }
 
-type Blocks = TextBlock | CodeBlock | ImageBlock
+export type Blocks = TextBlock | CodeBlock | ImageBlock
 
 export interface Article {
     id: string,
