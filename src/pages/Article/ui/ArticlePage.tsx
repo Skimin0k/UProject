@@ -10,6 +10,9 @@ import {
     getArticleIsLoading
 } from 'entities/Article'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
+import {Skeleton} from 'shared/ui/Skeleton/Skeleton'
+
+import styles from './ArticlePage.module.scss'
 
 export const ArticlePage = () => {
     const dispatch = useAppDispatch()
@@ -22,11 +25,17 @@ export const ArticlePage = () => {
         if(id) dispatch(fetchArticleData(id))
     }, [dispatch, id])
 
-    let content: JSX.Element = <div/>
+    let content: JSX.Element | undefined
 
     if(isLoading){
         // eslint-disable-next-line i18next/no-literal-string
-        content = <div> article is loading </div>
+        content = <>
+            <Skeleton height={'100px'} width={'100px'} border={'50%'}/>
+            <Skeleton height={'50px'} width={'30%'}/>
+            <Skeleton height={'150px'} width={'100%'}/>
+            <Skeleton height={'160px'} width={'100%'}/>
+            <Skeleton height={'100px'} width={'100%'}/>
+        </>
     }
 
     if(error){
@@ -39,8 +48,10 @@ export const ArticlePage = () => {
     }
 
     return <LoadableModule reducer={articleReducer} name={articleReducerName}>
-        {
-            content
-        }
+        <div className={styles.ArticlePage}>
+            {
+                content
+            }
+        </div>
     </LoadableModule>
 }
