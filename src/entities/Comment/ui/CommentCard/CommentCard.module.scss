@@ -1,0 +1,23 @@
+.CommentCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 60px;
+  gap: 10px;
+}
+
+.Comment {
+  &Header {
+    display: flex;
+    align-items: center;
+  }
+
+  &User {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  &Text{
+
+  }
+}

@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, { memo} from 'react'
 import classNames from 'shared/lib/classNames/classNames'
 
 import {CodeBlock} from '../../../model/types/article'
@@ -10,16 +10,18 @@ interface ArticleCodeProps {
     block: CodeBlock
 }
 
-export const ArticleCode: FC<ArticleCodeProps> = (props) => {
+export const ArticleCode = memo((props:ArticleCodeProps) => {
     const {
         className,
-        children
+        block
     } = props
     return (
         <div
             className={classNames(styles.ArticleCode, {}, [className])}
         >
-            {children}
+            <pre>
+                {block.code}
+            </pre>
         </div>
     )
-}
+})

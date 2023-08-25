@@ -6,6 +6,7 @@ import {CounterSchema} from 'entities/Counter'
 import {ProfileSchema} from 'entities/Profile'
 import {UserSchema} from 'entities/User'
 import {AuthSchema} from 'feature/Authorization'
+import {articleCommentsReducerName, ArticleDetailsCommentsSchema} from 'pages/Article'
 
 export interface StateSchema {
     counter: CounterSchema,
@@ -14,7 +15,8 @@ export interface StateSchema {
     //асинхронные редюсеры
     auth?: AuthSchema,
     profile?: ProfileSchema,
-    [articleReducerName]?: ArticleSliceStateSchema
+    [articleReducerName]?: ArticleSliceStateSchema,
+    [articleCommentsReducerName]?: ArticleDetailsCommentsSchema
 }
 
 export interface ReducerManager {

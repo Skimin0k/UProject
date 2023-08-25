@@ -1,5 +1,6 @@
-import React, {FC} from 'react'
+import React, { memo, useMemo} from 'react'
 import classNames from 'shared/lib/classNames/classNames'
+import Text from 'shared/ui/Text/Text'
 
 import {TextBlock} from '../../../model/types/article'
 
@@ -10,16 +11,20 @@ interface ArticleTextProps {
     block: TextBlock
 }
 
-export const ArticleText: FC<ArticleTextProps> = (props) => {
+export const ArticleText = memo((props: ArticleTextProps) => {
     const {
         className,
-        children
+        block
     } = props
+    const renderParagraph = useMemo(() => block.paragraphs.map(paragraph => <Text key={paragraph} text={paragraph}/>), [block.paragraphs])
     return (
         <div
             className={classNames(styles.ArticleText, {}, [className])}
         >
-            {children}
+            <Text title={block.title}/>
+            {
+                renderParagraph
+            }
         </div>
     )
-}
+})

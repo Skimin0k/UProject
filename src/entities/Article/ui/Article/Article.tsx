@@ -1,10 +1,11 @@
-import React, {FC, JSX, useEffect} from 'react'
+import React, { JSX, memo, useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {useParams} from 'react-router-dom'
 import {useAppDispatch} from 'app/StoreProvider'
 import {ArticleText} from 'entities/Article/ui/Blocks/ArticleText/ArticleText'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
+import {Image} from 'shared/ui/Image/Image'
 import {Skeleton} from 'shared/ui/Skeleton/Skeleton'
+import Text from 'shared/ui/Text/Text'
 
 import {getArticleData} from '../../model/selectors/getArticleData'
 import {getArticleError} from '../../model/selectors/getArticleError'
@@ -18,7 +19,8 @@ import {ArticleImage} from '../Blocks/ArticleImage/ArticleImage'
 import styles from './Article.module.scss'
 
 interface ArticleProps {
-    className?: string
+    className?: string,
+    id: string
 }
 
 const Block = {
@@ -29,11 +31,11 @@ const Block = {
 
 const renderBlock = (block: Block) => Block[block.type](block)
 
-export const Article: FC<ArticleProps> = (props) => {
+export const Article= memo((props: ArticleProps) => {
+    const {id} = props
     const dispatch = useAppDispatch()
     const isLoading = useSelector(getArticleIsLoading)
     const error = useSelector(getArticleError)
-    const {id} = useParams<{id: string}>()
     const article = useSelector(getArticleData)
 
     useEffect(() => {
@@ -45,11 +47,13 @@ export const Article: FC<ArticleProps> = (props) => {
     if(isLoading){
         // eslint-disable-next-line i18next/no-literal-string
         content = <>
-            <Skeleton height={'100px'} width={'100px'} border={'50%'}/>
-            <Skeleton height={'50px'} width={'30%'}/>
-            <Skeleton height={'150px'} width={'100%'}/>
-            <Skeleton height={'160px'} width={'100%'}/>
-            <Skeleton height={'100px'} width={'100%'}/>
+            <div className={styles.Article_Icon}>
+                <Skeleton height={'100px'} width={'100px'} border={'50%'}/><br/>
+            </div>
+            <Skeleton height={'50px'} width={'30%'}/><br/>
+            <Skeleton height={'150px'} width={'100%'}/><br/>
+            <Skeleton height={'160px'} width={'100%'}/><br/>
+            <Skeleton height={'100px'} width={'100%'}/><br/>
         </>
     }
 
@@ -59,15 +63,27 @@ export const Article: FC<ArticleProps> = (props) => {
     }
 
     if (article) {
-        content = <>{article?.blocks?.map(renderBlock)}</>
+        content = <>
+            <div className={styles.Article_Icon}>
+                {/* eslint-disable-next-line i18next/no-literal-string */}
+                <Image src={article?.img} alt={article?.img} size={'150px'} style={{background: 'black'}}/>
+            </div>
+            <div className={styles.Article_Stats}>
+                <Text title={article?.subtitle}/>
+                <Text text={article?.createdAt}/>
+                <Text text={String(article?.views)}/>
+            </div>
+            {article?.blocks?.map(renderBlock)}
+        </>
     }
     return (
         <LoadableModule reducer={articleReducer} name={articleReducerName}>
             <div className={styles.Article}>
+
                 {
                     content
                 }
             </div>
         </LoadableModule>
     )
-}
+})

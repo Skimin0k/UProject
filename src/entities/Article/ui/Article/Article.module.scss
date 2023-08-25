@@ -1,7 +1,15 @@
 .Article {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 50px;
-  padding: 5% 10%;
+  gap: 30px;
+
+  &_Icon {
+    align-self: center;
+  }
+
+  &_Stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 }

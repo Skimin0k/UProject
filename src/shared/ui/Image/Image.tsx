@@ -12,7 +12,7 @@ export const Image = memo((props:ImageProps) => {
     } = props
     const InlineStyles: CSSProperties = {
         width: size,
-        height: size
+        height: size,
     }
     return <img
         src={src}
