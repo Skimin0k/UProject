@@ -13,6 +13,7 @@ import {
     ProfileCard,
     profileReducer
 } from 'entities/Profile'
+import {getAuthData} from 'entities/User'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
 
 import ProfilePageHeader from './ProfilePageHeader/ProfilePageHeader'
@@ -28,6 +29,7 @@ export const ProfilePage = () => {
     const error = useSelector(getProfileError)
     const dispatch = useAppDispatch()
     const {id} = useParams<{id: string}>()
+    const authData = useSelector(getAuthData)
 
     useEffect(() => {
         if(id) dispatch(fetchUserData(id))
@@ -56,7 +58,7 @@ export const ProfilePage = () => {
 
     // eslint-disable-next-line i18next/no-literal-string
     return <LoadableModule name={'profile'} reducer={profileReducer}>
-        <ProfilePageHeader/>
+        {authData?.id == id && <ProfilePageHeader/>}
         <ProfileCard
             firstname={firstname || ''}
             lastname={lastname || ''}

@@ -18,8 +18,9 @@ export const updateProfileData = createAsyncThunk<Profile, void, ThunkApi<Valida
     try {
         const profile = getProfileForm(getState())
         const errors = validateProfileData(profile)
+        if(!profile) throw new Error()
         if(errors.length) return rejectWithValue(errors)
-        const response = await api.post<Profile>('profile', profile)
+        const response = await api.put<Profile>('profile/'+profile.id, profile)
         return response.data
     } catch (e) {
         return rejectWithValue([ValidateDataErrors.NO_DATA])

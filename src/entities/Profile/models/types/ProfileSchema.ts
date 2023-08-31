@@ -7,6 +7,7 @@ export enum ValidateDataErrors {
     INVALIDATE_COUNTRY='INVALIDATE_COUNTRY',
 }
 export interface Profile {
+    id: string,
     first: string,
     lastname: string,
     age: number,
