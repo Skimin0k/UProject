@@ -4,8 +4,8 @@ import {__UserData__} from 'shared/const/constants'
 
 import {Profile} from '../../models/types/ProfileSchema'
 
-export const fetchUserData = createAsyncThunk<Profile, void, ThunkApi<string>>
-('profile/fetchUserData',async (_, thunkApi) => {
+export const fetchUserData = createAsyncThunk<Profile, string, ThunkApi<string>>
+('profile/fetchUserData',async (id, thunkApi) => {
     const {
         rejectWithValue,
         extra: {
@@ -13,10 +13,10 @@ export const fetchUserData = createAsyncThunk<Profile, void, ThunkApi<string>>
         }
     } = thunkApi
     try {
-        const response = await api.get<Profile>('profile', {
+        const response = await api.get<Profile>('profile/'+id, {
             headers: {
                 authorization: localStorage.getItem(__UserData__)
-            }
+            },
         })
         return response.data
     } catch (e) {

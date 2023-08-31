@@ -38,16 +38,30 @@
       "password": "123"
     }
   ],
-  "profile": {
-    "first": "Jibril",
-    "lastname": "Flugel",
-    "age": 68,
-    "currency": "USD",
-    "country": "China",
-    "city": "Pekin",
-    "username": "admin",
-    "avatar": "https://rare-gallery.com/thumbs/4598588-anime-no-game-no-life-jibril-anime-girls.jpg"
-  },
+  "profile": [
+    {
+      "id": "1",
+      "first": "Jibril",
+      "lastname": "Flugel",
+      "age": 68,
+      "currency": "USD",
+      "country": "China",
+      "city": "Pekin",
+      "username": "admin",
+      "avatar": "https://rare-gallery.com/thumbs/4598588-anime-no-game-no-life-jibril-anime-girls.jpg"
+    },
+    {
+      "id": "2",
+      "first": "JS",
+      "lastname": "Language",
+      "age": 10,
+      "currency": "USD",
+      "country": "USA",
+      "city": "Pekin",
+      "username": "js",
+      "avatar": "https://teknotower.com/wp-content/uploads/2020/11/js.png"
+    }
+  ],
   "articles": [
     {
       "id": "1",

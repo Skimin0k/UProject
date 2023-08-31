@@ -4,7 +4,7 @@ import {__UserData__} from 'shared/const/constants'
 
 import {Article} from '../types/article'
 
-export const fetchArticleData = createAsyncThunk<Article[], Article['id'], ThunkApi<string>>(
+export const fetchArticleData = createAsyncThunk<Article, Article['id'], ThunkApi<string>>(
     'article/fetch_data',
     async (id, thunkApi) => {
         const {
@@ -14,12 +14,9 @@ export const fetchArticleData = createAsyncThunk<Article[], Article['id'], Thunk
             }
         } = thunkApi
         try {
-            const response = await api.get<Article[]>('articles', {
+            const response = await api.get<Article>('articles/'+id, {
                 headers: {
                     authorization: localStorage.getItem(__UserData__)
-                },
-                params: {
-                    id
                 }
             })
 

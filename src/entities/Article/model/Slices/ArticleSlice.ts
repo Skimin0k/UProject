@@ -28,7 +28,7 @@ const ArticleSlice = createSlice({
             state.error = action.payload
         })
         builder.addCase(fetchArticleData.fulfilled, (state, action) => {
-            state.data = action.payload[0]
+            state.data = action.payload
             state.isLoading = false
         })
     }

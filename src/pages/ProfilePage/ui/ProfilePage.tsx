@@ -1,5 +1,6 @@
 import {ChangeEvent, useCallback, useEffect} from 'react'
 import {useSelector} from 'react-redux'
+import {useParams} from 'react-router-dom'
 import {useAppDispatch} from 'app/StoreProvider'
 import {Currency} from 'entities/Currency'
 import {
@@ -26,10 +27,11 @@ export const ProfilePage = () => {
     const readonly = useSelector(getProfileReadonly)
     const error = useSelector(getProfileError)
     const dispatch = useAppDispatch()
+    const {id} = useParams<{id: string}>()
 
     useEffect(() => {
-        dispatch(fetchUserData())
-    }, [dispatch])
+        if(id) dispatch(fetchUserData(id))
+    }, [dispatch, id])
 
     const onChangeFirstname = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(profileActions.updateProfile({first: event.target.value}))
