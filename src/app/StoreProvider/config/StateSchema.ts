@@ -6,6 +6,7 @@ import {CounterSchema} from 'entities/Counter'
 import {ProfileSchema} from 'entities/Profile'
 import {UserSchema} from 'entities/User'
 import {AuthSchema} from 'feature/Authorization'
+import {articlesListReducerName, ArticlesListStateSchema} from 'pages/AritclesListPage/model/slices/ArticlesList'
 import {
     articleAddCommentName,
     articleAddCommentSliceStateSchema,
@@ -22,7 +23,8 @@ export interface StateSchema {
     profile?: ProfileSchema,
     [articleReducerName]?: ArticleSliceStateSchema,
     [articleCommentsReducerName]?: ArticleDetailsCommentsSchema,
-    [articleAddCommentName]?: articleAddCommentSliceStateSchema
+    [articleAddCommentName]?: articleAddCommentSliceStateSchema,
+    [articlesListReducerName]?: ArticlesListStateSchema
 }
 
 export interface ReducerManager {
