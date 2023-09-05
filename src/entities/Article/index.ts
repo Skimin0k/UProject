@@ -1,4 +1,7 @@
 export {getArticleData} from './model/selectors/getArticleData'
 export type {ArticleSliceStateSchema} from './model/Slices/ArticleSlice'
 export {articleReducerName} from './model/Slices/ArticleSlice'
+export type {Article as ArticleType} from './model/types/article'
+export {ArticlesListView} from './model/types/article'
 export {Article} from './ui/Article/Article'
+export {ArticleList} from './ui/ArticleList/ArticleList'

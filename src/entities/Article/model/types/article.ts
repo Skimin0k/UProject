@@ -1,3 +1,5 @@
+import {User} from 'entities/User'
+
 export enum BlockType {
     TEXT='TEXT',
     CODE='CODE',
@@ -34,6 +36,12 @@ export interface Article {
     img: string,
     views: number,
     createdAt: string,
+    user: User,
     type: string[],
     blocks: Blocks[]
+}
+
+export enum ArticlesListView {
+    PLATE='PLATE',
+    LIST='LIST'
 }

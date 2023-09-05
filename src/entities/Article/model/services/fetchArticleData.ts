@@ -17,6 +17,9 @@ export const fetchArticleData = createAsyncThunk<Article, Article['id'], ThunkAp
             const response = await api.get<Article>('articles/'+id, {
                 headers: {
                     authorization: localStorage.getItem(__UserData__)
+                },
+                params: {
+                    _expand: 'user'
                 }
             })
 

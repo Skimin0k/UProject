@@ -33,8 +33,8 @@ const Text: FC<TextProps> = (props) => {
         <div
             className={classNames(styles.Text, {[styles[theme]]: true}, [className])}
         >
-            {title && <div className={classNames(styles.title, {}, [styles[align]])}>{title}</div>}
-            {text && <div className={classNames(styles.text, {}, [styles[align]])}>{text}</div>}
+            {title && <p className={classNames(styles.title, {}, [styles[align]])}>{title}</p>}
+            {text && <p className={classNames(styles.text, {}, [styles[align]])}>{text}</p>}
         </div>
     )
 }
