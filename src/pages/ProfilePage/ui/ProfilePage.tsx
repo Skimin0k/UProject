@@ -72,7 +72,7 @@ export const ProfilePage = () => {
             onChangeAvatar={onChangeAvatar}
             isLoading={isLoading}
             error={error}
-            readonly={readonly}
+            readOnly={readonly}
         />
     </LoadableModule>
 }

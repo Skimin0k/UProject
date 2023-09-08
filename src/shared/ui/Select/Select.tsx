@@ -11,7 +11,7 @@ interface SelectProps extends Omit<React.InputHTMLAttributes<HTMLSelectElement>,
     className?: string,
     options: OptionType[],
     selected?: string,
-    readonly?: boolean
+    readOnly?: boolean
 }
 
 export const Select = memo((props: SelectProps) => {

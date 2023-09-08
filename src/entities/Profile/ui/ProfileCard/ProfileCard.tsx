@@ -25,7 +25,7 @@ interface ProfileCardProps {
 
     isLoading?: boolean,
     error?: string,
-    readonly?: boolean
+    readOnly?: boolean
 }
 
 const ProfileCard: FC<ProfileCardProps> = (props) => {
@@ -44,7 +44,7 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
         onChangeAvatar,
         isLoading,
         error,
-        readonly
+        readOnly
     } = props
 
     if (isLoading) {
@@ -83,30 +83,30 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
                 placeholder={t('firstname')}
                 value={firstname}
                 onChange={onChangeFirstname}
-                readOnly={readonly}
+                readOnly={readOnly}
             />
             <Input
                 placeholder={t('lastname')}
                 value={lastname}
                 onChange={onChangeLastname}
-                readOnly ={readonly}
+                readOnly ={readOnly}
             />
             <Input
                 placeholder={t('age')}
                 value={age}
                 onChange={onChangeAge}
-                readOnly ={readonly}
+                readOnly ={readOnly}
             />
             <CurrencySelector
                 selected={currency}
                 onChange={onChangeCurrency}
-                readOnly={readonly}
+                readOnly={readOnly}
             />
             <Input
                 placeholder={t('avatar')}
                 value={avatar}
                 onChange={onChangeAvatar}
-                readOnly ={readonly}
+                readOnly ={readOnly}
             />
         </div>
     )
