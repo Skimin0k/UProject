@@ -31,7 +31,10 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     }, [article.id, navigate])
 
     if(view === ArticlesListView.PLATE) {
-        return <div className={classNames(styles.Card, {}, [className])}>
+        return <div
+            className={classNames(styles.Card, {}, [className])}
+            onClick={handleClick}
+        >
             <div className={styles.content}>
                 <Image size={'100%'} src={article.img} alt={article.title}/>
                 <Text className={styles.Date} text={article.createdAt}/>
