@@ -20,7 +20,7 @@ const ArticlesListAdapter = createEntityAdapter<ArticleType>({
 const initialView = (localStorage.getItem(__LOCAL_STORAGE_ARTICLES_LIST_VIEW) as ArticlesListView) ||  ArticlesListView.PLATE
 const limitConfig: Record<ArticlesListView, number> = {
     [ArticlesListView.PLATE]: 5,
-    [ArticlesListView.LIST]: 2,
+    [ArticlesListView.LIST]: 3,
 }
 
 const initialState: ArticlesListStateSchema = {

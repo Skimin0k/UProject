@@ -23,13 +23,13 @@ interface ArticleProps {
     id: string
 }
 
-const Block = {
+const BlockElement = {
     [BlockType.CODE]: (block: Block) => <ArticleCode key={block.id} block={block as CodeBlock}/>,
     [BlockType.TEXT]: (block: Block) => <ArticleText key={block.id} block={block as TextBlock}/>,
     [BlockType.IMAGE]: (block: Block) => <ArticleImage key={block.id} block={block as ImageBlock}/>,
 }
 
-const renderBlock = (block: Block) => Block[block.type](block)
+const renderBlock = (block: Block) => BlockElement[block.type](block)
 
 export const Article= memo((props: ArticleProps) => {
     const {id} = props

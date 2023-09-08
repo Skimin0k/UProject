@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
+import React, {useCallback, useRef} from 'react'
 import {useSelector} from 'react-redux'
 import {useAppDispatch} from 'app/StoreProvider'
 import {ArticleList} from 'entities/Article'
 import {ArticlesListViewSelector} from 'feature/ArticlesListViewSelector/ArticlesListViewSelector'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
+import {useIntersectionObserver} from 'shared/lib/useIntersectionObserver/useIntersectionObserver'
 
-import {fetchArticlesList} from '../model/services/fetchArticlesList'
+import {getNextArticlesListPage} from '../model/services/getNextArticlesListPage'
 import {
     articlesListReducer,
     articlesListReducerName,
@@ -18,10 +19,18 @@ export const ArticlesListPage = () => {
     const articlesList = useSelector(getArticlesList.selectAll)
     const isLoading = useSelector(getArticlesListIsLoading)
     const listView = useSelector(getArticlesListView)
+    const targetElement = useRef() as React.MutableRefObject<HTMLDivElement>
+    const rootElement = useRef() as React.MutableRefObject<HTMLDivElement>
 
-    useEffect(() => {
-        dispatch(fetchArticlesList())
+    const onIntersecting = useCallback(() => {
+        dispatch(getNextArticlesListPage())
     }, [dispatch])
+
+    useIntersectionObserver({
+        callback: onIntersecting,
+        targetElement,
+        rootElement
+    })
 
     return <div>
         <LoadableModule name={articlesListReducerName} reducer={articlesListReducer}>
@@ -31,6 +40,7 @@ export const ArticlesListPage = () => {
                 view={listView}
                 isLoading={isLoading || false}
             />
+            <div ref={targetElement}/>
         </LoadableModule>
     </div>
 }

@@ -1,0 +1,33 @@
+.SkeletonArticleListItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.SkeletonArticlePlateItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.Skeleton {
+  margin: 5%;
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  border: solid 1px var(--primary-color);
+  border-radius: 15px;
+}
+
+.SkeletonHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.SkeletonTags {
+  display: flex;
+  gap: 20px;
+}
