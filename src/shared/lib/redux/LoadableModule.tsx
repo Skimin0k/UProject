@@ -6,22 +6,32 @@ import {ReduxStoreWithManager, StateSchemaKey} from 'app/StoreProvider/config/St
 interface LoadableModuleProps {
     children: ReactNode,
     name: StateSchemaKey,
-    reducer: Reducer
+    reducer: Reducer,
+    saveAfterUnmount?: boolean
 }
 
 const LoadableModule :FC<LoadableModuleProps> = (props) => {
-    const {children,name, reducer} = props
+    const {
+        children,
+        name, 
+        reducer, 
+        saveAfterUnmount = false
+    } = props
     const dispatch = useDispatch()
     const store = useStore() as ReduxStoreWithManager
-    
     useEffect(() => {
-        store.reducerManager.add(name, reducer)
-        dispatch({type: `@INIT ${name} storage`})
-        return () => {
-            store.reducerManager.remove(name)
-            dispatch({type: `@DESTROY ${name} storage`})
+        const mountedReducers = store.reducerManager.getReducerMap()
+        if(!mountedReducers[name]) {
+            store.reducerManager.add(name, reducer)
+            dispatch({type: `@INIT ${name} storage`})
         }
-    }, [dispatch, name, reducer, store.reducerManager])
+        return () => {
+            if(mountedReducers[name] && !saveAfterUnmount) {
+                store.reducerManager.remove(name)
+                dispatch({type: `@DESTROY ${name} storage`})
+            }
+        }
+    }, [dispatch, name, reducer, saveAfterUnmount, store.reducerManager])
     
     return <>{children}</>
 }

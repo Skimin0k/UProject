@@ -1,6 +1,7 @@
 import React, {FC, useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
 import { useSelector} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 import {useAppDispatch} from 'app/StoreProvider'
 import classNames from 'shared/lib/classNames/classNames'
 import BubbleButton from 'shared/ui/BubbleButton/BubbleButton'
@@ -38,13 +39,17 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
     const onChangePassword = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
         dispatch(authActions.setPassword(event.target.value))
     }, [dispatch])
+    const navigate = useNavigate()
     const onSubmit = useCallback(() => {
         if (username && password)
             dispatch(submitUserAuthData({
-                username,
-                password
+                authData: {
+                    username,
+                    password
+                },
+                navigate
             }))
-    }, [dispatch, password, username])
+    }, [dispatch, navigate, password, username])
     return (
         <div
             className={classNames(styles.LoginForm, {}, [

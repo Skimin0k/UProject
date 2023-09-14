@@ -33,7 +33,7 @@ export const ArticlesListPage = () => {
     })
 
     return <div>
-        <LoadableModule name={articlesListReducerName} reducer={articlesListReducer}>
+        <LoadableModule name={articlesListReducerName} reducer={articlesListReducer} saveAfterUnmount>
             <ArticlesListViewSelector/>
             <ArticleList
                 articles={articlesList}

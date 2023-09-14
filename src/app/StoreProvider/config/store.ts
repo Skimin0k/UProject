@@ -1,5 +1,4 @@
 import {useDispatch} from 'react-redux'
-import {NavigateFunction} from 'react-router/dist/lib/hooks'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
 import {counterReducer} from 'entities/Counter'
 import {userReducer} from 'entities/User'
@@ -11,7 +10,6 @@ import {StateSchema} from './StateSchema'
 export const configureReduxStore = (
     initialState?: StateSchema,
     asyncReducers?:ReducersMapObject<StateSchema>,
-    navigate?: NavigateFunction
 ) => {
     const rootReducer : ReducersMapObject<StateSchema> = {
         ...asyncReducers,
@@ -32,8 +30,7 @@ export const configureReduxStore = (
             return getDefaultMiddleware({
                 thunk: {
                     extraArgument: {
-                        api: $api,
-                        navigate
+                        api: $api
                     }
                 }
             })

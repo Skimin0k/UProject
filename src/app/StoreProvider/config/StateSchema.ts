@@ -1,4 +1,3 @@
-import {NavigateFunction} from 'react-router/dist/lib/hooks'
 import {AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject} from '@reduxjs/toolkit'
 import { AxiosInstance } from 'axios'
 import { articleReducerName, ArticleSliceStateSchema} from 'entities/Article'
@@ -41,7 +40,6 @@ export interface ReduxStoreWithManager extends EnhancedStore<StateSchema>{
 
 export interface ThunkExtraArgs {
     api: AxiosInstance,
-    navigate?: NavigateFunction
 }
 export interface ThunkApi<T> {
     rejectValue: T,
