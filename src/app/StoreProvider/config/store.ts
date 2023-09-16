@@ -2,6 +2,7 @@ import {useDispatch} from 'react-redux'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
 import {counterReducer} from 'entities/Counter'
 import {userReducer} from 'entities/User'
+import {UIReducer} from 'feature/UI'
 import {$api} from 'shared/config/api/api'
 
 import {createReducerManager} from './ReducerManager'
@@ -17,6 +18,7 @@ export const configureReduxStore = (
 
         counter: counterReducer,
         user: userReducer,
+        ui: UIReducer
     }
 
     const reducerManager = createReducerManager(rootReducer)

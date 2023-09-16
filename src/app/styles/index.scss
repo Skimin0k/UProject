@@ -4,9 +4,10 @@
 @import "themes/dark";
 
 .app {
-  min-height: 100vh;
   transition: background-color 0.2s;
   background: var(--bg-color);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .global {

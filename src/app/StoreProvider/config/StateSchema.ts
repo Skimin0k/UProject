@@ -5,6 +5,7 @@ import {CounterSchema} from 'entities/Counter'
 import {ProfileSchema} from 'entities/Profile'
 import {UserSchema} from 'entities/User'
 import {AuthSchema} from 'feature/Authorization'
+import {UISliceStateSchema} from 'feature/UI'
 import {articlesListReducerName, ArticlesListStateSchema} from 'pages/AritclesListPage/model/slices/ArticlesList'
 import {
     articleAddCommentName,
@@ -16,6 +17,7 @@ import {
 export interface StateSchema {
     counter: CounterSchema,
     user: UserSchema,
+    ui: UISliceStateSchema
 
     //асинхронные редюсеры
     auth?: AuthSchema,
