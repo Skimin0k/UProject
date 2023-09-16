@@ -16,6 +16,7 @@ import {submitAddComment} from 'pages/Article/model/services/submitAddComment'
 import {articleAddCommentActions, articleAddCommentReducer} from 'pages/Article/model/slices/articleAddCommentSlice'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
 import Text from 'shared/ui/Text/Text'
+import {PageWrapper} from 'widgets/Page'
 
 import {getArticleCommentsIsLoading} from '../model/selectors/comments'
 import {
@@ -54,9 +55,9 @@ export const ArticlePage = () => {
         </div>
     }
 
-    return <div className={styles.ArticlePage}>
-        <LoadableModule name={articleCommentsReducerName} reducer={articleCommentsReducer}>
-            <LoadableModule name={articleAddCommentName} reducer={articleAddCommentReducer}>
+    return <LoadableModule name={articleCommentsReducerName} reducer={articleCommentsReducer}>
+        <LoadableModule name={articleAddCommentName} reducer={articleAddCommentReducer}>
+            <PageWrapper className={styles.ArticlePage}>
                 <Article id={id}/>
                 <Text title={t('Комментарии')} className={styles.CommentTitle}/>
                 <AddCommentForm
@@ -70,7 +71,8 @@ export const ArticlePage = () => {
                     comments={comments}
                     isLoading={commentsIsLoading || false}
                 />
-            </LoadableModule>
+            </PageWrapper>
         </LoadableModule>
-    </div>
+    </LoadableModule>
+
 }

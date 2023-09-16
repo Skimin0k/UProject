@@ -15,8 +15,11 @@ import {
 } from 'entities/Profile'
 import {getAuthData} from 'entities/User'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
+import {PageWrapper} from 'widgets/Page'
 
 import ProfilePageHeader from './ProfilePageHeader/ProfilePageHeader'
+
+import styles from 'pages/Article/ui/ArticlePage.module.scss'
 
 export const ProfilePage = () => {
     const firstname = useSelector(getProfileProp('first'))
@@ -58,21 +61,23 @@ export const ProfilePage = () => {
 
     // eslint-disable-next-line i18next/no-literal-string
     return <LoadableModule name={'profile'} reducer={profileReducer}>
-        {authData?.id == id && <ProfilePageHeader/>}
-        <ProfileCard
-            firstname={firstname || ''}
-            lastname={lastname || ''}
-            age={age || 0}
-            avatar={avatar || ''}
-            currency={currency as Currency || Currency.RUB}
-            onChangeFirstname={onChangeFirstname}
-            onChangeLastname={onChangeLastname}
-            onChangeAge={onChangeAge}
-            onChangeCurrency={onChangeCurrency}
-            onChangeAvatar={onChangeAvatar}
-            isLoading={isLoading}
-            error={error}
-            readOnly={readonly}
-        />
+        <PageWrapper className={styles.ArticlePage}>
+            {authData?.id == id && <ProfilePageHeader/>}
+            <ProfileCard
+                firstname={firstname || ''}
+                lastname={lastname || ''}
+                age={age || 0}
+                avatar={avatar || ''}
+                currency={currency as Currency || Currency.RUB}
+                onChangeFirstname={onChangeFirstname}
+                onChangeLastname={onChangeLastname}
+                onChangeAge={onChangeAge}
+                onChangeCurrency={onChangeCurrency}
+                onChangeAvatar={onChangeAvatar}
+                isLoading={isLoading}
+                error={error}
+                readOnly={readonly}
+            />
+        </PageWrapper>
     </LoadableModule>
 }

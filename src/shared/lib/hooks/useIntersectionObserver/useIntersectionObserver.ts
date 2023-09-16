@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef} from 'react'
 
 export interface useIntersectionObserverProps {
-    callback: () => void,
+    callback?: () => void,
     isOnce?: boolean,
 
     rootElement: React.MutableRefObject<HTMLDivElement>,
@@ -9,7 +9,8 @@ export interface useIntersectionObserverProps {
 }
 export const useIntersectionObserver = (props: useIntersectionObserverProps) => {
     const {
-        callback,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        callback = () => {},
         isOnce,
         rootElement,
         targetElement

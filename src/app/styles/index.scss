@@ -6,8 +6,8 @@
 .app {
   transition: background-color 0.2s;
   background: var(--bg-color);
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  height: 1px;
 }
 
 .global {

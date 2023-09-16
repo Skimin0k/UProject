@@ -1,0 +1,6 @@
+.PageWrapper {
+  height: calc(100% - var(--navbar-height));
+  overflow: auto;
+  position: relative;
+  top: var(--navbar-height);
+}

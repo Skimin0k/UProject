@@ -3,6 +3,8 @@
   height: var(--navbar-height);
   background-color: var(--inverted-bg-color);
   color: var(--inverted-primary-color);
+  position: fixed;
+  width: 100%;
 }
 
 .leftSide,
