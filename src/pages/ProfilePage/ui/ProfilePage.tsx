@@ -1,4 +1,4 @@
-import {ChangeEvent, useCallback, useEffect} from 'react'
+import { useCallback, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {useAppDispatch} from 'app/StoreProvider'
@@ -38,21 +38,21 @@ export const ProfilePage = () => {
         if(id) dispatch(fetchUserData(id))
     }, [dispatch, id])
 
-    const onChangeFirstname = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(profileActions.updateProfile({first: event.target.value}))
+    const onChangeFirstname = useCallback((value: string) => {
+        dispatch(profileActions.updateProfile({first: value}))
     }, [dispatch])
 
-    const onChangeLastname = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(profileActions.updateProfile({lastname: event.target.value}))
+    const onChangeLastname = useCallback((value: string) => {
+        dispatch(profileActions.updateProfile({lastname: value}))
     }, [dispatch])
 
-    const onChangeAvatar = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(profileActions.updateProfile({avatar: event.target.value}))
+    const onChangeAvatar = useCallback((value: string) => {
+        dispatch(profileActions.updateProfile({avatar: value}))
     }, [dispatch])
 
-    const onChangeAge = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        if(!isNaN(+event.target.value)){
-            dispatch(profileActions.updateProfile({age: Number(event.target.value)}))
+    const onChangeAge = useCallback((value: string) => {
+        if(!isNaN(+value)){
+            dispatch(profileActions.updateProfile({age: Number(value)}))
         }
     }, [dispatch])
     const onChangeCurrency = useCallback((value: Currency) => {
@@ -60,7 +60,7 @@ export const ProfilePage = () => {
     }, [dispatch])
 
     // eslint-disable-next-line i18next/no-literal-string
-    return <LoadableModule name={'profile'} reducer={profileReducer}>
+    return <LoadableModule reducers={{profile: profileReducer}}>
         <PageWrapper className={styles.ArticlePage}>
             {authData?.id == id && <ProfilePageHeader/>}
             <ProfileCard

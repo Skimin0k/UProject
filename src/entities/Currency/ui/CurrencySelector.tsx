@@ -1,6 +1,6 @@
-import React, {ChangeEvent, memo, useCallback} from 'react'
+import React, { memo, useCallback, useMemo} from 'react'
 import {Currency} from 'entities/Currency'
-import {Select} from 'shared/ui/Select/Select'
+import {OptionType, Select} from 'shared/ui/Select/Select'
 
 interface CurrencySelectorProps {
     className?: string,
@@ -16,23 +16,27 @@ export const CurrencySelector = memo((props: CurrencySelectorProps) => {
         readOnly
     } = props
 
-    const onChangeHandler = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
-        onChange?.(event.target.value as Currency)
+    const onChangeHandler = useCallback((value: Currency) => {
+        onChange?.(value)
     },[onChange])
 
+    const options = useMemo<OptionType<Currency>[]>(() => [{
+        content:Currency.EUR,
+        value:Currency.EUR,
+    },
+    {
+        content:Currency.RUB,
+        value:Currency.RUB,
+    },
+    {
+        content:Currency.USD,
+        value:Currency.USD,
+    },
+    ], [])
+
     return (
-        <Select
-            options={[{
-                content:Currency.EUR,
-                value:Currency.EUR,
-            },{
-                content:Currency.RUB,
-                value:Currency.RUB,
-            },{
-                content:Currency.USD,
-                value:Currency.USD,
-            },
-            ]}
+        <Select<Currency>
+            options={options}
             selected={selected}
             onChange={onChangeHandler}
             readOnly={readOnly}

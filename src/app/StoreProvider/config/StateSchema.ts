@@ -4,6 +4,7 @@ import { articleReducerName, ArticleSliceStateSchema} from 'entities/Article'
 import {CounterSchema} from 'entities/Counter'
 import {ProfileSchema} from 'entities/Profile'
 import {UserSchema} from 'entities/User'
+import {articleFiltersName, ArticleFiltersSliceStateSchema} from 'feature/ArticleFilters/model/ArticleFiltersSlice'
 import {AuthSchema} from 'feature/Authorization'
 import {UISliceStateSchema} from 'feature/UI'
 import {articlesListReducerName, ArticlesListStateSchema} from 'pages/AritclesListPage/model/slices/ArticlesList'
@@ -26,6 +27,7 @@ export interface StateSchema {
     [articleCommentsReducerName]?: ArticleDetailsCommentsSchema,
     [articleAddCommentName]?: articleAddCommentSliceStateSchema,
     [articlesListReducerName]?: ArticlesListStateSchema
+    [articleFiltersName]?: ArticleFiltersSliceStateSchema
 }
 
 export interface ReducerManager {

@@ -5,33 +5,39 @@ import {ReduxStoreWithManager, StateSchemaKey} from 'app/StoreProvider/config/St
 
 interface LoadableModuleProps {
     children: ReactNode,
-    name: StateSchemaKey,
-    reducer: Reducer,
+    reducers: Partial<Record<StateSchemaKey, Reducer>>,
     saveAfterUnmount?: boolean
 }
 
 const LoadableModule :FC<LoadableModuleProps> = (props) => {
     const {
         children,
-        name, 
-        reducer, 
+        reducers, 
         saveAfterUnmount = false
     } = props
     const dispatch = useDispatch()
     const store = useStore() as ReduxStoreWithManager
     useEffect(() => {
         const mountedReducers = store.reducerManager.getReducerMap()
-        if(!mountedReducers[name]) {
-            store.reducerManager.add(name, reducer)
-            dispatch({type: `@INIT ${name} storage`})
-        }
+        Object.entries(reducers).forEach(([name, reducer]) => {
+            if(!mountedReducers[name as StateSchemaKey]) {
+                store.reducerManager.add(name as StateSchemaKey, reducer)
+                dispatch({type: `@INIT ${name} storage`})
+            } 
+        })
+        
         return () => {
-            if(mountedReducers[name] && !saveAfterUnmount) {
-                store.reducerManager.remove(name)
-                dispatch({type: `@DESTROY ${name} storage`})
+            if(!saveAfterUnmount) {
+                const mountedReducers = store.reducerManager.getReducerMap()
+                Object.entries(reducers).forEach(([name]) => {
+                    if(mountedReducers[name as StateSchemaKey]) {
+                        store.reducerManager.remove(name as StateSchemaKey)
+                        dispatch({type: `@DESTROY ${name} storage`})
+                    }
+                })
             }
         }
-    }, [dispatch, name, reducer, saveAfterUnmount, store.reducerManager])
+    }, [dispatch, reducers, saveAfterUnmount, store.reducerManager])
     
     return <>{children}</>
 }

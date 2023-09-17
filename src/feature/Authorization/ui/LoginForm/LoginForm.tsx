@@ -33,11 +33,11 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
     const isLoading = useSelector(getIsLoading)
     const error = useSelector(getError)
 
-    const onChangeUsername = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
-        dispatch(authActions.setUsername(event.target.value))
+    const onChangeUsername = useCallback((value) => {
+        dispatch(authActions.setUsername(value))
     }, [dispatch])
-    const onChangePassword = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
-        dispatch(authActions.setPassword(event.target.value))
+    const onChangePassword = useCallback((value) => {
+        dispatch(authActions.setPassword(value))
     }, [dispatch])
     const navigate = useNavigate()
     const onSubmit = useCallback(() => {

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react'
+import React, { FC} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Currency, CurrencySelector} from 'entities/Currency'
 import classNames from 'shared/lib/classNames/classNames'
@@ -17,11 +17,11 @@ interface ProfileCardProps {
     currency: Currency,
     avatar: string,
 
-    onChangeFirstname: (event: ChangeEvent<HTMLInputElement>) => void,
-    onChangeLastname: (event: ChangeEvent<HTMLInputElement>) => void,
-    onChangeAge: (event: ChangeEvent<HTMLInputElement>) => void,
+    onChangeFirstname: (value: string) => void,
+    onChangeLastname: (value: string) => void,
+    onChangeAge: (value: string) => void,
+    onChangeAvatar: (value: string) => void,
     onChangeCurrency: (event: Currency) => void,
-    onChangeAvatar: (event: ChangeEvent<HTMLInputElement>) => void,
 
     isLoading?: boolean,
     error?: string,

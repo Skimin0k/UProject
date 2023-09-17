@@ -40,18 +40,29 @@ const ArticlesList = createSlice({
         setArticlesListView: (state, action: PayloadAction<ArticlesListView>) => {
             state.view = action.payload
             localStorage.setItem(__LOCAL_STORAGE_ARTICLES_LIST_VIEW, action.payload)
+        },
+        reset: (state) => {
+            state.page = 0
+            state.hasMore= true
         }
     },
     extraReducers: builder => {
-        builder.addCase(fetchArticlesList.pending, (state) => {
+        builder.addCase(fetchArticlesList.pending, (state, action) => {
             state.isLoading = true
+            if(action.meta.arg.replace) {
+                ArticlesListAdapter.removeAll(state)
+            }
         })
         builder.addCase(fetchArticlesList.rejected, (state, action: PayloadAction<string | undefined>) => {
             state.isLoading = false
             state.error = action.payload
         })
-        builder.addCase(fetchArticlesList.fulfilled, (state, action: PayloadAction<ArticleType[]>) => {
-            ArticlesListAdapter.addMany(state, action.payload)
+        builder.addCase(fetchArticlesList.fulfilled, (state, action) => {
+            if(action.meta.arg.replace) {
+                ArticlesListAdapter.setAll(state, action.payload)
+            } else {
+                ArticlesListAdapter.addMany(state, action.payload)
+            }
             if(action.payload.length > 0) {
                 state.page++
             }

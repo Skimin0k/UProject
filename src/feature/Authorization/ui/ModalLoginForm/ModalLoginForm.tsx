@@ -16,7 +16,7 @@ export const ModalLoginForm: FC<ModalLoginFormProps> = (props) => {
     if (!props.isOpen) return null
     return (
         // eslint-disable-next-line i18next/no-literal-string
-        <LoadableModule name={'auth'} reducer={authReducer}>
+        <LoadableModule reducers={{auth: authReducer}}>
             <Modal {...props}>
                 <Suspense fallback={t('loading')}>
                     <LoginFormAsync/>

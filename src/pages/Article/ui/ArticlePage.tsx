@@ -55,24 +55,25 @@ export const ArticlePage = () => {
         </div>
     }
 
-    return <LoadableModule name={articleCommentsReducerName} reducer={articleCommentsReducer}>
-        <LoadableModule name={articleAddCommentName} reducer={articleAddCommentReducer}>
-            <PageWrapper className={styles.ArticlePage}>
-                <Article id={id}/>
-                <Text title={t('Комментарии')} className={styles.CommentTitle}/>
-                <AddCommentForm
-                    value={addCommentValue}
-                    onChange={AddCommentOnChange}
-                    onSubmit={addCommentOnSubmit}
-                    error={addCommentError}
-                    isLoading = {addCommentIsLoading}
-                />
-                <CommentList
-                    comments={comments}
-                    isLoading={commentsIsLoading || false}
-                />
-            </PageWrapper>
-        </LoadableModule>
+    return <LoadableModule reducers={{
+        [articleCommentsReducerName]: articleCommentsReducer,
+        [articleAddCommentName]: articleAddCommentReducer
+    }}>
+        <PageWrapper className={styles.ArticlePage}>
+            <Article id={id}/>
+            <Text title={t('Комментарии')} className={styles.CommentTitle}/>
+            <AddCommentForm
+                value={addCommentValue}
+                onChange={AddCommentOnChange}
+                onSubmit={addCommentOnSubmit}
+                error={addCommentError}
+                isLoading = {addCommentIsLoading}
+            />
+            <CommentList
+                comments={comments}
+                isLoading={commentsIsLoading || false}
+            />
+        </PageWrapper>
     </LoadableModule>
 
 }

@@ -77,9 +77,8 @@ export const Article= memo((props: ArticleProps) => {
         </>
     }
     return (
-        <LoadableModule reducer={articleReducer} name={articleReducerName}>
+        <LoadableModule reducers={{[articleReducerName]: articleReducer}}>
             <div className={styles.Article}>
-
                 {
                     content
                 }
