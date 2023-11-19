@@ -2,7 +2,7 @@ import React, {memo, useCallback, useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSelector} from 'react-redux'
 import {useAppDispatch} from 'app/StoreProvider'
-import {getNextArticlesListPage} from 'pages/AritclesListPage/model/services/getNextArticlesListPage'
+import {fetchArticlesList} from 'pages/AritclesListPage/model/services/fetchArticlesList'
 import {articlesListActions} from 'pages/AritclesListPage/model/slices/ArticlesList'
 import classNames from 'shared/lib/classNames/classNames'
 import {useDebounce} from 'shared/lib/hooks/useDebounce/useDebounce'
@@ -55,7 +55,9 @@ export const ArticleFilters = memo((props: ArticleFiltersProps) => {
     const searchValue = useSelector(getArticlesFilterSearch)
 
     const fetchNewArticlesData = useCallback(() => {
-        dispatch(getNextArticlesListPage({replace: true}))
+        dispatch(fetchArticlesList({
+            replace: true
+        }))
     }, [dispatch])
     const fetchNewData = useDebounce(fetchNewArticlesData, 500)
 

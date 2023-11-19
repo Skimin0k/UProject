@@ -11,12 +11,13 @@ interface ModalLoginFormProps {
     isOpen?: boolean,
     onClickOutside?: () => void
 }
+const asyncReducers = {auth: authReducer}
 export const ModalLoginForm: FC<ModalLoginFormProps> = (props) => {
     const {t} = useTranslation()
     if (!props.isOpen) return null
     return (
         // eslint-disable-next-line i18next/no-literal-string
-        <LoadableModule reducers={{auth: authReducer}}>
+        <LoadableModule reducers={asyncReducers}>
             <Modal {...props}>
                 <Suspense fallback={t('loading')}>
                     <LoginFormAsync/>

@@ -9,18 +9,17 @@ import {
     getProfileIsLoading,
     getProfileProp,
     getProfileReadonly,
-    profileActions,
-    ProfileCard,
+    profileActions, ProfileCard,
     profileReducer
 } from 'entities/Profile'
 import {getAuthData} from 'entities/User'
+import ProfilePageHeader from 'pages/ProfilePage/ui/ProfilePageHeader/ProfilePageHeader'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
 import {PageWrapper} from 'widgets/Page'
 
-import ProfilePageHeader from './ProfilePageHeader/ProfilePageHeader'
-
 import styles from 'pages/Article/ui/ArticlePage.module.scss'
 
+const reducers = {profile: profileReducer}
 export const ProfilePage = () => {
     const firstname = useSelector(getProfileProp('first'))
     const lastname = useSelector(getProfileProp('lastname'))
@@ -60,7 +59,7 @@ export const ProfilePage = () => {
     }, [dispatch])
 
     // eslint-disable-next-line i18next/no-literal-string
-    return <LoadableModule reducers={{profile: profileReducer}}>
+    return <LoadableModule reducers={reducers}>
         <PageWrapper className={styles.ArticlePage}>
             {authData?.id == id && <ProfilePageHeader/>}
             <ProfileCard

@@ -27,6 +27,11 @@ import {articleCommentsReducer} from '../model/slices/articleCommentsSlice'
 
 import styles from './ArticlePage.module.scss'
 
+const asyncReducers = {
+    [articleCommentsReducerName]: articleCommentsReducer,
+    [articleAddCommentName]: articleAddCommentReducer
+}
+
 export const ArticlePage = () => {
     const {id} = useParams<{id: string}>()
     const {t} = useTranslation()
@@ -54,11 +59,8 @@ export const ArticlePage = () => {
             {t('статья не найдена')}
         </div>
     }
-
-    return <LoadableModule reducers={{
-        [articleCommentsReducerName]: articleCommentsReducer,
-        [articleAddCommentName]: articleAddCommentReducer
-    }}>
+    
+    return <LoadableModule reducers={asyncReducers}>
         <PageWrapper className={styles.ArticlePage}>
             <Article id={id}/>
             <Text title={t('Комментарии')} className={styles.CommentTitle}/>

@@ -1,10 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {ThunkApi} from 'app/StoreProvider'
-import {
-    getArticlesFilterOrder,
-    getArticlesFilterSearch,
-    getArticlesFilterSort
-} from 'feature/ArticleFilters/model/ArticleFiltersSlice'
 
 import {
     articlesListReducerName,
@@ -15,12 +10,9 @@ import {
 
 import {fetchArticlesList} from './fetchArticlesList'
 
-export interface getNextArticlesListPageProps {
-    replace?:boolean
-}
 export const getNextArticlesListPage =
-    createAsyncThunk<void, getNextArticlesListPageProps, ThunkApi<string>>
-    (articlesListReducerName + '/getNextArticlesListPage',async ({replace}, thunkAPI) => {
+    createAsyncThunk<void, void, ThunkApi<string>>
+    (articlesListReducerName + '/getNextArticlesListPage',async (_, thunkAPI) => {
         const {
             getState,
             dispatch
@@ -30,17 +22,9 @@ export const getNextArticlesListPage =
         const isLoading = getArticlesListIsLoading(getState())
         const hasMore = getArticlesListHasMore(getState())
 
-        const order = getArticlesFilterOrder(getState())
-        const sort = getArticlesFilterSort(getState())
-        const search = getArticlesFilterSearch(getState())
-
         if(!isLoading && hasMore) {
             dispatch(fetchArticlesList({
-                _page: page + 1,
-                _search: search,
-                _sort: sort,
-                _order: order,
-                replace
+                _page: page + 1
             }))
         }
     })

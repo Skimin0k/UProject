@@ -30,6 +30,7 @@ const BlockElement = {
 }
 
 const renderBlock = (block: Block) => BlockElement[block.type](block)
+const asyncReducers = {[articleReducerName]: articleReducer}
 
 export const Article= memo((props: ArticleProps) => {
     const {id} = props
@@ -77,7 +78,7 @@ export const Article= memo((props: ArticleProps) => {
         </>
     }
     return (
-        <LoadableModule reducers={{[articleReducerName]: articleReducer}}>
+        <LoadableModule reducers={asyncReducers}>
             <div className={styles.Article}>
                 {
                     content

@@ -22,7 +22,7 @@ export const ArticlesListPage = () => {
     const listView = useSelector(getArticlesListView)
 
     const onScrollEnd = useCallback(() => {
-        dispatch(getNextArticlesListPage({replace: false}))
+        dispatch(getNextArticlesListPage())
     }, [dispatch])
 
     return <LoadableModule
