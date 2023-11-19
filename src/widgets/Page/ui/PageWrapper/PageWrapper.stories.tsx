@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
 
-import PageWrapper from './PageWrapper'
+import {PageWrapper} from './PageWrapper'
 
 const meta: Meta<typeof PageWrapper> = {
     component: PageWrapper

@@ -5,7 +5,7 @@ import styles from './Button.module.scss'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     className?: string,
-    theme: ButtonThemes
+    theme?: ButtonThemes
 }
 
 export enum ButtonThemes {
