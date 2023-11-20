@@ -6,7 +6,7 @@ import {fetchArticlesList} from 'pages/AritclesListPage/model/services/fetchArti
 import {articlesListActions} from 'pages/AritclesListPage/model/slices/ArticlesList'
 import classNames from 'shared/lib/classNames/classNames'
 import {useDebounce} from 'shared/lib/hooks/useDebounce/useDebounce'
-import Input from 'shared/ui/Input/Input'
+import {DebouncedInput} from 'shared/ui/DebouncedInput/DebouncedInput'
 import {OptionType, Select} from 'shared/ui/Select/Select'
 
 import {articleFiltersActions} from '../../model/ArticleFiltersSlice'
@@ -85,11 +85,12 @@ export const ArticleFilters = memo((props: ArticleFiltersProps) => {
         <div
             className={classNames(styles.ArticleFilters, {}, [className])}
         >
-            <Input
+            <DebouncedInput
                 onChange={onChangeSearchInput}
                 value={searchValue}
                 placeholder={t('Поиск')}
                 className={styles.SearchInput}
+                delay={400}
             />
             <Select<SortOrder>
                 value={orderValue}

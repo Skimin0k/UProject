@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import {useAppDispatch} from 'app/StoreProvider'
 import classNames from 'shared/lib/classNames/classNames'
 import BubbleButton from 'shared/ui/BubbleButton/BubbleButton'
-import Input from 'shared/ui/Input/Input'
+import {DebouncedInput} from 'shared/ui/DebouncedInput/DebouncedInput'
 import Text, {ThemeText} from 'shared/ui/Text/Text'
 
 import {getError} from '../../model/selectors/getError'
@@ -56,15 +56,17 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
                 className
             ])}
         >
-            <Input
+            <DebouncedInput
                 placeholder={t('loginForm_login')}
                 onChange={onChangeUsername}
                 value={username}
+                delay={400}
             />
-            <Input
+            <DebouncedInput
                 placeholder={t('loginForm_password')}
                 onChange={onChangePassword}
                 value={password}
+                delay={400}
             />
             <BubbleButton
                 onClick={onSubmit}

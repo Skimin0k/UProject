@@ -1,21 +1,22 @@
-import React, { useCallback} from 'react'
+import React, {memo, useCallback} from 'react'
+import classNames from 'shared/lib/classNames/classNames'
 
 import styles from './Input.module.scss'
 
-export interface InputType extends Omit<React.InputHTMLAttributes<HTMLInputElement>,'onChange'>{
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>,'onChange'>{
     onChange: (value: string) => void
 }
 
-const Input = (props: InputType) => {
-    const {onChange, ...rest } = props
+const InputWithoutMemo = (props: InputProps) => {
+    const {onChange, className, ...rest } = props
     const onChangeHandler = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
         onChange(event.target.value)
-    }, [onChange]) 
+    }, [onChange])
     return <input
         onChange={onChangeHandler}
         {...rest}
-        className={styles.Input}
+        className={classNames(styles.Input, {}, [className])}
     />
 }
 
-export default Input
+export const Input = memo(InputWithoutMemo) as typeof InputWithoutMemo

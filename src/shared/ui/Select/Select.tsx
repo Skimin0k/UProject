@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useCallback, useMemo} from 'react'
+import React, {ChangeEvent, OptionHTMLAttributes, useCallback, useMemo} from 'react'
 import classNames from 'shared/lib/classNames/classNames'
 
 import styles from './Select.module.scss'
 
-export interface OptionType<T extends string> {
-    value: T,
-    content: string,
+export interface OptionType<T extends string> extends OptionHTMLAttributes<HTMLOptionElement> {
+    value: string,
+    content: T,
 }
 interface SelectProps<T extends string> extends Omit<React.InputHTMLAttributes<HTMLSelectElement>,'onChange'>{
     className?: string,
@@ -25,16 +25,16 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     } = props
 
     const elements = useMemo(() => {
-        return options.map((opt) =>
+        return options.map(({value, content, ...rest}) =>
             <option
-                key={opt.value}
-                value={opt.value}
+                key={value}
+                value={value}
                 className={styles.option}
-                selected={opt.value === selected}
+                {...rest}
             >
-                {opt.content}
+                {content}
             </option>)
-    }, [selected, options])
+    }, [options])
 
     const onChangeHandler = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
         if(onChange) onChange(event.target.value as T)
@@ -45,6 +45,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
             className={classNames(styles.Select, {}, [className])}
             onChange={onChangeHandler}
             disabled={readOnly}
+            value={selected}
         >
             {elements}
         </select>

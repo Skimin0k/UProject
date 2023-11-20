@@ -11,25 +11,29 @@ import {getNextArticlesListPage} from '../model/services/getNextArticlesListPage
 import {
     articlesListReducer,
     articlesListReducerName,
-    getArticlesList,
+    getArticlesList, getArticlesListHasMore,
     getArticlesListIsLoading, getArticlesListView
 } from '../model/slices/ArticlesList'
 
+const asyncReducers = {
+    [articlesListReducerName]:articlesListReducer,
+    [articleFiltersName]:articleFiltersReducer
+}
 export const ArticlesListPage = () => {
     const dispatch = useAppDispatch()
     const articlesList = useSelector(getArticlesList.selectAll)
     const isLoading = useSelector(getArticlesListIsLoading)
     const listView = useSelector(getArticlesListView)
+    const hasMore = useSelector(getArticlesListHasMore)
 
     const onScrollEnd = useCallback(() => {
-        dispatch(getNextArticlesListPage())
-    }, [dispatch])
+        if(!isLoading && hasMore) {
+            dispatch(getNextArticlesListPage())
+        }
+    }, [dispatch, hasMore, isLoading])
 
     return <LoadableModule
-        reducers={{
-            [articlesListReducerName]:articlesListReducer,
-            [articleFiltersName]:articleFiltersReducer
-        }}
+        reducers={asyncReducers}
         saveAfterUnmount
     >
         <PageWrapper

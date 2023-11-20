@@ -2,8 +2,8 @@ import React, { FC} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Currency, CurrencySelector} from 'entities/Currency'
 import classNames from 'shared/lib/classNames/classNames'
+import {DebouncedInput} from 'shared/ui/DebouncedInput/DebouncedInput'
 import {Image} from 'shared/ui/Image/Image'
-import Input from 'shared/ui/Input/Input'
 import Text, {TextAlign, ThemeText} from 'shared/ui/Text/Text'
 
 import styles from './ProfileCard.module.scss'
@@ -79,34 +79,38 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
                 {/* eslint-disable-next-line i18next/no-literal-string */}
                 <Image src={avatar} alt={'._.'} size={'125px'}/>
             </div>
-            <Input
+            <DebouncedInput
                 placeholder={t('firstname')}
                 value={firstname}
                 onChange={onChangeFirstname}
                 readOnly={readOnly}
+                delay={400}
             />
-            <Input
+            <DebouncedInput
                 placeholder={t('lastname')}
                 value={lastname}
                 onChange={onChangeLastname}
                 readOnly ={readOnly}
+                delay={400}
             />
-            <Input
+            <DebouncedInput
                 placeholder={t('age')}
                 value={age}
                 onChange={onChangeAge}
                 readOnly ={readOnly}
+                delay={400}
             />
             <CurrencySelector
                 selected={currency}
                 onChange={onChangeCurrency}
                 readOnly={readOnly}
             />
-            <Input
+            <DebouncedInput
                 placeholder={t('avatar')}
                 value={avatar}
                 onChange={onChangeAvatar}
                 readOnly ={readOnly}
+                delay={400}
             />
         </div>
     )
