@@ -90,7 +90,7 @@ export const ArticleFilters = memo((props: ArticleFiltersProps) => {
                 value={searchValue}
                 placeholder={t('Поиск')}
                 className={styles.SearchInput}
-                delay={400}
+                delay={200}
             />
             <Select<SortOrder>
                 value={orderValue}

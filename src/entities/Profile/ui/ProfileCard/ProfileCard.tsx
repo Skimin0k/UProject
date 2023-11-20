@@ -84,21 +84,21 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
                 value={firstname}
                 onChange={onChangeFirstname}
                 readOnly={readOnly}
-                delay={400}
+                delay={200}
             />
             <DebouncedInput
                 placeholder={t('lastname')}
                 value={lastname}
                 onChange={onChangeLastname}
                 readOnly ={readOnly}
-                delay={400}
+                delay={200}
             />
             <DebouncedInput
                 placeholder={t('age')}
                 value={age}
                 onChange={onChangeAge}
                 readOnly ={readOnly}
-                delay={400}
+                delay={200}
             />
             <CurrencySelector
                 selected={currency}
@@ -110,7 +110,7 @@ const ProfileCard: FC<ProfileCardProps> = (props) => {
                 value={avatar}
                 onChange={onChangeAvatar}
                 readOnly ={readOnly}
-                delay={400}
+                delay={200}
             />
         </div>
     )

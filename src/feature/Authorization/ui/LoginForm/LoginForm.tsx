@@ -60,13 +60,13 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
                 placeholder={t('loginForm_login')}
                 onChange={onChangeUsername}
                 value={username}
-                delay={400}
+                delay={200}
             />
             <DebouncedInput
                 placeholder={t('loginForm_password')}
                 onChange={onChangePassword}
                 value={password}
-                delay={400}
+                delay={200}
             />
             <BubbleButton
                 onClick={onSubmit}
