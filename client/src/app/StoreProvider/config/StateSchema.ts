@@ -2,7 +2,7 @@ import {AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject} fro
 import { AxiosInstance } from 'axios'
 import { articleReducerName, ArticleSliceStateSchema} from 'entities/Article'
 import {CounterSchema} from 'entities/Counter'
-import {IEthersAccountSliceStateSchema} from 'entities/EthersAccount'
+import {ethereumReducerName,IEthereumSliceStateSchema} from 'entities/Ethereum'
 import {ProfileSchema} from 'entities/Profile'
 import {UserSchema} from 'entities/User'
 import {articleFiltersName, ArticleFiltersSliceStateSchema} from 'feature/ArticleFilters/model/ArticleFiltersSlice'
@@ -20,7 +20,7 @@ export interface StateSchema {
     counter: CounterSchema,
     user: UserSchema,
     ui: UISliceStateSchema,
-    account: IEthersAccountSliceStateSchema,
+    [ethereumReducerName]: IEthereumSliceStateSchema,
 
     //асинхронные редюсеры
     auth?: AuthSchema,

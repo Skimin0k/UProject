@@ -1,7 +1,7 @@
 import {useDispatch} from 'react-redux'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
 import {counterReducer} from 'entities/Counter'
-import {accountReducer, accountReducerName} from 'entities/EthersAccount'
+import {ethereumReducer, ethereumReducerName} from 'entities/Ethereum'
 import {userReducer} from 'entities/User'
 import {UIReducer} from 'feature/UI'
 import {$api} from 'shared/config/api/api'
@@ -20,8 +20,7 @@ export const configureReduxStore = (
         counter: counterReducer,
         user: userReducer,
         ui: UIReducer,
-
-        [accountReducerName]: accountReducer
+        [ethereumReducerName]: ethereumReducer
     }
 
     const reducerManager = createReducerManager(rootReducer)

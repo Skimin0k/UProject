@@ -25,6 +25,7 @@
     "visual:report:html": "reg-cli --from .loki/report.json --report .loki/report.html",
     "json-server": "node ./json-server/index.js",
     "husky-install": "husky install",
+    "recompile-contracts": "hardhat clean && hardhat compile",
     "deploy-contracts": "hardhat run --network ganache scripts/deploy.js",
     "ganache-mine": "node ./scripts/ganacheMining.js"
   },

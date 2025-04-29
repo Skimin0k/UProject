@@ -3,6 +3,7 @@
  */
 require('@nomicfoundation/hardhat-ethers')
 require('dotenv').config()
+require('@typechain/hardhat')
 
 const { __PRIVATE_KEY__ } = process.env
 module.exports = {
@@ -15,6 +16,11 @@ module.exports = {
             accounts: [__PRIVATE_KEY__],
             chainId: 1337
         }
+    },
+    typechain: {
+        outDir: 'src/artifacts/typechain',
+        target: 'ethers-v6',
+        alwaysGenerateOverloads: false,
     },
     paths: {artifacts: './src/artifacts'}
 }

@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\development\\web_practice\\Diploma\\client\\contracts\\Auction.sol": {
-      "lastModificationDate": 1745942643879,
+      "lastModificationDate": 1745957374367,
       "contentHash": "08cc82e3c4ce6c3e4ffd072fc4c23e91",
       "sourceName": "contracts/Auction.sol",
       "solcConfig": {
@@ -41,7 +41,7 @@
       ]
     },
     "D:\\development\\web_practice\\Diploma\\client\\contracts\\LotRoom.sol": {
-      "lastModificationDate": 1745942643907,
+      "lastModificationDate": 1745957374367,
       "contentHash": "cd659f6eed333489c98d50e28f30b343",
       "sourceName": "contracts/LotRoom.sol",
       "solcConfig": {
@@ -157,7 +157,7 @@
       ]
     },
     "D:\\development\\web_practice\\Diploma\\client\\contracts\\ERC721Handler.sol": {
-      "lastModificationDate": 1745942643895,
+      "lastModificationDate": 1745957374367,
       "contentHash": "d7a0b0f01097d88c6172f81d78c0fe20",
       "sourceName": "contracts/ERC721Handler.sol",
       "solcConfig": {
@@ -195,7 +195,7 @@
       ]
     },
     "D:\\development\\web_practice\\Diploma\\client\\contracts\\RoomHandler.sol": {
-      "lastModificationDate": 1745942643921,
+      "lastModificationDate": 1745957374367,
       "contentHash": "8db7b87efd880f75ee3cd63d74711794",
       "sourceName": "contracts/RoomHandler.sol",
       "solcConfig": {
@@ -299,41 +299,6 @@
         "Address"
       ]
     },
-    "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
-      "lastModificationDate": 1745944308490,
-      "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
-      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
-      "solcConfig": {
-        "version": "0.8.17",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Context"
-      ]
-    },
     "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
       "lastModificationDate": 1745944308793,
       "contentHash": "48686fc32a22a3754b8e63321857dd2a",
@@ -370,6 +335,41 @@
       ],
       "artifacts": [
         "Strings"
+      ]
+    },
+    "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
+      "lastModificationDate": 1745944308490,
+      "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
       ]
     },
     "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
@@ -483,41 +483,6 @@
         "IERC721Metadata"
       ]
     },
-    "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
-      "lastModificationDate": 1745944308756,
-      "contentHash": "fe63409d8a06818b926cf89e0ea88b1b",
-      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
-      "solcConfig": {
-        "version": "0.8.17",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Math"
-      ]
-    },
     "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SignedMath.sol": {
       "lastModificationDate": 1745944308787,
       "contentHash": "9488ebd4daacfee8ad04811600d7d061",
@@ -551,6 +516,41 @@
       ],
       "artifacts": [
         "SignedMath"
+      ]
+    },
+    "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
+      "lastModificationDate": 1745944308756,
+      "contentHash": "fe63409d8a06818b926cf89e0ea88b1b",
+      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Math"
       ]
     },
     "D:\\development\\web_practice\\Diploma\\client\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
