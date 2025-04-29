@@ -83,12 +83,6 @@ module.exports = {
             }
         },
         {
-            'files': ['src/examples/**'],
-            'rules': {
-                'i18next/no-literal-string': 'off'
-            }
-        },
-        {
             files: ['*.stories.*'],
             rules: {
                 'i18next/no-literal-string': 'off',

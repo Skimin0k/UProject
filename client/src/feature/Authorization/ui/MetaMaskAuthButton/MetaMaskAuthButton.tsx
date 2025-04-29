@@ -18,7 +18,12 @@ export const MetaMaskAuthButton= memo(() => {
         }
     }, [dispatch, provider])
 
-    return (provider? <BubbleButton onClick={onClick}><Text text={t('Подключить кошешел MetaMask')}/></BubbleButton>: <Text text={t('Говнище')}/>
+    return (
+        provider
+            ? <BubbleButton onClick={onClick}>
+                <Text text={t('Подключить кошешел MetaMask')}/>
+            </BubbleButton>
+            : <Text text={t('Говнище')}/>
 
     )
 })
