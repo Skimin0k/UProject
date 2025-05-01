@@ -1,7 +1,7 @@
 import {useDispatch} from 'react-redux'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
-import {auctionReducer, auctionReducerName} from 'entities/Auction'
 import {ethereumReducer, ethereumReducerName} from 'entities/Ethereum'
+import {auctionReducer, auctionReducerName} from 'feature/Auction'
 import {UIReducer} from 'feature/UI'
 import {$api} from 'shared/config/api/api'
 

@@ -1,7 +1,7 @@
 import {AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject} from '@reduxjs/toolkit'
 import { AxiosInstance } from 'axios'
-import {auctionReducerName, IAuctionSliceStateSchema} from 'entities/Auction'
 import {ethereumReducerName,IEthereumSliceStateSchema} from 'entities/Ethereum'
+import {auctionReducerName, IAuctionSliceStateSchema} from 'feature/Auction'
 import {UISliceStateSchema} from 'feature/UI'
 
 export interface StateSchema {
