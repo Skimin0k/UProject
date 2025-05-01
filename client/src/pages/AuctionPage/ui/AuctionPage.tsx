@@ -5,7 +5,9 @@ const AuctionPage = () => {
     const {t} = useTranslation('AuctionPage')
     return (
         <div>
-            {t('AuctionPage')}
+            {
+                t('Auction Page')
+            }
         </div>
     )
 }
