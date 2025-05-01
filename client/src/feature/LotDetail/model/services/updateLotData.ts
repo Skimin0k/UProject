@@ -1,18 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {ThunkApi} from 'app/StoreProvider'
-import {Auction} from 'entities/Auction/api/Auction'
 import {getEthereumProvider, getEthereumSigner} from 'entities/Ethereum'
+import {ILotData} from 'entities/Lot'
+import {Lot} from 'entities/Lot/api/Lot'
 
-import {auctionDetailsReducerName} from '../slice/AuctionsSlice'
+import {lotDetailsReducerName} from '../slices/LotsSlice'
 
-export interface IFetchAuctionByAddressReturnArgs {
-    contract: Auction,
-    data: string[]
-}
-
-export const fetchAuctionByAddress = createAsyncThunk<IFetchAuctionByAddressReturnArgs, string, ThunkApi<string>>(
-    `${auctionDetailsReducerName}/fetchAuctionByAddress`,
-    async (address, thunkApi) => {
+export const updateLotData = createAsyncThunk<ILotData, Lot, ThunkApi<string>>(
+    `${lotDetailsReducerName}/updateLotData`,
+    async (contract, thunkApi) => {
         const {
             rejectWithValue,
             getState,
@@ -22,9 +18,7 @@ export const fetchAuctionByAddress = createAsyncThunk<IFetchAuctionByAddressRetu
             if(!providerOrSigner) {
                 return rejectWithValue('There is no provider and Signer')
             }
-            const contract = new Auction(address, providerOrSigner)
-            const data = await contract.getLots()
-            return {contract, data }
+            return contract.getInfo()
         } catch (e) {
             return rejectWithValue('Somethings goes wrong when fetched auction by address')
         }

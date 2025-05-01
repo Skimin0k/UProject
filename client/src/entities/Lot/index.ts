@@ -1,1 +1,2 @@
-export {LotRoom as Lot} from './api/Lot'
+export * from './api/Lot'
+export * from './types/types'

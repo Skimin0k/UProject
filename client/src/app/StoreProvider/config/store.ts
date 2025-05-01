@@ -1,7 +1,6 @@
 import {useDispatch} from 'react-redux'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
 import {ethereumReducer, ethereumReducerName} from 'entities/Ethereum'
-import {auctionDetailsReducer, auctionDetailsReducerName} from 'feature/AuctionDetails'
 import {UIReducer} from 'feature/UI'
 import {$api} from 'shared/config/api/api'
 
@@ -18,7 +17,6 @@ export const configureReduxStore = (
 
         ui: UIReducer,
         [ethereumReducerName]: ethereumReducer,
-        [auctionDetailsReducerName]: auctionDetailsReducer
     }
 
     const reducerManager = createReducerManager(rootReducer)

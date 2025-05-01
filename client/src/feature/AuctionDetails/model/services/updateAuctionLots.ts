@@ -1,21 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {ThunkApi} from 'app/StoreProvider'
+import {Auction} from 'entities/Auction/api/Auction'
 
-import {auctionDetailsReducerName,getAuction, IAuctionDetailsSliceStateSchema} from '../slice/AuctionSlice'
+import {auctionDetailsReducerName, IAuctionStateSchema} from '../slice/AuctionsSlice'
 
-export const updateAuctionLots = createAsyncThunk<Required<IAuctionDetailsSliceStateSchema['lots']>, void, ThunkApi<string>>(
+export const updateAuctionLots = createAsyncThunk<Required<IAuctionStateSchema['lots']>, Auction, ThunkApi<string>>(
     `${auctionDetailsReducerName}/updateAuctionLots`,
-    async (_, thunkApi) => {
+    async (auctionContract, thunkApi) => {
         const {
-            rejectWithValue,
-            getState
+            rejectWithValue
         } = thunkApi
         try {
-            const auction = getAuction(getState())
-            if(!auction) {
-                return rejectWithValue('There is no auction')
-            }
-            return await auction.getLots()
+            return await auctionContract.getLots()
         } catch (e) {
             return rejectWithValue('Somethings goes wrong when fetched lots addresses')
         }

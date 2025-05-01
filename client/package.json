@@ -130,7 +130,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.0",
+    "@reduxjs/toolkit": "^1.9.0",
     "axios": "^1.4.0",
     "ethers": "^6.13.7",
     "i18next": "^21.6.11",

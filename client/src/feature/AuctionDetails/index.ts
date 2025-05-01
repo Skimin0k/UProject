@@ -1,2 +1,2 @@
-export * from './model/slice/AuctionSlice'
-export * from './ui/AuctionDetail/AuctionDetail'
+export * from './model/slice/AuctionsSlice'
+export * from './ui/AuctionConnector/AuctionConnector'
