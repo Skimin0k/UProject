@@ -1,35 +1,13 @@
 import {AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject} from '@reduxjs/toolkit'
 import { AxiosInstance } from 'axios'
-import { articleReducerName, ArticleSliceStateSchema} from 'entities/Article'
-import {CounterSchema} from 'entities/Counter'
+import {auctionReducerName, IAuctionSliceStateSchema} from 'entities/Auction'
 import {ethereumReducerName,IEthereumSliceStateSchema} from 'entities/Ethereum'
-import {ProfileSchema} from 'entities/Profile'
-import {UserSchema} from 'entities/User'
-import {articleFiltersName, ArticleFiltersSliceStateSchema} from 'feature/ArticleFilters/model/ArticleFiltersSlice'
-import {AuthSchema} from 'feature/Authorization'
 import {UISliceStateSchema} from 'feature/UI'
-import {articlesListReducerName, ArticlesListStateSchema} from 'pages/AritclesListPage/model/slices/ArticlesList'
-import {
-    articleAddCommentName,
-    articleAddCommentSliceStateSchema,
-    articleCommentsReducerName,
-    ArticleDetailsCommentsSchema
-} from 'pages/Article'
 
 export interface StateSchema {
-    counter: CounterSchema,
-    user: UserSchema,
     ui: UISliceStateSchema,
     [ethereumReducerName]: IEthereumSliceStateSchema,
-
-    //асинхронные редюсеры
-    auth?: AuthSchema,
-    profile?: ProfileSchema,
-    [articleReducerName]?: ArticleSliceStateSchema,
-    [articleCommentsReducerName]?: ArticleDetailsCommentsSchema,
-    [articleAddCommentName]?: articleAddCommentSliceStateSchema,
-    [articlesListReducerName]?: ArticlesListStateSchema
-    [articleFiltersName]?: ArticleFiltersSliceStateSchema
+    [auctionReducerName]: IAuctionSliceStateSchema,
 }
 
 export interface ReducerManager {

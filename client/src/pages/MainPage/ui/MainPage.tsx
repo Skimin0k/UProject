@@ -5,12 +5,9 @@ import ActionContract from 'artifacts/contracts/Auction.sol/Auction.json'
 import {Auction as IAuction} from 'artifacts/typechain/contracts/Auction'
 import {getEthereumSigner} from 'entities/Ethereum'
 import {Contract, ethers} from 'ethers'
-import {MetaMaskAuthButton} from 'feature/Authorization'
 import Button from 'shared/ui/Button/Button'
 import Text from 'shared/ui/Text/Text'
 import {PageWrapper} from 'widgets/Page'
-
-import styles from 'pages/Article/ui/ArticlePage.module.scss'
 
 const MainPage = () => {
     const {t} = useTranslation()
@@ -26,15 +23,14 @@ const MainPage = () => {
 
     const onCreateLotClickHandler = useCallback(() => {
         if(signer) {
-            auctionContract?.createLot(ethers.parseEther('0.01'), ethers.parseEther('0.01'))
+            auctionContract?.createLot(ethers.parseEther('0.01'), ethers.parseEther('0.01')).catch(error => {})
         }
     }, [signer, auctionContract])
 
     return (
-        <PageWrapper className={styles.ArticlePage}>
+        <PageWrapper>
             <div>
-                <MetaMaskAuthButton/>
-                {contractAddress}
+                <Text text={t('Auction address is: ') + contractAddress}/>
                 {auctionContract && <Button onClick={onCreateLotClickHandler}><Text text={t('createLot')}/> </Button> }
             </div>
         </PageWrapper>

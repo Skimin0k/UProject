@@ -1,7 +1,7 @@
 import React, {memo, ReactNode, Suspense, useCallback} from 'react'
 import {useSelector} from 'react-redux'
 import {Navigate, Route, Routes} from 'react-router-dom'
-import {getAuthData} from 'entities/User'
+import {getEthereumSigner} from 'entities/Ethereum'
 import {AppRoutesProps, routePaths, routerConfig, Routes as RouteNames} from 'shared/config/routeConfig/routerConfig'
 
 interface ProtectedRouteProps {
@@ -11,9 +11,9 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     const {
         children
     } = props
-    const auth = useSelector(getAuthData)
+    const auth = useSelector(getEthereumSigner)
     if (!auth) {
-        return <Navigate to={routePaths[RouteNames.MAIN]} replace />
+        return <Navigate to={routePaths[RouteNames.AUTH]} replace />
     }
 
     return <>{children}</>

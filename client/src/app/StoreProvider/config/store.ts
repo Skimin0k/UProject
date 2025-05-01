@@ -1,8 +1,7 @@
 import {useDispatch} from 'react-redux'
 import {CombinedState, configureStore, ReducersMapObject} from '@reduxjs/toolkit'
-import {counterReducer} from 'entities/Counter'
+import {auctionReducer, auctionReducerName} from 'entities/Auction'
 import {ethereumReducer, ethereumReducerName} from 'entities/Ethereum'
-import {userReducer} from 'entities/User'
 import {UIReducer} from 'feature/UI'
 import {$api} from 'shared/config/api/api'
 
@@ -17,10 +16,9 @@ export const configureReduxStore = (
         ...asyncReducers,
         // асинхронные редюсеры
 
-        counter: counterReducer,
-        user: userReducer,
         ui: UIReducer,
-        [ethereumReducerName]: ethereumReducer
+        [ethereumReducerName]: ethereumReducer,
+        [auctionReducerName]: auctionReducer
     }
 
     const reducerManager = createReducerManager(rootReducer)
