@@ -28,7 +28,7 @@ export interface ERC721HandlerInterface extends Interface {
     nameOrSignature:
       | "appendData"
       | "getDataHistory"
-      | "onERC721Received"
+      | "getOwner"
       | "setLotRoom"
       | "transfer"
   ): FunctionFragment;
@@ -43,10 +43,7 @@ export interface ERC721HandlerInterface extends Interface {
     functionFragment: "getDataHistory",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "onERC721Received",
-    values: [AddressLike, AddressLike, BigNumberish, BytesLike]
-  ): string;
+  encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setLotRoom",
     values: [AddressLike]
@@ -61,20 +58,17 @@ export interface ERC721HandlerInterface extends Interface {
     functionFragment: "getDataHistory",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC721Received",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setLotRoom", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
 }
 
 export namespace DataAppendedEvent {
-  export type InputTuple = [tokenId: BigNumberish, encryptedData: BytesLike];
-  export type OutputTuple = [tokenId: bigint, encryptedData: string];
+  export type InputTuple = [tokenId: BigNumberish, data: BytesLike];
+  export type OutputTuple = [tokenId: bigint, data: string];
   export interface OutputObject {
     tokenId: bigint;
-    encryptedData: string;
+    data: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -125,17 +119,13 @@ export interface ERC721Handler extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  appendData: TypedContractMethod<[newData: BytesLike], [void], "nonpayable">;
+  appendData: TypedContractMethod<[d: BytesLike], [void], "nonpayable">;
 
   getDataHistory: TypedContractMethod<[], [string[]], "view">;
 
-  onERC721Received: TypedContractMethod<
-    [arg0: AddressLike, arg1: AddressLike, arg2: BigNumberish, arg3: BytesLike],
-    [string],
-    "view"
-  >;
+  getOwner: TypedContractMethod<[], [string], "view">;
 
-  setLotRoom: TypedContractMethod<[lotRoom: AddressLike], [void], "nonpayable">;
+  setLotRoom: TypedContractMethod<[room: AddressLike], [void], "nonpayable">;
 
   transfer: TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
 
@@ -145,20 +135,16 @@ export interface ERC721Handler extends BaseContract {
 
   getFunction(
     nameOrSignature: "appendData"
-  ): TypedContractMethod<[newData: BytesLike], [void], "nonpayable">;
+  ): TypedContractMethod<[d: BytesLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "getDataHistory"
   ): TypedContractMethod<[], [string[]], "view">;
   getFunction(
-    nameOrSignature: "onERC721Received"
-  ): TypedContractMethod<
-    [arg0: AddressLike, arg1: AddressLike, arg2: BigNumberish, arg3: BytesLike],
-    [string],
-    "view"
-  >;
+    nameOrSignature: "getOwner"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "setLotRoom"
-  ): TypedContractMethod<[lotRoom: AddressLike], [void], "nonpayable">;
+  ): TypedContractMethod<[room: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "transfer"
   ): TypedContractMethod<[to: AddressLike], [void], "nonpayable">;

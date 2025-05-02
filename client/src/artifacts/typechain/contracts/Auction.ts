@@ -66,7 +66,7 @@ export interface AuctionInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createLot",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getApproved",
@@ -292,7 +292,11 @@ export interface Auction extends BaseContract {
   balanceOf: TypedContractMethod<[owner: AddressLike], [bigint], "view">;
 
   createLot: TypedContractMethod<
-    [ethStep: BigNumberish, startingPrice: BigNumberish],
+    [
+      ethStep: BigNumberish,
+      startingPrice: BigNumberish,
+      initialData: BytesLike
+    ],
     [string],
     "nonpayable"
   >;
@@ -380,7 +384,11 @@ export interface Auction extends BaseContract {
   getFunction(
     nameOrSignature: "createLot"
   ): TypedContractMethod<
-    [ethStep: BigNumberish, startingPrice: BigNumberish],
+    [
+      ethStep: BigNumberish,
+      startingPrice: BigNumberish,
+      initialData: BytesLike
+    ],
     [string],
     "nonpayable"
   >;

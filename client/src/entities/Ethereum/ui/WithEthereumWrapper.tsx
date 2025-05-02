@@ -26,11 +26,16 @@ export const WithEthereumWrapper: FC<IProviderStoreProps> = (props) => {
         const updateSignerState = () => {
             dispatch(updateSigner())
         }
+        const updateBlockState = (block: string) => {
+            dispatch(ethereumActions.setBlock(block))
+        }
         const ethereum = window.ethereum
+        let provider: BrowserProvider
         if(ethereum) {
-            const provider = new BrowserProvider(ethereum)
+            provider = new BrowserProvider(ethereum)
             dispatch(ethereumActions.setProvider(provider))
             ethereum.on('accountsChanged', updateSignerState)
+            provider.on('block', updateBlockState)
         } else {
             dispatch(ethereumActions.setError('Not Installed MetaMask Extension'))
         }
@@ -38,6 +43,7 @@ export const WithEthereumWrapper: FC<IProviderStoreProps> = (props) => {
             const ethereum = window.ethereum
             if(ethereum) {
                 ethereum.removeListener('accountsChanged', updateSignerState)
+                provider?.off?.('block', updateBlockState)
             }
         }
     }, [dispatch])

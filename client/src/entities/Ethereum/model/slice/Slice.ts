@@ -8,6 +8,7 @@ import {updateSigner} from '../service/updateSigner'
 export interface IEthereumSliceStateSchema {
     signer?: Signer,
     provider?: BrowserProvider,
+    block?: string,
     isLoading: boolean,
     error?: string
 }
@@ -25,6 +26,9 @@ const EthereumSlice = createSlice({
         },
         setProvider: (state, action: PayloadAction<IEthereumSliceStateSchema['provider']>) => {
             state.provider = action.payload
+        },
+        setBlock: (state, action: PayloadAction<IEthereumSliceStateSchema['block']>) => {
+            state.block = action.payload
         }
     },
     extraReducers: builder => {
@@ -47,6 +51,7 @@ const getEthereum = (state: StateSchema) => state?.[ethereumReducerName]
 export const getEthereumError = createSelector(getEthereum, (state) => state?.error)
 export const getEthereumProvider = createSelector(getEthereum,(state) => state?.provider )
 export const getEthereumSigner = createSelector(getEthereum,(state) => state?.signer)
+export const getEthereumBlockNumber = createSelector(getEthereum,(state) => state?.block)
 
 export const {
     reducer: ethereumReducer,

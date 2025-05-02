@@ -3,6 +3,7 @@ import {Auction as IAuction} from 'artifacts/typechain/contracts/Auction'
 import {Contract, ethers, Provider, Signer} from 'ethers'
 import contractBytesToJson from 'shared/lib/utils/ethereum/contractBytesToJson'
 import {contractEventSubscriberWrapper} from 'shared/lib/utils/ethereum/contractEventSubscriberWrapper'
+import jsonToContractBytes from 'shared/lib/utils/ethereum/jsonToContractBytes'
 
 import {AuctionEvents} from './const/auctionEvents'
 
@@ -24,8 +25,8 @@ export class Auction{
         return contractBytesToJson(data)
     }
 
-    async createLot(eth_step: string, eth_price: string){
-        return this.contract.createLot(ethers.parseEther(eth_step), ethers.parseEther(eth_price))
+    async createLot(eth_step: string, eth_price: string, initialData: object){
+        return this.contract.createLot(ethers.parseEther(eth_step), ethers.parseEther(eth_price), jsonToContractBytes(initialData))
     }
 
     async removeLot(address: string){

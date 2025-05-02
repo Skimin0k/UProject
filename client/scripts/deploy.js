@@ -12,9 +12,11 @@ async function main() {
     console.log('Deploying contracts with the account:', deployer.address)
 
     const Token = await ethers.getContractFactory('Auction')
-    const token = await Token.deploy(jsonToContractBytes({
+    const data = jsonToContractBytes({
         title: 'хуяк хуяк и мертв хомяк'
-    }))
+    })
+    console.log(data)
+    const token = await Token.deploy(data)
     
     console.log('Token address:', token.target)
 }

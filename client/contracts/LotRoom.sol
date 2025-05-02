@@ -2,175 +2,134 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./ERC721Handler.sol";
 
-error NotWaiting();
-error AuctionNotStarted();
-error SingleParticipantRequired();
-error InsufficientDeposit();
-error NotParticipant();
-error AlreadyOwner();
-error IncorrectPayment();
-error NotCreator();
+    error NotWaiting();    // Auction still in waiting period
+    error NotStarted();    // Auction not yet started
+    error NotSingle();     // Not single participant
+    error NoDeposit();     // Insufficient or duplicate deposit
+    error NoParticipant(); // User not in room
+    error AlreadyOwner();  // Caller already NFT owner
+    error BadPayment();    // Payment amount incorrect
+    error NotCreator();    // Caller not lot creator
 
-contract LotRoom is ReentrancyGuard {
-    uint256 public tokenID;
-    uint256 public initBlock;
-    uint256 public finalBlock;
-    uint256 public blockStep = 4;
-    uint256 public waitingBlocks = 4;
-    uint256 public ethStep;
-    uint256 public price;
-    uint256 public deposit = 0.01 ether;
+contract LotRoom {
+    uint256 public id;        // tokenID
+    uint256 public initB;     // initBlock
+    uint256 public finalB;    // finalBlock when only one participant left
+    uint256 public bStep = 4; // blockStep: blocks per price increment
+    uint256 public waitB = 4; // waitingBlocks: grace period
+    uint256 public step;      // ethStep (in wei)
+    uint256 public start;     // starting price (in wei)
+    uint256 public dep = 0.01 ether; // deposit amount
 
-    address public owner;
-    ERC721Handler public nftHandler;
+    address public owner;     // lot creator
+    ERC721Handler public h;   // handler proxy
 
-    // internal deposit manager
-    mapping(address => uint256) private _deposits;
-    uint256 private _memberCount;
+    mapping(address => uint256) private _d; // deposits mapping
+    uint256 private _c;                   // member count
 
-    event RoomUpdated(uint256 roomLength);
-    event NFTOwnerUpdated(address newOwner);
+    // --- Events ---
+    event R(uint256);    // RoomUpdated(count)
+    event O(address);    // NFTOwnerUpdated(newOwner)
 
     constructor(
-        ERC721Handler _nftHandler,
-        uint256 _tokenID,
-        uint256 _ethStep,
-        uint256 _price,
+        ERC721Handler handler,
+        uint256 _id,
+        uint256 _step,
+        uint256 _start,
         address _owner
     ) {
-        tokenID = _tokenID;
-        ethStep = _ethStep * 1 wei;
-        price = _price * 1 wei;
-        initBlock = block.number;
+        id = _id;
+        step = _step * 1 wei;
+        start = _start * 1 wei;
+        initB = block.number;
         owner = _owner;
-        nftHandler = _nftHandler;
-
-        // initialize handler with this lot’s address
-        nftHandler.setLotRoom(address(this));
+        h = handler;
+        handler.setLotRoom(address(this));
     }
 
-    modifier onlyWaiting() {
-        if (block.number > initBlock + waitingBlocks) revert NotWaiting();
-        _;
+    function raiseHand() external payable {
+        if (block.number > initB + waitB) revert NotWaiting();
+        if (msg.value < dep || _d[msg.sender] != 0) revert NoDeposit();
+        _d[msg.sender] = msg.value;
+        _c++;
+        emit R(_c);
     }
 
-    modifier onlyStarted() {
-        if (block.number <= initBlock + waitingBlocks)
-            revert AuctionNotStarted();
-        _;
+    function downHand() external {
+        if (block.number <= initB + waitB) revert NotStarted();
+        uint256 d = _d[msg.sender];
+        if (d == 0) revert NoParticipant();
+        delete _d[msg.sender];
+        _c--;
+        payable(msg.sender).transfer(d);
+        if (_c == 1) finalB = block.number - 1;
+        emit R(_c);
     }
 
-    modifier onlyCreator() {
+    function update(bytes calldata data) external {
         if (msg.sender != owner) revert NotCreator();
-        _;
+        h.appendData(data);
     }
 
-    modifier onlySingleParticipant() {
-        if (_memberCount != 1) revert SingleParticipantRequired();
-        _;
-    }
+    function buy() external payable {
+        if (_c != 1) revert NotSingle();
+        uint256 d = _d[msg.sender];
+        if (d == 0) revert NoParticipant();
+        if (h.getOwner() == msg.sender) revert AlreadyOwner();
 
-    receive() external payable {}
-
-    function raiseHand() external payable onlyWaiting nonReentrant {
-        if (msg.value < deposit) revert InsufficientDeposit();
-        if (_deposits[msg.sender] != 0) revert InsufficientDeposit();
-        _deposits[msg.sender] = msg.value;
-        _memberCount++;
-        emit RoomUpdated(_memberCount);
-    }
-
-    function downHand() external onlyStarted nonReentrant {
-        uint256 userDep = _deposits[msg.sender];
-        if (userDep == 0) revert NotParticipant();
-        delete _deposits[msg.sender];
-        _memberCount--;
-        payable(msg.sender).transfer(userDep);
-        if (_memberCount == 1) {
-            finalBlock = block.number - 1;
-        }
-        emit RoomUpdated(_memberCount);
-    }
-
-    function updateTokenData(bytes calldata newData)
-    external
-    onlyCreator
-    {
-        nftHandler.appendData(newData);
-    }
-
-    function buy() external payable onlySingleParticipant nonReentrant {
-        uint256 userDep = _deposits[msg.sender];
-        if (userDep == 0) revert NotParticipant();
-
-        address realOwner = IERC721(address(nftHandler)).ownerOf(tokenID);
-        if (realOwner == msg.sender) revert AlreadyOwner();
-
-        uint256 finalPrice = getFinalPrice();
-        if (finalPrice > userDep) {
-            uint256 diff = finalPrice - userDep;
-            if (msg.value != diff) revert IncorrectPayment();
-            payable(owner).transfer(finalPrice);
+        uint256 price = getPrice();
+        if (price > d) {
+            uint256 x = price - d;
+            if (msg.value != x) revert BadPayment();
+            payable(owner).transfer(price);
         } else {
-            payable(owner).transfer(finalPrice);
-            if (userDep > finalPrice) {
-                payable(msg.sender).transfer(userDep - finalPrice);
-            }
+            payable(owner).transfer(price);
+            if (d > price) payable(msg.sender).transfer(d - price);
         }
-
-        nftHandler.transfer(msg.sender);
-        emit NFTOwnerUpdated(msg.sender);
+        h.transfer(msg.sender);
+        emit O(msg.sender);
     }
 
-    function getFinalPrice() public view returns (uint256) {
-        if (_memberCount == 0 ||
-        (finalBlock == 0 && _memberCount == 1) ||
-            block.number < initBlock + waitingBlocks) {
-            return price;
-        }
-        uint256 elapsed =
-        ((finalBlock > 0 ? finalBlock : block.number)
-        - initBlock
-            - waitingBlocks);
-        return price + (elapsed / blockStep) * ethStep;
+    function getPrice() public view returns (uint256) {
+        if (_c == 0 || (finalB == 0 && _c == 1) || block.number < initB + waitB)
+            return start;
+        uint256 e = ((finalB > 0 ? finalB : block.number) - initB - waitB);
+        return start + (e / bStep) * step;
     }
 
-    function isMember(address user) external view returns (bool) {
-        return _deposits[user] > 0;
-    }
-
-    function isNFTOwner(address user) external view returns (bool) {
-        return IERC721(address(nftHandler)).ownerOf(tokenID) == user;
-    }
-
-    function getLotRoomInfo()
+    function info()
     external
     view
     returns (
-        uint256 _tokenID,
-        uint256 _initBlock,
-        uint256 _currentPrice,
-        uint256 _deposit,
-        uint256 _ethStep,
-        uint256 _waitingBlocks,
-        uint256 _blockStep,
-        uint256 _memberCount,
-        bool _isWaiting
+        uint256 _id,        // tokenID
+        uint256 _initB,     // initial block
+        uint256 _price,     // current price
+        uint256 _dep,       // deposit amount
+        uint256 _step,      // ethStep
+        uint256 _waitB,     // waitingBlocks
+        uint256 _bStep,     // blockStep
+        uint256 _count,     // member count
+        bool    _isWait,    // still in waiting period
+        bool    _isMember,  // is caller a participant
+        bool    _isOwner,   // is caller NFT owner
+        bytes[] memory _h   // encrypted history
     )
     {
         return (
-            tokenID,
-            initBlock,
-            getFinalPrice(),
-            deposit,
-            ethStep,
-            waitingBlocks,
-            blockStep,
-            _memberCount,
-            block.number < initBlock + waitingBlocks
+            id,
+            initB,
+            getPrice(),
+            dep,
+            step,
+            waitB,
+            bStep,
+            _c,
+            block.number < initB + waitB,
+            _d[msg.sender] > 0,
+            h.getOwner() == msg.sender,
+            h.getDataHistory()
         );
     }
 }

@@ -1,6 +1,7 @@
 import React, {FC, memo, ReactNode, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {useAppDispatch} from 'app/StoreProvider'
+import {getEthereumBlockNumber} from 'entities/Ethereum/model/slice/Slice'
 import LoadableModule from 'shared/lib/redux/LoadableModule'
 
 import {fetchLotByAddress} from '../../model/services/fetchLotByAddress'
@@ -27,6 +28,7 @@ const AuctionConnectorWithoutMemo: FC<ILotDetailProps> = ({
     lotRender
 }) => {
     const dispatch = useAppDispatch()
+    const blockNumber = useSelector(getEthereumBlockNumber)
 
     const isLotLoading = useSelector(getLotIsLoading(lotAddress))
     useEffect(() => {
@@ -50,9 +52,16 @@ const AuctionConnectorWithoutMemo: FC<ILotDetailProps> = ({
         }
     }, [dispatch, lotContract, lotAddress])
 
-    return (<LoadableModule reducers={asyncReducers}>
+    useEffect(() => {
+        if(!lotContract){
+            return
+        }
+        dispatch(updateLotData(lotContract))
+    }, [dispatch, lotContract, blockNumber])
+
+    return (<LoadableModule reducers={asyncReducers} saveAfterUnmount={true}>
         {
-            isLotLoading? lotLoadingRender : lotRender
+            isLotLoading && !lotContract? lotLoadingRender : lotRender
         }
     </LoadableModule>
     )

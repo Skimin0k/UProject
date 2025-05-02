@@ -1,6 +1,7 @@
 import LotRoomApi from 'artifacts/contracts/LotRoom.sol/LotRoom.json'
 import {LotRoom as ILot} from 'artifacts/typechain/contracts/LotRoom'
-import {Contract,Provider,Signer} from 'ethers'
+import {Contract, ethers, Provider, Signer} from 'ethers'
+import contractBytesToJson from 'shared/lib/utils/ethereum/contractBytesToJson'
 import {contractEventSubscriberWrapper} from 'shared/lib/utils/ethereum/contractEventSubscriberWrapper'
 
 import {ILotData} from '../types/types'
@@ -19,7 +20,7 @@ export class Lot {
     }
 
     async raiseHand() {
-        return this.contract.raiseHand()
+        return this.contract.raiseHand({ value: ethers.parseEther('0.01') })
     }
 
     async downHand(){
@@ -27,11 +28,21 @@ export class Lot {
     }
 
     async buy(){
-        return this.contract.buy()
+        const [
+            tokenID,
+            initBlock,
+            price,
+            deposit,
+        ] = await this.contract.info()
+        let options = {}
+        if(deposit < price) {
+            options = {value: (price - deposit).toString()}
+        }
+        return this.contract.buy(options)
     }
 
     async getFinalPrice(){
-        return this.contract.getFinalPrice()
+        return this.contract.getPrice()
     }
 
     async getInfo(): Promise<ILotData> {
@@ -44,28 +55,27 @@ export class Lot {
             waitingStatus,
             blockStep,
             countOfMembers,
-            isWaiting
-        ] = await this.contract.getLotRoomInfo()
-        const result = {
-            tokenID: tokenID.toString(),
-            price: Number(price), //начальная цена лота в эфирах
-            deposit: Number(deposit), // сумма за принятие участия
-            ETH_step: Number(ETH_step), // шаг роста price
-            waitingStatus: Number(waitingStatus), // сколько блоков длится ожидание
-            blockStep: Number(blockStep), // шаг повышения цены
-            initBlock: Number(initBlock), // текущий блок
-            members: Number(countOfMembers), // количество участников
             isWaiting,
-            isNFTOwner: false,
-            isMember: false,
-        }
-        if ('getAddress' in this.providerOrSigner) {
-            const address = this.providerOrSigner?.getAddress?.()
-            result.isNFTOwner = await this.contract.isNFTOwner(address)
-            result.isMember = await this.contract.isMember(address)
+            isMember,
+            isNFTOwner,
+            data
+        ] = await this.contract.info()
+        
+        return {
+            tokenID: tokenID.toString(),
+            price: ethers.formatEther(price), //начальная цена лота в эфирах
+            deposit: deposit.toString(), // сумма за принятие участия
+            ETH_step: ethers.formatEther(ETH_step), // шаг роста price
+            waitingStatus: waitingStatus.toString(), // сколько блоков длится ожидание
+            blockStep: blockStep.toString(), // шаг повышения цены
+            initBlock: initBlock.toString(), // текущий блок
+            members: countOfMembers.toString(), // количество участников
+            isWaiting,
+            isNFTOwner,
+            isMember,
+            data: contractBytesToJson(data[data.length - 1])
         }
 
-        return result
     }
 
     updateProvider(providerOrSigner: Signer | Provider) {
@@ -74,7 +84,7 @@ export class Lot {
     }
 
     subscribeRoomUpdated(handler: (args: any[]) => void) {
-        return this.subscribe(LotEvents.ROOM_UDPATED, handler)
+        return this.subscribe(LotEvents.ROOM_UPDATED, handler)
     }
     subscribeNftOwnerChanged(handler: (args: any[]) => void) {
         return this.subscribe(LotEvents.NFT_OWNER_UPDATED, handler)

@@ -26,110 +26,66 @@ import type {
 export interface LotRoomInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "blockStep"
+      | "bStep"
       | "buy"
-      | "deposit"
+      | "dep"
       | "downHand"
-      | "ethStep"
-      | "finalBlock"
-      | "getFinalPrice"
-      | "getLotRoomInfo"
-      | "initBlock"
-      | "isMember"
-      | "isNFTOwner"
-      | "nftHandler"
+      | "finalB"
+      | "getPrice"
+      | "h"
+      | "id"
+      | "info"
+      | "initB"
       | "owner"
-      | "price"
       | "raiseHand"
-      | "tokenID"
-      | "updateTokenData"
-      | "waitingBlocks"
+      | "start"
+      | "step"
+      | "update"
+      | "waitB"
   ): FunctionFragment;
 
-  getEvent(
-    nameOrSignatureOrTopic: "NFTOwnerUpdated" | "RoomUpdated"
-  ): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "O" | "R"): EventFragment;
 
-  encodeFunctionData(functionFragment: "blockStep", values?: undefined): string;
+  encodeFunctionData(functionFragment: "bStep", values?: undefined): string;
   encodeFunctionData(functionFragment: "buy", values?: undefined): string;
-  encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
+  encodeFunctionData(functionFragment: "dep", values?: undefined): string;
   encodeFunctionData(functionFragment: "downHand", values?: undefined): string;
-  encodeFunctionData(functionFragment: "ethStep", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "finalBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getFinalPrice",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getLotRoomInfo",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "initBlock", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "isMember",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isNFTOwner",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "nftHandler",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "finalB", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getPrice", values?: undefined): string;
+  encodeFunctionData(functionFragment: "h", values?: undefined): string;
+  encodeFunctionData(functionFragment: "id", values?: undefined): string;
+  encodeFunctionData(functionFragment: "info", values?: undefined): string;
+  encodeFunctionData(functionFragment: "initB", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "price", values?: undefined): string;
   encodeFunctionData(functionFragment: "raiseHand", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tokenID", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "updateTokenData",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "waitingBlocks",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "start", values?: undefined): string;
+  encodeFunctionData(functionFragment: "step", values?: undefined): string;
+  encodeFunctionData(functionFragment: "update", values: [BytesLike]): string;
+  encodeFunctionData(functionFragment: "waitB", values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "blockStep", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "bStep", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "dep", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "downHand", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "ethStep", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "finalBlock", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getFinalPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getLotRoomInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "initBlock", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "isMember", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "isNFTOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "nftHandler", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "finalB", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "h", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "id", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "info", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "initB", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "price", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "raiseHand", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tokenID", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "updateTokenData",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "waitingBlocks",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "start", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "step", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "update", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "waitB", data: BytesLike): Result;
 }
 
-export namespace NFTOwnerUpdatedEvent {
-  export type InputTuple = [newOwner: AddressLike];
-  export type OutputTuple = [newOwner: string];
+export namespace OEvent {
+  export type InputTuple = [arg0: AddressLike];
+  export type OutputTuple = [arg0: string];
   export interface OutputObject {
-    newOwner: string;
+    arg0: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -137,11 +93,11 @@ export namespace NFTOwnerUpdatedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RoomUpdatedEvent {
-  export type InputTuple = [roomLength: BigNumberish];
-  export type OutputTuple = [roomLength: bigint];
+export namespace REvent {
+  export type InputTuple = [arg0: BigNumberish];
+  export type OutputTuple = [arg0: bigint];
   export interface OutputObject {
-    roomLength: bigint;
+    arg0: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -192,21 +148,23 @@ export interface LotRoom extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  blockStep: TypedContractMethod<[], [bigint], "view">;
+  bStep: TypedContractMethod<[], [bigint], "view">;
 
   buy: TypedContractMethod<[], [void], "payable">;
 
-  deposit: TypedContractMethod<[], [bigint], "view">;
+  dep: TypedContractMethod<[], [bigint], "view">;
 
   downHand: TypedContractMethod<[], [void], "nonpayable">;
 
-  ethStep: TypedContractMethod<[], [bigint], "view">;
+  finalB: TypedContractMethod<[], [bigint], "view">;
 
-  finalBlock: TypedContractMethod<[], [bigint], "view">;
+  getPrice: TypedContractMethod<[], [bigint], "view">;
 
-  getFinalPrice: TypedContractMethod<[], [bigint], "view">;
+  h: TypedContractMethod<[], [string], "view">;
 
-  getLotRoomInfo: TypedContractMethod<
+  id: TypedContractMethod<[], [bigint], "view">;
+
+  info: TypedContractMethod<
     [],
     [
       [
@@ -218,73 +176,68 @@ export interface LotRoom extends BaseContract {
         bigint,
         bigint,
         bigint,
-        boolean
+        boolean,
+        boolean,
+        boolean,
+        string[]
       ] & {
-        _tokenID: bigint;
-        _initBlock: bigint;
-        _currentPrice: bigint;
-        _deposit: bigint;
-        _ethStep: bigint;
-        _waitingBlocks: bigint;
-        _blockStep: bigint;
-        _memberCount: bigint;
-        _isWaiting: boolean;
+        _id: bigint;
+        _initB: bigint;
+        _price: bigint;
+        _dep: bigint;
+        _step: bigint;
+        _waitB: bigint;
+        _bStep: bigint;
+        _count: bigint;
+        _isWait: boolean;
+        _isMember: boolean;
+        _isOwner: boolean;
+        _h: string[];
       }
     ],
     "view"
   >;
 
-  initBlock: TypedContractMethod<[], [bigint], "view">;
-
-  isMember: TypedContractMethod<[user: AddressLike], [boolean], "view">;
-
-  isNFTOwner: TypedContractMethod<[user: AddressLike], [boolean], "view">;
-
-  nftHandler: TypedContractMethod<[], [string], "view">;
+  initB: TypedContractMethod<[], [bigint], "view">;
 
   owner: TypedContractMethod<[], [string], "view">;
 
-  price: TypedContractMethod<[], [bigint], "view">;
-
   raiseHand: TypedContractMethod<[], [void], "payable">;
 
-  tokenID: TypedContractMethod<[], [bigint], "view">;
+  start: TypedContractMethod<[], [bigint], "view">;
 
-  updateTokenData: TypedContractMethod<
-    [newData: BytesLike],
-    [void],
-    "nonpayable"
-  >;
+  step: TypedContractMethod<[], [bigint], "view">;
 
-  waitingBlocks: TypedContractMethod<[], [bigint], "view">;
+  update: TypedContractMethod<[data: BytesLike], [void], "nonpayable">;
+
+  waitB: TypedContractMethod<[], [bigint], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
   getFunction(
-    nameOrSignature: "blockStep"
+    nameOrSignature: "bStep"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "buy"
   ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "deposit"
+    nameOrSignature: "dep"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "downHand"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "ethStep"
+    nameOrSignature: "finalB"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "finalBlock"
+    nameOrSignature: "getPrice"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(nameOrSignature: "h"): TypedContractMethod<[], [string], "view">;
+  getFunction(nameOrSignature: "id"): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "getFinalPrice"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "getLotRoomInfo"
+    nameOrSignature: "info"
   ): TypedContractMethod<
     [],
     [
@@ -297,88 +250,85 @@ export interface LotRoom extends BaseContract {
         bigint,
         bigint,
         bigint,
-        boolean
+        boolean,
+        boolean,
+        boolean,
+        string[]
       ] & {
-        _tokenID: bigint;
-        _initBlock: bigint;
-        _currentPrice: bigint;
-        _deposit: bigint;
-        _ethStep: bigint;
-        _waitingBlocks: bigint;
-        _blockStep: bigint;
-        _memberCount: bigint;
-        _isWaiting: boolean;
+        _id: bigint;
+        _initB: bigint;
+        _price: bigint;
+        _dep: bigint;
+        _step: bigint;
+        _waitB: bigint;
+        _bStep: bigint;
+        _count: bigint;
+        _isWait: boolean;
+        _isMember: boolean;
+        _isOwner: boolean;
+        _h: string[];
       }
     ],
     "view"
   >;
   getFunction(
-    nameOrSignature: "initBlock"
+    nameOrSignature: "initB"
   ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "isMember"
-  ): TypedContractMethod<[user: AddressLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "isNFTOwner"
-  ): TypedContractMethod<[user: AddressLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "nftHandler"
-  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "price"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
     nameOrSignature: "raiseHand"
   ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "tokenID"
+    nameOrSignature: "start"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "updateTokenData"
-  ): TypedContractMethod<[newData: BytesLike], [void], "nonpayable">;
+    nameOrSignature: "step"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "waitingBlocks"
+    nameOrSignature: "update"
+  ): TypedContractMethod<[data: BytesLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "waitB"
   ): TypedContractMethod<[], [bigint], "view">;
 
   getEvent(
-    key: "NFTOwnerUpdated"
+    key: "O"
   ): TypedContractEvent<
-    NFTOwnerUpdatedEvent.InputTuple,
-    NFTOwnerUpdatedEvent.OutputTuple,
-    NFTOwnerUpdatedEvent.OutputObject
+    OEvent.InputTuple,
+    OEvent.OutputTuple,
+    OEvent.OutputObject
   >;
   getEvent(
-    key: "RoomUpdated"
+    key: "R"
   ): TypedContractEvent<
-    RoomUpdatedEvent.InputTuple,
-    RoomUpdatedEvent.OutputTuple,
-    RoomUpdatedEvent.OutputObject
+    REvent.InputTuple,
+    REvent.OutputTuple,
+    REvent.OutputObject
   >;
 
   filters: {
-    "NFTOwnerUpdated(address)": TypedContractEvent<
-      NFTOwnerUpdatedEvent.InputTuple,
-      NFTOwnerUpdatedEvent.OutputTuple,
-      NFTOwnerUpdatedEvent.OutputObject
+    "O(address)": TypedContractEvent<
+      OEvent.InputTuple,
+      OEvent.OutputTuple,
+      OEvent.OutputObject
     >;
-    NFTOwnerUpdated: TypedContractEvent<
-      NFTOwnerUpdatedEvent.InputTuple,
-      NFTOwnerUpdatedEvent.OutputTuple,
-      NFTOwnerUpdatedEvent.OutputObject
+    O: TypedContractEvent<
+      OEvent.InputTuple,
+      OEvent.OutputTuple,
+      OEvent.OutputObject
     >;
 
-    "RoomUpdated(uint256)": TypedContractEvent<
-      RoomUpdatedEvent.InputTuple,
-      RoomUpdatedEvent.OutputTuple,
-      RoomUpdatedEvent.OutputObject
+    "R(uint256)": TypedContractEvent<
+      REvent.InputTuple,
+      REvent.OutputTuple,
+      REvent.OutputObject
     >;
-    RoomUpdated: TypedContractEvent<
-      RoomUpdatedEvent.InputTuple,
-      RoomUpdatedEvent.OutputTuple,
-      RoomUpdatedEvent.OutputObject
+    R: TypedContractEvent<
+      REvent.InputTuple,
+      REvent.OutputTuple,
+      REvent.OutputObject
     >;
   };
 }

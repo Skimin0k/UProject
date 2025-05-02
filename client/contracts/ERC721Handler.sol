@@ -2,60 +2,48 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
-error AlreadyInitialized();
-error NotAuthorized();
+    error AlreadyInitialized();
+    error NotAuthorized();
 
-contract ERC721Handler is IERC721Receiver {
-    address private _erc721Contract;
-    uint256 private _tokenID;
-    address private _creator;
+contract ERC721Handler {
+    address private _erc721;
+    uint256 private _tokenId;
     address private _lotRoom;
-    bytes[] private _encryptedHistory;
+    bytes[] private _encrypted;
 
-    event DataAppended(uint256 indexed tokenId, bytes encryptedData);
+    event DataAppended(uint256 indexed tokenId, bytes data);
 
     constructor(
         address erc721Contract,
         uint256 tokenID,
-        address creator
+        bytes memory initial
     ) {
-        _erc721Contract = erc721Contract;
-        _tokenID = tokenID;
+        _erc721 = erc721Contract;
+        _tokenId = tokenID;
+        _encrypted.push(initial);
     }
 
-    function setLotRoom(address lotRoom) external {
+    function setLotRoom(address room) external {
         if (_lotRoom != address(0)) revert AlreadyInitialized();
-        _lotRoom = lotRoom;
+        _lotRoom = room;
     }
 
-    function appendData(bytes calldata newData) external {
+    function appendData(bytes calldata d) external {
         if (msg.sender != _lotRoom) revert NotAuthorized();
-        _encryptedHistory.push(newData);
-        emit DataAppended(_tokenID, newData);
+        _encrypted.push(d);
+        emit DataAppended(_tokenId, d);
     }
 
     function getDataHistory() external view returns (bytes[] memory) {
-        address owner = IERC721(_erc721Contract).ownerOf(_tokenID);
-        require(msg.sender == owner, "Not NFT owner");
-        return _encryptedHistory;
+        return _encrypted;
     }
 
     function transfer(address to) external {
-        IERC721(_erc721Contract).safeTransferFrom(
-            address(this),
-            to,
-            _tokenID
-        );
+        IERC721(_erc721).transferFrom(address(this), to, _tokenId);
     }
 
-    function onERC721Received(
-        address,
-        address,
-        uint256,
-        bytes calldata
-    ) external pure override returns (bytes4) {
-        return IERC721Receiver.onERC721Received.selector;
+    function getOwner() external view returns (address) {
+        return IERC721(_erc721).ownerOf(_tokenId);
     }
 }

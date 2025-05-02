@@ -44,13 +44,14 @@ contract Auction is ERC721 {
     /// @notice Создать новый лот
     function createLot(
         uint256 ethStep,
-        uint256 startingPrice
+        uint256 startingPrice,
+        bytes memory initialData
     ) external returns (address) {
         _nextTokenId++;
         uint256 tokenId = _nextTokenId;
 
         // Деплой прокси и комнаты
-        ERC721Handler handler = new ERC721Handler(address(this), tokenId, msg.sender);
+        ERC721Handler handler = new ERC721Handler(address(this), tokenId, initialData);
         LotRoom lot = new LotRoom(handler, tokenId, ethStep, startingPrice, msg.sender);
 
         lots.push(address(lot));
