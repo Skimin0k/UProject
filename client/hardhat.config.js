@@ -9,6 +9,9 @@ const { __PRIVATE_KEY__ } = process.env
 module.exports = {
     solidity: '0.8.17',
     defaultNetwork: 'ganache',
+    settings: {
+        optimizer: { enabled: true, runs: 200 }
+    },
     networks: {
         hardhat: {},
         ganache: {
@@ -20,7 +23,7 @@ module.exports = {
     typechain: {
         outDir: 'src/artifacts/typechain',
         target: 'ethers-v6',
-        alwaysGenerateOverloads: false,
+        alwaysGenerateOverloads: false
     },
     paths: {artifacts: './src/artifacts'}
 }

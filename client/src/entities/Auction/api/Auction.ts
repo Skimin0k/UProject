@@ -15,7 +15,7 @@ export class Auction{
     }
 
     async getLots() {
-        return this.contract.getLots()
+        return this.contract.lots
     }
 
     async createLot(eth_step: string, eth_price: string){

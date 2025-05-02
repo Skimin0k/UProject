@@ -26,24 +26,41 @@ import type {
 export interface LotRoomInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "blockStep"
       | "buy"
+      | "deposit"
       | "downHand"
+      | "ethStep"
+      | "finalBlock"
       | "getCountOfMembers"
       | "getFinalPrice"
-      | "getStaticInfo"
+      | "getLotRoomInfo"
+      | "initBlock"
       | "isMember"
       | "isNFTOwner"
       | "isWaiting"
+      | "nftHandler"
       | "owner"
+      | "price"
       | "raiseHand"
+      | "tokenID"
+      | "updateTokenData"
+      | "waitingBlocks"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic: "NFTOwnerUpdated" | "RoomUpdated"
   ): EventFragment;
 
+  encodeFunctionData(functionFragment: "blockStep", values?: undefined): string;
   encodeFunctionData(functionFragment: "buy", values?: undefined): string;
+  encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(functionFragment: "downHand", values?: undefined): string;
+  encodeFunctionData(functionFragment: "ethStep", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "finalBlock",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getCountOfMembers",
     values?: undefined
@@ -53,20 +70,42 @@ export interface LotRoomInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getStaticInfo",
+    functionFragment: "getLotRoomInfo",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "isMember", values?: undefined): string;
+  encodeFunctionData(functionFragment: "initBlock", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "isMember",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "isNFTOwner",
-    values?: undefined
+    values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "isWaiting", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "nftHandler",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "price", values?: undefined): string;
   encodeFunctionData(functionFragment: "raiseHand", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tokenID", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "updateTokenData",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "waitingBlocks",
+    values?: undefined
+  ): string;
 
+  decodeFunctionResult(functionFragment: "blockStep", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "downHand", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ethStep", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "finalBlock", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getCountOfMembers",
     data: BytesLike
@@ -76,21 +115,33 @@ export interface LotRoomInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getStaticInfo",
+    functionFragment: "getLotRoomInfo",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "initBlock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isMember", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isNFTOwner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isWaiting", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "nftHandler", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "price", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "raiseHand", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tokenID", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "updateTokenData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "waitingBlocks",
+    data: BytesLike
+  ): Result;
 }
 
 export namespace NFTOwnerUpdatedEvent {
-  export type InputTuple = [_owner: AddressLike];
-  export type OutputTuple = [_owner: string];
+  export type InputTuple = [newOwner: AddressLike];
+  export type OutputTuple = [newOwner: string];
   export interface OutputObject {
-    _owner: string;
+    newOwner: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -153,40 +204,76 @@ export interface LotRoom extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  blockStep: TypedContractMethod<[], [bigint], "view">;
+
   buy: TypedContractMethod<[], [void], "payable">;
 
-  downHand: TypedContractMethod<[], [void], "payable">;
+  deposit: TypedContractMethod<[], [bigint], "view">;
+
+  downHand: TypedContractMethod<[], [void], "nonpayable">;
+
+  ethStep: TypedContractMethod<[], [bigint], "view">;
+
+  finalBlock: TypedContractMethod<[], [bigint], "view">;
 
   getCountOfMembers: TypedContractMethod<[], [bigint], "view">;
 
   getFinalPrice: TypedContractMethod<[], [bigint], "view">;
 
-  getStaticInfo: TypedContractMethod<
+  getLotRoomInfo: TypedContractMethod<
     [],
     [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
     "view"
   >;
 
-  isMember: TypedContractMethod<[], [boolean], "view">;
+  initBlock: TypedContractMethod<[], [bigint], "view">;
 
-  isNFTOwner: TypedContractMethod<[], [boolean], "view">;
+  isMember: TypedContractMethod<[user: AddressLike], [boolean], "view">;
+
+  isNFTOwner: TypedContractMethod<[user: AddressLike], [boolean], "view">;
 
   isWaiting: TypedContractMethod<[], [boolean], "view">;
 
+  nftHandler: TypedContractMethod<[], [string], "view">;
+
   owner: TypedContractMethod<[], [string], "view">;
 
+  price: TypedContractMethod<[], [bigint], "view">;
+
   raiseHand: TypedContractMethod<[], [void], "payable">;
+
+  tokenID: TypedContractMethod<[], [bigint], "view">;
+
+  updateTokenData: TypedContractMethod<
+    [newData: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+
+  waitingBlocks: TypedContractMethod<[], [bigint], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
   getFunction(
+    nameOrSignature: "blockStep"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "buy"
   ): TypedContractMethod<[], [void], "payable">;
   getFunction(
+    nameOrSignature: "deposit"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "downHand"
-  ): TypedContractMethod<[], [void], "payable">;
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "ethStep"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "finalBlock"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "getCountOfMembers"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -194,27 +281,45 @@ export interface LotRoom extends BaseContract {
     nameOrSignature: "getFinalPrice"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "getStaticInfo"
+    nameOrSignature: "getLotRoomInfo"
   ): TypedContractMethod<
     [],
     [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
     "view"
   >;
   getFunction(
+    nameOrSignature: "initBlock"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "isMember"
-  ): TypedContractMethod<[], [boolean], "view">;
+  ): TypedContractMethod<[user: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "isNFTOwner"
-  ): TypedContractMethod<[], [boolean], "view">;
+  ): TypedContractMethod<[user: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "isWaiting"
   ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
+    nameOrSignature: "nftHandler"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "price"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "raiseHand"
   ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "tokenID"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "updateTokenData"
+  ): TypedContractMethod<[newData: BytesLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "waitingBlocks"
+  ): TypedContractMethod<[], [bigint], "view">;
 
   getEvent(
     key: "NFTOwnerUpdated"

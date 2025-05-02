@@ -10,10 +10,12 @@ import {LotEvents} from './const/lotEvents'
 export class Lot {
     private contract: ILot
     public address: string
+    private providerOrSigner: Signer | Provider
 
     constructor(address: string, providerOrSigner: Signer | Provider) {
         this.contract = new Contract(address, LotRoomApi.abi, providerOrSigner) as unknown as ILot
         this.address = address
+        this.providerOrSigner = providerOrSigner
     }
 
     async raiseHand() {
@@ -33,40 +35,42 @@ export class Lot {
     }
 
     async getInfo(): Promise<ILotData> {
-        return Promise.all([
-            this.contract.getStaticInfo(),
-            this.contract.getCountOfMembers(),
-            this.contract.isMember(),
-            this.contract.isWaiting(),
-            this.contract.isNFTOwner()]).then(([staticInfo, members, isMember, isWaiting, isNFTOwner]) => {
-            const [
-                tokenID,
-                initBlock,
-                price,
-                deposit,
-                ETH_step,
-                waitingStatus,
-                blockStep
-            ] = staticInfo
+        const [
+            tokenID,
+            initBlock,
+            price,
+            deposit,
+            ETH_step,
+            waitingStatus,
+            blockStep
+        ] = await this.contract.getLotRoomInfo()
+        const countOfMembers = await this.contract.getCountOfMembers()
+        const isWaiting = await this.contract.isWaiting()
+        const result = {
+            tokenID: tokenID.toString(),
+            price: Number(price), //начальная цена лота в эфирах
+            deposit: Number(deposit), // сумма за принятие участия
+            ETH_step: Number(ETH_step), // шаг роста price
+            waitingStatus: Number(waitingStatus), // сколько блоков длится ожидание
+            blockStep: Number(blockStep), // шаг повышения цены
+            initBlock: Number(initBlock), // текущий блок
+            members: Number(countOfMembers), // количество участников
+            isWaiting,
+            isNFTOwner: false,
+            isMember: false,
+        }
+        if ('getAddress' in this.providerOrSigner) {
+            const address = this.providerOrSigner?.getAddress?.()
+            result.isNFTOwner = await this.contract.isNFTOwner(address)
+            result.isMember = await this.contract.isMember(address)
+        }
 
-            return {
-                tokenID: tokenID.toString(),
-                price: Number(price), //начальная цена лота в эфирах
-                deposit: Number(deposit), // сумма за принятие участия
-                ETH_step: Number(ETH_step), // шаг роста price
-                waitingStatus: Number(waitingStatus), // сколько блоков длится ожидание
-                blockStep: Number(blockStep), // шаг повышения цены
-                initBlock: Number(initBlock), // текущий блок
-                members: Number(members), // количество участников
-                isMember,
-                isWaiting,
-                isNFTOwner,
-            }
-        })
+        return result
     }
 
     updateProvider(providerOrSigner: Signer | Provider) {
         this.contract.connect(providerOrSigner)
+        this.providerOrSigner = providerOrSigner
     }
 
     subscribeRoomUpdated(handler: (args: any[]) => void) {

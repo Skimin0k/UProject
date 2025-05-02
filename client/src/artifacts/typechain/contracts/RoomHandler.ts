@@ -24,17 +24,12 @@ import type {
 export interface RoomHandlerInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "doesExist"
       | "getCountOfMembers"
       | "getDepositFromAddress"
       | "push"
       | "remove"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "doesExist",
-    values: [AddressLike]
-  ): string;
   encodeFunctionData(
     functionFragment: "getCountOfMembers",
     values?: undefined
@@ -49,7 +44,6 @@ export interface RoomHandlerInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "remove", values: [AddressLike]): string;
 
-  decodeFunctionResult(functionFragment: "doesExist", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getCountOfMembers",
     data: BytesLike
@@ -105,8 +99,6 @@ export interface RoomHandler extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  doesExist: TypedContractMethod<[addr: AddressLike], [boolean], "view">;
-
   getCountOfMembers: TypedContractMethod<[], [bigint], "view">;
 
   getDepositFromAddress: TypedContractMethod<
@@ -127,9 +119,6 @@ export interface RoomHandler extends BaseContract {
     key: string | FunctionFragment
   ): T;
 
-  getFunction(
-    nameOrSignature: "doesExist"
-  ): TypedContractMethod<[addr: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "getCountOfMembers"
   ): TypedContractMethod<[], [bigint], "view">;

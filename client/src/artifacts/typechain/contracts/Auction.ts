@@ -30,11 +30,15 @@ export interface AuctionInterface extends Interface {
       | "balanceOf"
       | "createLot"
       | "getApproved"
-      | "getLots"
+      | "getAuctionData"
       | "isApprovedForAll"
+      | "isValidLot"
+      | "lots"
       | "name"
+      | "owner"
       | "ownerOf"
       | "removeLot"
+      | "renounceOwnership"
       | "safeTransferFrom(address,address,uint256)"
       | "safeTransferFrom(address,address,uint256,bytes)"
       | "setApprovalForAll"
@@ -42,6 +46,7 @@ export interface AuctionInterface extends Interface {
       | "symbol"
       | "tokenURI"
       | "transferFrom"
+      | "transferOwnership"
   ): FunctionFragment;
 
   getEvent(
@@ -49,6 +54,7 @@ export interface AuctionInterface extends Interface {
       | "Approval"
       | "ApprovalForAll"
       | "LotsListUpdated"
+      | "OwnershipTransferred"
       | "Transfer"
   ): EventFragment;
 
@@ -68,12 +74,21 @@ export interface AuctionInterface extends Interface {
     functionFragment: "getApproved",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "getLots", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getAuctionData",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [AddressLike, AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "isValidLot",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(functionFragment: "lots", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
     values: [BigNumberish]
@@ -81,6 +96,10 @@ export interface AuctionInterface extends Interface {
   encodeFunctionData(
     functionFragment: "removeLot",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom(address,address,uint256)",
@@ -107,6 +126,10 @@ export interface AuctionInterface extends Interface {
     functionFragment: "transferFrom",
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [AddressLike]
+  ): string;
 
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
@@ -115,14 +138,24 @@ export interface AuctionInterface extends Interface {
     functionFragment: "getApproved",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getLots", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAuctionData",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "isValidLot", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lots", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "removeLot", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom(address,address,uint256)",
     data: BytesLike
@@ -143,6 +176,10 @@ export interface AuctionInterface extends Interface {
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
 }
@@ -192,6 +229,19 @@ export namespace LotsListUpdatedEvent {
   export type OutputTuple = [newLots: string[]];
   export interface OutputObject {
     newLots: string[];
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipTransferredEvent {
+  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
+  export type OutputTuple = [previousOwner: string, newOwner: string];
+  export interface OutputObject {
+    previousOwner: string;
+    newOwner: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -269,14 +319,14 @@ export interface Auction extends BaseContract {
   balanceOf: TypedContractMethod<[owner: AddressLike], [bigint], "view">;
 
   createLot: TypedContractMethod<
-    [_ETH_step: BigNumberish, _price: BigNumberish],
+    [ethStep: BigNumberish, startingPrice: BigNumberish],
     [string],
-    "payable"
+    "nonpayable"
   >;
 
   getApproved: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
 
-  getLots: TypedContractMethod<[], [string[]], "view">;
+  getAuctionData: TypedContractMethod<[], [string], "view">;
 
   isApprovedForAll: TypedContractMethod<
     [owner: AddressLike, operator: AddressLike],
@@ -284,11 +334,23 @@ export interface Auction extends BaseContract {
     "view"
   >;
 
+  isValidLot: TypedContractMethod<[lotAddress: AddressLike], [boolean], "view">;
+
+  lots: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+
   name: TypedContractMethod<[], [string], "view">;
+
+  owner: TypedContractMethod<[], [string], "view">;
 
   ownerOf: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
 
-  removeLot: TypedContractMethod<[addr: AddressLike], [void], "payable">;
+  removeLot: TypedContractMethod<
+    [lotAddress: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
 
   "safeTransferFrom(address,address,uint256)": TypedContractMethod<
     [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
@@ -329,6 +391,12 @@ export interface Auction extends BaseContract {
     "nonpayable"
   >;
 
+  transferOwnership: TypedContractMethod<
+    [newOwner: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
@@ -346,16 +414,16 @@ export interface Auction extends BaseContract {
   getFunction(
     nameOrSignature: "createLot"
   ): TypedContractMethod<
-    [_ETH_step: BigNumberish, _price: BigNumberish],
+    [ethStep: BigNumberish, startingPrice: BigNumberish],
     [string],
-    "payable"
+    "nonpayable"
   >;
   getFunction(
     nameOrSignature: "getApproved"
   ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
   getFunction(
-    nameOrSignature: "getLots"
-  ): TypedContractMethod<[], [string[]], "view">;
+    nameOrSignature: "getAuctionData"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "isApprovedForAll"
   ): TypedContractMethod<
@@ -364,14 +432,26 @@ export interface Auction extends BaseContract {
     "view"
   >;
   getFunction(
+    nameOrSignature: "isValidLot"
+  ): TypedContractMethod<[lotAddress: AddressLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "lots"
+  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  getFunction(
     nameOrSignature: "name"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "ownerOf"
   ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "removeLot"
-  ): TypedContractMethod<[addr: AddressLike], [void], "payable">;
+  ): TypedContractMethod<[lotAddress: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "renounceOwnership"
+  ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "safeTransferFrom(address,address,uint256)"
   ): TypedContractMethod<
@@ -414,6 +494,9 @@ export interface Auction extends BaseContract {
     [void],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
 
   getEvent(
     key: "Approval"
@@ -435,6 +518,13 @@ export interface Auction extends BaseContract {
     LotsListUpdatedEvent.InputTuple,
     LotsListUpdatedEvent.OutputTuple,
     LotsListUpdatedEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipTransferred"
+  ): TypedContractEvent<
+    OwnershipTransferredEvent.InputTuple,
+    OwnershipTransferredEvent.OutputTuple,
+    OwnershipTransferredEvent.OutputObject
   >;
   getEvent(
     key: "Transfer"
@@ -476,6 +566,17 @@ export interface Auction extends BaseContract {
       LotsListUpdatedEvent.InputTuple,
       LotsListUpdatedEvent.OutputTuple,
       LotsListUpdatedEvent.OutputObject
+    >;
+
+    "OwnershipTransferred(address,address)": TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+    OwnershipTransferred: TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
     >;
 
     "Transfer(address,address,uint256)": TypedContractEvent<
