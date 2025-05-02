@@ -14,10 +14,6 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "Ownable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Ownable__factory>;
-    getContractFactory(
       name: "ERC721",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC721__factory>;
@@ -53,16 +49,7 @@ declare module "hardhat/types/runtime" {
       name: "LotRoom",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LotRoom__factory>;
-    getContractFactory(
-      name: "RoomHandler",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.RoomHandler__factory>;
 
-    getContractAt(
-      name: "Ownable",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Ownable>;
     getContractAt(
       name: "ERC721",
       address: string | ethers.Addressable,
@@ -108,16 +95,7 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.LotRoom>;
-    getContractAt(
-      name: "RoomHandler",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.RoomHandler>;
 
-    deployContract(
-      name: "Ownable",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Ownable>;
     deployContract(
       name: "ERC721",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -154,16 +132,7 @@ declare module "hardhat/types/runtime" {
       name: "LotRoom",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LotRoom>;
-    deployContract(
-      name: "RoomHandler",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.RoomHandler>;
 
-    deployContract(
-      name: "Ownable",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Ownable>;
     deployContract(
       name: "ERC721",
       args: any[],
@@ -209,11 +178,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LotRoom>;
-    deployContract(
-      name: "RoomHandler",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.RoomHandler>;
 
     // default types
     getContractFactory(

@@ -28,8 +28,6 @@ export interface ERC721HandlerInterface extends Interface {
     nameOrSignature:
       | "appendData"
       | "getDataHistory"
-      | "getLatestData"
-      | "isOwner"
       | "onERC721Received"
       | "setLotRoom"
       | "transfer"
@@ -44,14 +42,6 @@ export interface ERC721HandlerInterface extends Interface {
   encodeFunctionData(
     functionFragment: "getDataHistory",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getLatestData",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isOwner",
-    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "onERC721Received",
@@ -71,11 +61,6 @@ export interface ERC721HandlerInterface extends Interface {
     functionFragment: "getDataHistory",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getLatestData",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "isOwner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "onERC721Received",
     data: BytesLike
@@ -144,10 +129,6 @@ export interface ERC721Handler extends BaseContract {
 
   getDataHistory: TypedContractMethod<[], [string[]], "view">;
 
-  getLatestData: TypedContractMethod<[], [string], "view">;
-
-  isOwner: TypedContractMethod<[account: AddressLike], [boolean], "view">;
-
   onERC721Received: TypedContractMethod<
     [arg0: AddressLike, arg1: AddressLike, arg2: BigNumberish, arg3: BytesLike],
     [string],
@@ -168,12 +149,6 @@ export interface ERC721Handler extends BaseContract {
   getFunction(
     nameOrSignature: "getDataHistory"
   ): TypedContractMethod<[], [string[]], "view">;
-  getFunction(
-    nameOrSignature: "getLatestData"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "isOwner"
-  ): TypedContractMethod<[account: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "onERC721Received"
   ): TypedContractMethod<

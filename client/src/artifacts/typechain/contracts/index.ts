@@ -4,4 +4,3 @@
 export type { Auction } from "./Auction";
 export type { ERC721Handler } from "./ERC721Handler";
 export type { LotRoom } from "./LotRoom";
-export type { RoomHandler } from "./RoomHandler";

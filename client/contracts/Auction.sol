@@ -2,70 +2,75 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./LotRoom.sol";
+import "./ERC721Handler.sol";
 
-// @title Auction: static encrypted metadata per lot
-contract Auction is ERC721, Ownable, ReentrancyGuard {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-    address[] public lots;
+    error NotAdmin();
+    error LotDoesNotExist();
 
+contract Auction is ERC721 {
+    address public admin;
+    uint256 private _nextTokenId;
+    address[] private lots;
     bytes private _auctionStaticData;
 
     event LotsListUpdated(address[] newLots);
 
     constructor(bytes memory auctionData) ERC721("Japanese Auction", "LOTS") {
+        admin = msg.sender;
         _auctionStaticData = auctionData;
     }
 
-    /// @notice Get static encrypted data
+    modifier onlyAdmin() {
+        if (msg.sender != admin) revert NotAdmin();
+        _;
+    }
+
+    /// @notice Статические данные аукциона
     function getAuctionData() external view returns (bytes memory) {
         return _auctionStaticData;
     }
 
-    /// @notice Create auction lot with static encrypted data
+    /// @notice Количество лотов
+    function getLotsCount() external view returns (uint256) {
+        return lots.length;
+    }
+
+    /// @notice Полный список лотов
+    function getLots() public view returns(address[] memory){
+        return lots;
+    }
+
+    /// @notice Создать новый лот
     function createLot(
         uint256 ethStep,
         uint256 startingPrice
     ) external returns (address) {
-        _tokenIds.increment();
-        uint256 tokenId = _tokenIds.current();
+        _nextTokenId++;
+        uint256 tokenId = _nextTokenId;
 
-        // Deploy handler and auction room
+        // Деплой прокси и комнаты
         ERC721Handler handler = new ERC721Handler(address(this), tokenId, msg.sender);
         LotRoom lot = new LotRoom(handler, tokenId, ethStep, startingPrice, msg.sender);
-        address lotAddress = address(lot);
 
-        // Store lot and mint NFT to handler
-        lots.push(lotAddress);
+        lots.push(address(lot));
         _mint(address(handler), tokenId);
+
         emit LotsListUpdated(lots);
-
-        return lotAddress;
+        return address(lot);
     }
 
-    function isValidLot(address lotAddress) public view returns (bool) {
-        for (uint256 i = 0; i < lots.length; i++) {
-            if (lots[i] == lotAddress) return true;
-        }
-        return false;
-    }
-
-    /// @notice Remove a lot; only owner
-    function removeLot(address lotAddress) external onlyOwner nonReentrant {
-        require(isValidLot(lotAddress), "Lot doesn't exist");
-        uint256 length = lots.length;
-        for (uint256 i = 0; i < length; i++) {
+    /// @notice Удалить лот (только админ)
+    function removeLot(address lotAddress) external onlyAdmin {
+        uint256 len = lots.length;
+        for (uint256 i = 0; i < len; i++) {
             if (lots[i] == lotAddress) {
-                lots[i] = lots[length - 1];
+                lots[i] = lots[len - 1];
                 lots.pop();
-                break;
+                emit LotsListUpdated(lots);
+                return;
             }
         }
-        emit LotsListUpdated(lots);
+        revert LotDoesNotExist();
     }
 }
-

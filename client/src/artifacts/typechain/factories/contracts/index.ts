@@ -4,4 +4,3 @@
 export { Auction__factory } from "./Auction__factory";
 export { ERC721Handler__factory } from "./ERC721Handler__factory";
 export { LotRoom__factory } from "./LotRoom__factory";
-export { RoomHandler__factory } from "./RoomHandler__factory";

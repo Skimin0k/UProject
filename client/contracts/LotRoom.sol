@@ -1,11 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./ERC721Handler.sol";
-import "./RoomHandler.sol";
 
-/// @title Auction logic per lot, with token metadata updates
+error NotWaiting();
+error AuctionNotStarted();
+error SingleParticipantRequired();
+error InsufficientDeposit();
+error NotParticipant();
+error AlreadyOwner();
+error IncorrectPayment();
+error NotCreator();
+
 contract LotRoom is ReentrancyGuard {
     uint256 public tokenID;
     uint256 public initBlock;
@@ -18,7 +26,10 @@ contract LotRoom is ReentrancyGuard {
 
     address public owner;
     ERC721Handler public nftHandler;
-    RoomHandler private roomHandler;
+
+    // internal deposit manager
+    mapping(address => uint256) private _deposits;
+    uint256 private _memberCount;
 
     event RoomUpdated(uint256 roomLength);
     event NFTOwnerUpdated(address newOwner);
@@ -36,72 +47,77 @@ contract LotRoom is ReentrancyGuard {
         initBlock = block.number;
         owner = _owner;
         nftHandler = _nftHandler;
-        roomHandler = new RoomHandler();
 
         // initialize handler with this lot’s address
         nftHandler.setLotRoom(address(this));
     }
 
     modifier onlyWaiting() {
-        require(block.number <= initBlock + waitingBlocks, "Not in waiting period");
+        if (block.number > initBlock + waitingBlocks) revert NotWaiting();
         _;
     }
 
     modifier onlyStarted() {
-        require(block.number > initBlock + waitingBlocks, "Auction not started");
+        if (block.number <= initBlock + waitingBlocks)
+            revert AuctionNotStarted();
         _;
     }
 
     modifier onlyCreator() {
-        require(msg.sender == owner, "Not creator");
+        if (msg.sender != owner) revert NotCreator();
         _;
     }
 
     modifier onlySingleParticipant() {
-        require(roomHandler.getCountOfMembers() == 1, "Must be single participant");
+        if (_memberCount != 1) revert SingleParticipantRequired();
         _;
     }
 
     receive() external payable {}
 
-    /// @notice Join the auction
     function raiseHand() external payable onlyWaiting nonReentrant {
-        require(msg.value >= deposit, "Insufficient deposit");
-        roomHandler.push(msg.sender, msg.value);
-        emit RoomUpdated(roomHandler.getCountOfMembers());
+        if (msg.value < deposit) revert InsufficientDeposit();
+        if (_deposits[msg.sender] != 0) revert InsufficientDeposit();
+        _deposits[msg.sender] = msg.value;
+        _memberCount++;
+        emit RoomUpdated(_memberCount);
     }
 
-    /// @notice Withdraw from auction
     function downHand() external onlyStarted nonReentrant {
-        uint256 userDeposit = roomHandler.getDepositFromAddress(msg.sender);
-        require(userDeposit > 0, "Not a participant");
-        roomHandler.remove(msg.sender);
-        payable(msg.sender).transfer(userDeposit);
-        if (roomHandler.getCountOfMembers() == 1) {
+        uint256 userDep = _deposits[msg.sender];
+        if (userDep == 0) revert NotParticipant();
+        delete _deposits[msg.sender];
+        _memberCount--;
+        payable(msg.sender).transfer(userDep);
+        if (_memberCount == 1) {
             finalBlock = block.number - 1;
         }
-        emit RoomUpdated(roomHandler.getCountOfMembers());
+        emit RoomUpdated(_memberCount);
     }
 
-    /// @notice Update token metadata (e.g., freezing graph)
-    function updateTokenData(bytes calldata newData) external onlyCreator {
+    function updateTokenData(bytes calldata newData)
+    external
+    onlyCreator
+    {
         nftHandler.appendData(newData);
     }
 
-    /// @notice Finalize purchase
     function buy() external payable onlySingleParticipant nonReentrant {
-        uint256 userDeposit = roomHandler.getDepositFromAddress(msg.sender);
-        require(userDeposit > 0, "Not eligible");
-        require(!nftHandler.isOwner(msg.sender), "Already owner");
+        uint256 userDep = _deposits[msg.sender];
+        if (userDep == 0) revert NotParticipant();
+
+        address realOwner = IERC721(address(nftHandler)).ownerOf(tokenID);
+        if (realOwner == msg.sender) revert AlreadyOwner();
 
         uint256 finalPrice = getFinalPrice();
-        if (finalPrice > userDeposit) {
-            require(msg.value == finalPrice - userDeposit, "Incorrect payment");
+        if (finalPrice > userDep) {
+            uint256 diff = finalPrice - userDep;
+            if (msg.value != diff) revert IncorrectPayment();
             payable(owner).transfer(finalPrice);
         } else {
             payable(owner).transfer(finalPrice);
-            if (userDeposit > finalPrice) {
-                payable(msg.sender).transfer(userDeposit - finalPrice);
+            if (userDep > finalPrice) {
+                payable(msg.sender).transfer(userDep - finalPrice);
             }
         }
 
@@ -109,43 +125,40 @@ contract LotRoom is ReentrancyGuard {
         emit NFTOwnerUpdated(msg.sender);
     }
 
-    /// @notice Calculate current final price
     function getFinalPrice() public view returns (uint256) {
-        uint256 count = roomHandler.getCountOfMembers();
-        if (count == 0 || (finalBlock == 0 && count == 1) || block.number < initBlock + waitingBlocks) {
+        if (_memberCount == 0 ||
+        (finalBlock == 0 && _memberCount == 1) ||
+            block.number < initBlock + waitingBlocks) {
             return price;
         }
-        uint256 elapsed = ((finalBlock > 0 ? finalBlock : block.number) - initBlock - waitingBlocks);
+        uint256 elapsed =
+        ((finalBlock > 0 ? finalBlock : block.number)
+        - initBlock
+            - waitingBlocks);
         return price + (elapsed / blockStep) * ethStep;
     }
 
-    function getCountOfMembers() external view returns (uint256) {
-        return roomHandler.getCountOfMembers();
-    }
-
     function isMember(address user) external view returns (bool) {
-        return roomHandler.getDepositFromAddress(user) > 0;
+        return _deposits[user] > 0;
     }
 
     function isNFTOwner(address user) external view returns (bool) {
-        return nftHandler.isOwner(user);
-    }
-
-    function isWaiting() external view returns (bool) {
-        return block.number < initBlock + waitingBlocks;
+        return IERC721(address(nftHandler)).ownerOf(tokenID) == user;
     }
 
     function getLotRoomInfo()
-    public
+    external
     view
     returns (
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256
+        uint256 _tokenID,
+        uint256 _initBlock,
+        uint256 _currentPrice,
+        uint256 _deposit,
+        uint256 _ethStep,
+        uint256 _waitingBlocks,
+        uint256 _blockStep,
+        uint256 _memberCount,
+        bool _isWaiting
     )
     {
         return (
@@ -155,7 +168,9 @@ contract LotRoom is ReentrancyGuard {
             deposit,
             ethStep,
             waitingBlocks,
-            blockStep
+            blockStep,
+            _memberCount,
+            block.number < initBlock + waitingBlocks
         );
     }
 }

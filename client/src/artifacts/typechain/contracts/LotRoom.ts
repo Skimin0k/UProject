@@ -32,13 +32,11 @@ export interface LotRoomInterface extends Interface {
       | "downHand"
       | "ethStep"
       | "finalBlock"
-      | "getCountOfMembers"
       | "getFinalPrice"
       | "getLotRoomInfo"
       | "initBlock"
       | "isMember"
       | "isNFTOwner"
-      | "isWaiting"
       | "nftHandler"
       | "owner"
       | "price"
@@ -62,10 +60,6 @@ export interface LotRoomInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getCountOfMembers",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getFinalPrice",
     values?: undefined
   ): string;
@@ -82,7 +76,6 @@ export interface LotRoomInterface extends Interface {
     functionFragment: "isNFTOwner",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(functionFragment: "isWaiting", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "nftHandler",
     values?: undefined
@@ -107,10 +100,6 @@ export interface LotRoomInterface extends Interface {
   decodeFunctionResult(functionFragment: "ethStep", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "finalBlock", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getCountOfMembers",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getFinalPrice",
     data: BytesLike
   ): Result;
@@ -121,7 +110,6 @@ export interface LotRoomInterface extends Interface {
   decodeFunctionResult(functionFragment: "initBlock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isMember", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isNFTOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "isWaiting", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nftHandler", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "price", data: BytesLike): Result;
@@ -216,13 +204,33 @@ export interface LotRoom extends BaseContract {
 
   finalBlock: TypedContractMethod<[], [bigint], "view">;
 
-  getCountOfMembers: TypedContractMethod<[], [bigint], "view">;
-
   getFinalPrice: TypedContractMethod<[], [bigint], "view">;
 
   getLotRoomInfo: TypedContractMethod<
     [],
-    [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
+    [
+      [
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        boolean
+      ] & {
+        _tokenID: bigint;
+        _initBlock: bigint;
+        _currentPrice: bigint;
+        _deposit: bigint;
+        _ethStep: bigint;
+        _waitingBlocks: bigint;
+        _blockStep: bigint;
+        _memberCount: bigint;
+        _isWaiting: boolean;
+      }
+    ],
     "view"
   >;
 
@@ -231,8 +239,6 @@ export interface LotRoom extends BaseContract {
   isMember: TypedContractMethod<[user: AddressLike], [boolean], "view">;
 
   isNFTOwner: TypedContractMethod<[user: AddressLike], [boolean], "view">;
-
-  isWaiting: TypedContractMethod<[], [boolean], "view">;
 
   nftHandler: TypedContractMethod<[], [string], "view">;
 
@@ -275,16 +281,35 @@ export interface LotRoom extends BaseContract {
     nameOrSignature: "finalBlock"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "getCountOfMembers"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
     nameOrSignature: "getFinalPrice"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "getLotRoomInfo"
   ): TypedContractMethod<
     [],
-    [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
+    [
+      [
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        bigint,
+        boolean
+      ] & {
+        _tokenID: bigint;
+        _initBlock: bigint;
+        _currentPrice: bigint;
+        _deposit: bigint;
+        _ethStep: bigint;
+        _waitingBlocks: bigint;
+        _blockStep: bigint;
+        _memberCount: bigint;
+        _isWaiting: boolean;
+      }
+    ],
     "view"
   >;
   getFunction(
@@ -296,9 +321,6 @@ export interface LotRoom extends BaseContract {
   getFunction(
     nameOrSignature: "isNFTOwner"
   ): TypedContractMethod<[user: AddressLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "isWaiting"
-  ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
     nameOrSignature: "nftHandler"
   ): TypedContractMethod<[], [string], "view">;

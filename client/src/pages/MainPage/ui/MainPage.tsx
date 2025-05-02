@@ -1,11 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSelector} from 'react-redux'
-import ActionContract from 'artifacts/contracts/Auction.sol/Auction.json'
-import {Auction as IAuction} from 'artifacts/typechain/contracts/Auction'
-import {getEthereumSigner} from 'entities/Ethereum'
-import {Contract, ethers} from 'ethers'
-import {AuctionConnector, getAuctionLotsList} from 'feature/AuctionDetails'
+import {AuctionConnector, getAuctionContract, getAuctionData, getAuctionLotsList} from 'feature/AuctionDetails'
 import {getLotData, LotConnector} from 'feature/LotDetail'
 import Button from 'shared/ui/Button/Button'
 import Text from 'shared/ui/Text/Text'
@@ -24,17 +20,26 @@ const LotRender = ({lotAddress}: {lotAddress: string}) => {
 }
 
 const AuctionRender = ({auctionAddress}: {auctionAddress: string}) => {
+    const auctionContract = useSelector(getAuctionContract(auctionAddress))
     const lotsList = useSelector(getAuctionLotsList(auctionAddress))
+    const auctionData = useSelector(getAuctionData(auctionAddress))
+
+    const onCreateLotButtonClick = useCallback(() => {
+        if(!auctionContract) {
+            return
+        }
+        auctionContract.createLot('0.1', '0.1')
+    }, [auctionContract])
+
     return <div>
-        <Text text={'Auction Loaded' + auctionAddress}/>
+        <Text text={`Auction: ${auctionData?.title} has loaded. Address is` + auctionAddress}/>
+        <Button onClick={onCreateLotButtonClick}><Text text="click to createLot" /> </Button>
         {
             lotsList && lotsList.map(lotAddress => {
                 return <LotConnector
                     key={lotAddress}
                     lotAddress={lotAddress}
-                    lotRender={<LotRender lotAddress={lotAddress}
-                    />
-                    }
+                    lotRender={<LotRender lotAddress={lotAddress}/>}
                 />
             })
         }
@@ -43,33 +48,15 @@ const AuctionRender = ({auctionAddress}: {auctionAddress: string}) => {
 
 const MainPage = () => {
     const {t} = useTranslation()
-    const [auctionContract, setAuctionContract] = useState<IAuction>()
-    const [contractAddress, setContractAddress] = useState<string>()
-    const signer = useSelector(getEthereumSigner)
-
-    useEffect(() => {
-        const contract = new Contract(process.env.__AUCTION_TOKEN__ as string, ActionContract.abi, signer) as unknown as IAuction
-        setAuctionContract(contract)
-        contract.getAddress().then(address => setContractAddress(address))
-    }, [signer])
-
-    const onCreateLotClickHandler = useCallback(() => {
-        if(signer) {
-            auctionContract?.createLot(ethers.parseEther('0.01'), ethers.parseEther('0.01')).catch(error => {})
-        }
-    }, [signer, auctionContract])
 
     return (
         <PageWrapper>
             <div>
-                <Text text={t('Auction address is: ') + contractAddress}/>
-                {auctionContract && <Button onClick={onCreateLotClickHandler}><Text text={t('createLot')}/> </Button> }
-
                 <Text text={t('AuctionPage')}/>
                 <AuctionConnector
-                    auctionAddress={'0x6B0B0Ccb0aD7ce8D5CDA21c0AecD7e55e8cC64c7'}
+                    auctionAddress={'0xE5225277B05545192a07C4190a411150A917a235'}
                     auctionRender={<AuctionRender
-                        auctionAddress={'0x6B0B0Ccb0aD7ce8D5CDA21c0AecD7e55e8cC64c7'}
+                        auctionAddress={'0xE5225277B05545192a07C4190a411150A917a235'}
                     />}
                 />
 

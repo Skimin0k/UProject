@@ -7,7 +7,8 @@ import {auctionDetailsReducerName} from '../slice/AuctionsSlice'
 
 export interface IFetchAuctionByAddressReturnArgs {
     contract: Auction,
-    data: string[]
+    data: object,
+    lots: string[],
 }
 
 export const fetchAuctionByAddress = createAsyncThunk<IFetchAuctionByAddressReturnArgs, string, ThunkApi<string>>(
@@ -23,9 +24,11 @@ export const fetchAuctionByAddress = createAsyncThunk<IFetchAuctionByAddressRetu
                 return rejectWithValue('There is no provider and Signer')
             }
             const contract = new Auction(address, providerOrSigner)
-            const data = await contract.getLots()
-            return {contract, data }
+            const lots = await contract.getLots()
+            const data = await contract.getData()
+            return {contract, data, lots }
         } catch (e) {
+            console.log(e)
             return rejectWithValue('Somethings goes wrong when fetched auction by address')
         }
     })

@@ -11,6 +11,7 @@ import { updateAuctionLots } from '../services/updateAuctionLots'
 export interface IAuctionStateSchema {
     address: string
     contract?: Auction
+    data?: object,
     lots?: string[]
     isLoading: boolean
     isLotsLoading: boolean
@@ -41,12 +42,13 @@ const AuctionsSlice = createSlice({
                 })
             })
             .addCase(fetchAuctionByAddress.fulfilled, (state, action) => {
-                const {contract, data} = action.payload
+                const {contract, data, lots} = action.payload
                 auctionsAdapter.updateOne(state as unknown as EntityState<IAuctionStateSchema>, {
                     id: action.meta.arg,
                     changes: {
                         contract,
-                        lots: data,
+                        lots,
+                        data,
                         isLotsLoading: false,
                         isLoading: false,
                         error: undefined,
@@ -114,6 +116,7 @@ export const getAuctionContract = (auctionAddress: string) =>  createSelector(ge
 export const getAuctionIsLoading = (auctionAddress: string) =>  createSelector(getAuctionsState, (state) => auctionSelectors.selectById(state, auctionAddress)?.isLoading)
 export const getAuctionError = (auctionAddress: string) =>  createSelector(getAuctionsState, (state) => auctionSelectors.selectById(state, auctionAddress)?.error)
 export const getAuctionLotsList = (auctionAddress: string) =>  createSelector(getAuctionsState, (state) => auctionSelectors.selectById(state, auctionAddress)?.lots)
+export const getAuctionData = (auctionAddress: string) =>  createSelector(getAuctionsState, (state) => auctionSelectors.selectById(state, auctionAddress)?.data)
 export const getAuctionLotsIsLoading = (auctionAddress: string) =>  createSelector(getAuctionsState, (state) => auctionSelectors.selectById(state, auctionAddress)?.isLotsLoading)
 
 export const {

@@ -42,10 +42,10 @@ export class Lot {
             deposit,
             ETH_step,
             waitingStatus,
-            blockStep
+            blockStep,
+            countOfMembers,
+            isWaiting
         ] = await this.contract.getLotRoomInfo()
-        const countOfMembers = await this.contract.getCountOfMembers()
-        const isWaiting = await this.contract.isWaiting()
         const result = {
             tokenID: tokenID.toString(),
             price: Number(price), //начальная цена лота в эфирах
